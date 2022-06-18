@@ -24,6 +24,7 @@ export const history = createBrowserHistory({
 });
 
 let userInfo;
+let savedAccessToken;
 class LinkinBio extends React.Component {
   constructor(props) {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -100,10 +101,13 @@ class LinkinBio extends React.Component {
 
   componentWillMount() {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    let savedAccessToken = userInfo.access_token;
+    savedAccessToken = userInfo.access_token;
+    if(!savedAccessToken){}
+    else{
     this.fetchInstagramPosts(savedAccessToken);
     this.fetchGalleryPosts();
     this.fetchCategories();
+    }
   }
 
   fetchGalleryPosts = () => {
@@ -698,6 +702,7 @@ class LinkinBio extends React.Component {
   render() {
     return (
       <div className="linkin-bio">
+       
         <Row className="app_main_cont_ift main-container">
           <Col className="left-column" md="5" xs="12" xl="3">
             <TopBar
@@ -709,6 +714,7 @@ class LinkinBio extends React.Component {
             />
             <MobilePreview
               postLoading={this.state.postLoading}
+              accessToken = {savedAccessToken}
               showInstagramButton={this.state.showInstagramButton}
               pageName={`My Post`}
               placeholder={placeholder}
@@ -784,7 +790,7 @@ class LinkinBio extends React.Component {
                       </Col>
                     </Row>
                   </>
-                )} */}
+                )}*/} 
               </>
             )}
           </Col>
