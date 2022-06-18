@@ -1,0 +1,6 @@
+{
+  "name": "HtmlTable",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./HtmlTable.js"
+}

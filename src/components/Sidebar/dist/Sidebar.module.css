@@ -1,0 +1,218 @@
+/**
+ * Customized version of bootstrap using variables from _variables.scss.
+ * This file is loaded via separate loader thus allowing to use original bootstrap classes (e.g. .btn-default) through out the app.
+ */
+/*
+ * Typography
+ * ======================================================================== */
+/**
+ * Custom application mixins available through out the app
+ */
+/* Chat Scrollbar */
+.root {
+  width: 230px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-right: 1px solid #f1f6fa;
+  background-color: var(--sidebar-bg-color);
+  color: var(--sidebar-color);
+  overflow-y: auto;
+  position: absolute;
+}
+.root::-webkit-scrollbar {
+  height: 8px;
+  width: 4px;
+}
+.root::-webkit-scrollbar-thumb {
+  border: none;
+  background-color: transparent;
+}
+.root:hover::-webkit-scrollbar-thumb {
+  background-color: var(--sidebar-item-active-color);
+}
+
+.logoStyle {
+  color: var(--sidebar-icon-bg);
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 16.5px;
+  text-shadow: 4px 4px 15px rgba(92, 176, 255, 0.3);
+}
+
+.sidebarWrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 230px;
+  transition: width 0.3s ease-in-out;
+}
+
+.sidebarClose.sidebarWrapper {
+  width: 50px;
+}
+@media (max-width: 767.98px) {
+  .sidebarClose.sidebarWrapper {
+    width: 0;
+  }
+}
+
+.logo {
+  margin: 15px 0;
+  font-size: 18px;
+  width: 100%;
+  font-weight: 300;
+  text-align: center;
+  transition: width 0.3s ease-in-out;
+}
+.logo a {
+  color: var(--logo-color);
+  padding: 0 5px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sidebarClose .logo {
+  width: 50px;
+}
+
+.staticSidebar .logo {
+  width: 100%;
+}
+
+.nav {
+  padding: 30px 0 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.navTitle {
+  margin: 35px 0 5px 11px;
+  font-size: 0.9rem;
+  transition: opacity 0.3s ease-in-out;
+  color: var(--sidebar-section);
+  opacity: 0.6;
+  font-weight: bold;
+}
+
+.sidebarClose .navTitle {
+  opacity: 0;
+}
+
+.staticSidebar .navTitle {
+  opacity: 1;
+  transition: none;
+}
+
+.actionLink {
+  color: #aaa;
+  float: right;
+  margin-right: 15px;
+  margin-top: -1px;
+}
+
+.labelName {
+  opacity: 1;
+  padding-left: 15px;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sidebarClose .labelName {
+  opacity: 0;
+}
+
+.staticSidebar .labelName {
+  transition: none;
+  opacity: 1;
+}
+
+.glyphiconSm {
+  font-size: 9px;
+}
+
+.sidebarLabels {
+  list-style-type: none;
+  padding: 11px;
+  padding-right: 15px;
+}
+.sidebarLabels > li {
+  margin: 25px 0;
+}
+.sidebarLabels li > a {
+  font-size: 0.9rem;
+  color: var(--sidebar-color);
+  text-decoration: none;
+}
+.sidebarLabels li > a > i {
+  font-size: 11px;
+  vertical-align: 1px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebarClose .sidebarLabels > li > a > i {
+  margin-left: 8px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.staticSidebar .sidebarLabels > li > a > i {
+  transition: none;
+  margin-left: 0;
+}
+
+.sidebarAlerts {
+  margin-bottom: 2rem;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+}
+
+.sidebarClose .sidebarAlerts {
+  opacity: 0;
+}
+
+.staticSidebar .sidebarAlerts {
+  opacity: 1;
+  transition: none;
+}
+
+.sidebarAlert {
+  background: transparent;
+  margin-bottom: 0;
+  padding: 0.5rem 11px;
+  padding-right: 15px;
+}
+.sidebarAlert > button > span {
+  font-size: 32px;
+  color: var(--sidebar-icon-bg);
+}
+
+.sidebarProgress {
+  background-color: var(--sidebar-progress-bg-color);
+}
+
+.groupTitle {
+  margin-bottom: 15px;
+}
+
+.labelRecent {
+  color: var(--sidebar-core);
+}
+
+.labelStarred {
+  color: var(--sidebar-ui);
+}
+
+.labelBackground {
+  color: var(--sidebar-form);
+}
+
+:global .sidebar-bottom-aler-danger > .progress-bar {
+  background-color: var(--sidebar-sales);
+}
+:global .sidebar-bottom-aler-primary > .progress-bar {
+  background-color: var(--sideba-responsibility);
+}

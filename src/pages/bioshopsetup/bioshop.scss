@@ -1,0 +1,83 @@
+// /**********bioshop post*************/
+.bioshop_container_main {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.bioshop-area {
+  max-height: 712px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.bioshop-area .post-image {
+  cursor: move;
+}
+.bioshopaction {
+  display: flex;
+  justify-content: flex-end;
+}
+.bioshoplimit {
+  min-width: 40%;
+  margin-right: 10px;
+}
+.bioshop-area .image-post-box-aff {
+  height: fit-content;
+}
+@media (max-width: 712px) {
+  .bioshop_container_main {
+    margin: 0 15px;
+    overflow: hidden;
+  }
+  .bioshop_container_main .page-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .bioshop_container_main .bioshop-title {
+    margin: 0px;
+  }
+  .bioshopaction {
+    margin-bottom: 10px;
+    justify-content: space-between;
+  }
+  .bioshoplimit {
+    min-width: 50%;
+  }
+}
+
+/*************bioshop Links**********************/
+.bioshop-link {
+  position: relative;
+}
+
+.biolink-area {
+  max-height: 700px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flow-root !important;
+}
+.link-items {
+  background: #185887;
+  border: 1px solid #185887;
+  height: 50px;
+  margin-bottom: 10px;
+  list-style: none;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  cursor: move;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 1px;
+  font-size: 1rem;
+}
+@media (max-width: 712px) {
+  .biolink-area {
+    display: inline;
+    margin: 0;
+    max-height: 540px;
+  }
+  .bioshop-link .bioshopaction {
+    justify-content: end;
+  }
+}

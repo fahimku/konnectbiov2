@@ -1,0 +1,6 @@
+{
+  "name": "Marketplace",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Marketplace.js"
+}

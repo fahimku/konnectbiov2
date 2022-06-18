@@ -1,0 +1,193 @@
+.header {
+  display: flex;
+
+  .profile {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 1em;
+    display: flex;
+    width: 15%;
+
+    .instagram-account {
+      margin-left: 20px;
+    }
+  }
+
+  .linkin-text {
+    font-size: 18px;
+
+  }
+}
+
+.right-bar {
+  border: 1px solid black;
+  
+}
+
+.left-top-bar {
+  display: flex;
+  border: 1px solid black;
+  padding: 10px;
+
+  .your-copy-link {
+    display: flex;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 1em;
+
+    .item-a {
+      display: inline-block;
+      padding: 10px;
+
+      a {
+        color: black;
+        font-weight: bold;
+        ;
+      }
+    }
+
+    .item-b {
+      padding: 10px;
+      border-left: 1px solid black;
+    }
+
+  }
+
+  .instagram-bio {
+    margin-left: auto;
+    padding: 10px;
+
+    button {
+      color: #323b43;
+      padding: 10px;
+      background-color: #fff;
+      box-shadow: inset 0 0 0 1px black;
+      border: none;
+      border-radius: 0.5em;
+    }
+  }
+}
+
+.nav-tabs {
+  display: flex !important;
+}
+
+.nav-tabs>.nav-item {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.nav-tabs>.nav-item>.nav-link {
+  background: white;
+  font-weight: 600;
+}
+
+.nav-tabs>.nav-item .nav-link.active,
+.nav-tabs>.nav-item .nav-link.active:hover,
+.nav-tabs>.nav-item .nav-link.active:focus {
+  background-color: #fff;
+  color: #495057;
+  border-color: #2c2c2c;
+  border: none;
+  border-bottom: 5px solid #2c2c2c;
+  box-shadow: none;
+}
+
+
+
+.mobile-preview {
+  display: block;
+  position: relative;
+  margin: auto;
+  height: 600px;
+  width: 320px;
+  background: url(../../images/mobile-preview.svg) no-repeat;
+  text-align: center;
+  background-size: 100% auto;
+  margin-top: 20px;
+
+  .mobile-header {
+    display: flex;
+    padding: 20px;
+
+    .place-holder-image {
+      display: inline-block;
+      float: left;
+      width: 35px;
+      height: 35px;
+      background: #f3f6f9;
+      border-radius: 50%;
+    }
+
+    .place-holder-name {
+      padding-left: 10px;
+      padding-top: 8px;
+      font-family: 'SegoeUIBold';
+    }
+
+
+  }
+
+  .mobile-gallery .row {
+    width: 86%;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 10px;
+    margin-left: 15px;
+  }
+
+  .mobile-gallery {
+    height: 446px;
+    overflow: scroll;
+    width: 93%;
+  }
+
+  .mobile-gallery img {
+    width: 70px;
+    height: 80px;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    opacity: 0.5;
+  }
+
+  .visit-website {
+    border: 1px solid black;
+    width: 80%;
+    padding: 10px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    white-space: normal;
+    user-select: none;
+    background: #fff;
+    box-shadow: inset 0 0 0 2px #080808;
+    border-radius: 5px;
+  }
+}
+
+
+
+/**Tabs*/
+.pane {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  margin-bottom: 20px;
+
+  .pane-info h4 {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .pane-info p {
+    font-size: 1rem;
+  }
+}

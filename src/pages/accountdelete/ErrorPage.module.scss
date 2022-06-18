@@ -1,0 +1,46 @@
+@import '../../styles/app';
+
+.errorPage {
+  padding-top: 20%;
+  height: 100vh;
+}
+
+.errorContainer {
+  width: 100%;
+  text-align: center;
+}
+
+.errorBtn {
+  padding-left: 35px;
+  padding-right: 35px;
+  background: red;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-family: system-ui;
+
+
+}
+
+.fa-trash {
+  font-size: 24px;
+}
+
+.errorCode {
+  margin: 20px;
+  font-size: 80px;
+  font-weight: $font-weight-normal;
+  color: $blue;
+
+  @include media-breakpoint-up(md) {
+    font-size: 180px;
+  }
+}
+
+.errorInfo {
+  font-size: 20px;
+  color: red;
+}
+
+.errorHelp {
+  font-size: 14px;
+}

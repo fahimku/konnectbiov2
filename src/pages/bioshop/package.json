@@ -1,0 +1,6 @@
+{
+  "name": "LinkinBio",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./LinkinBio.js"
+}

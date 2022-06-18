@@ -1,0 +1,25 @@
+.myLinksGallery {
+    margin: 0 auto;
+    width: 87% !important;
+}
+
+.myLinks {
+    cursor: pointer;
+  
+}
+
+.links {
+    text-align: center;
+    border: 1px solid #c8c8c8;
+    color: #364554;
+    width: 100%;
+    padding: 6px 0;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+.links:hover{
+    background-color:#010b40;
+    border-color:#010b40;
+    color:#FFF;
+}

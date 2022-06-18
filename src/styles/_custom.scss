@@ -1,0 +1,217 @@
+/** Connect Page */
+
+@font-face {
+  font-family: "Segoe UI";
+  src: url("../fonts/segoui/623c7118249e082fe87a78e08506cb4b.eot");
+  /* IE9*/
+  src: url("../fonts/segoui/623c7118249e082fe87a78e08506cb4b.eot?#iefix") format("embedded-opentype"),
+    /* IE6-IE8 */
+    url("../fonts/segoui/623c7118249e082fe87a78e08506cb4b.woff2") format("woff2"),
+    /* chrome、firefox */
+    url("../fonts/segoui/623c7118249e082fe87a78e08506cb4b.woff") format("woff"),
+    /* chrome、firefox */
+    url("../fonts/segoui/623c7118249e082fe87a78e08506cb4b.ttf") format("truetype"),
+    /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url("../fonts/segoui/623c7118249e082fe87a78e08506cb4b.svg#Segoe UI") format("svg");
+  /* iOS 4.1- */
+}
+
+@font-face {
+  font-family: 'SegoeUIBold';
+  src: url('../fonts/segoui/FontsFreeNetSegoeUIBold.eot');
+  src: url('../fonts/segoui/FontsFreeNetSegoeUIBold.eot') format('embedded-opentype'),
+       url('../fonts/segoui/FontsFreeNetSegoeUIBold.woff2') format('woff2'),
+       url('../fonts/segoui/FontsFreeNetSegoeUIBold.woff') format('woff'),
+       url('../fonts/segoui/FontsFreeNetSegoeUIBold.ttf') format('truetype'),
+       url('../fonts/segoui/FontsFreeNetSegoeUIBold.svg#FontsFreeNetSegoeUIBold') format('svg');
+}
+@font-face {
+  font-family: 'SegoeUI_Medium';
+  src: url('../fonts/segoui//SegoeUI_Medium.eot');
+  src: url('../fonts/segoui//SegoeUI_Medium.eot') format('embedded-opentype'),
+       url('../fonts/segoui/SegoeUI_Medium.woff2') format('woff2'),
+       url('../fonts/segoui/SegoeUI_Medium.woff') format('woff'),
+       url('../fonts/segoui/SegoeUI_Medium.ttf') format('truetype'),
+       url('../fonts/segoui/SegoeUI_Medium.svg#SegoeUI_Medium') format('svg');
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800&display=swap');
+
+body {
+  font-family: "Segoe UI" !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'Nunito Sans', sans-serif !important;
+  font-weight: 600 !important;
+}
+
+.connect-page .social-auth {
+  max-width: 500px !important;
+  border: 1px solid black;
+}
+
+.connect-page .widget-auth .social-buttons .social-button {
+  border: 1px solid #c8c8c8;
+  padding: 34px;
+  margin-bottom: 10px;
+}
+
+.connect-page .widget-auth .social-buttons .social-microsoft {
+  background-size: 100%;
+}
+
+.connect-page .widget-auth .social-buttons .social-icon {
+  left: 100px;
+}
+
+.connect-page .social-links {
+  margin-top: 8px;
+}
+
+.connect-page .social-links i {
+  background-repeat: no-repeat;
+  background-size: 76%;
+  background-position-x: 50%;
+  background-position-y: 50%;
+  width: 38px;
+  height: 38px;
+  display: inline-block;
+  padding: 0;
+  transition: all .2s ease-in-out;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+/*End Connect Page */
+
+/*Theme */
+.single-dashboard:first-child {
+  border: 1px solid black !important;
+}
+
+
+
+/**Scroll Css */
+body::-webkit-scrollbar {
+  width: 8px;
+  /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: rgb(130, 130, 130)
+  /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: black;
+  /* color of the scroll thumb */
+  border-radius: 10px;
+  /* roundness of the scroll thumb */
+  /* border: 3px solid black */
+  ;
+  /* creates padding around scroll thumb */
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px black;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: black
+}
+
+/*End Scroll Css */
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+/**Handling Video*/
+video::-internal-media-controls-download-button {
+  display: none;
+}
+
+video::-webkit-media-controls-enclosure {
+  display: none;
+}
+
+video::-webkit-media-controls-panel {
+  width: calc(100% + 30px);
+  display: none;
+}
+
+.sidebar {
+  border-right: 1px solid #c8c8c8;
+}
+
+.sidebar-nav-links a {
+  font-size: 13px;
+  color: black !important;
+  padding-top: -3px;
+  letter-spacing: 1px;
+
+  
+}
+
+hr {
+  border-top: 1px solid black;
+}
+
+main {
+  padding: 0px 0 0 0 !important;
+}
+
+.myshop-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.no-padding {
+  padding: 0px;
+}
+
+.top-logo {
+  display: none;
+}
+
+.mobile-header .page-name {
+  display: none;
+}
+
+.btn-primary {
+  border: none;
+}
