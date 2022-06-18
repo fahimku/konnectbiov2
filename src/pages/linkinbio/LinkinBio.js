@@ -81,8 +81,6 @@ class LinkinBio extends React.Component {
       promoData: "",
       product_source: "",
       singleLoading: false,
-
-      
     };
     this.changeCategory = this.changeCategory.bind(this);
     this.changeSubCategory = this.changeSubCategory.bind(this);
@@ -246,7 +244,7 @@ class LinkinBio extends React.Component {
 
   savePost = (i, Subpromo, SubDsc, description, amount, imgData, source) => {
     let newRedirectedUrl;
-    
+
     if (this.state.redirectedUrl.includes("http://")) {
       newRedirectedUrl = this.state.redirectedUrl;
     } else if (this.state.redirectedUrl.includes("https://")) {
@@ -263,53 +261,51 @@ class LinkinBio extends React.Component {
         this.setState({ loading: true });
         if (userInfo?.account_type == "influencer") {
           if (this.state.category.length) {
-          await axios
-            .post(`/posts/reserve`, {
-              id: this.state.currentPost.id,
-              caption: this.state.currentPost.caption,
-              media_url: this.state.currentPost.media_url,
-              media_type: this.state.currentPost.media_type,
-              timestamp: this.state.currentPost.timestamp,
-              redirected_url: newRedirectedUrl,
-              username: this.state.currentPost.username,
-              categories: this.state.category,
-              sub_categories: this.state.subCategory,
-              post_type: this.state.postType,
-              start_date: this.state.startDate,
-              end_date: this.state.endDate,
-              source: this.props.mobileDropdown,
-            })
-            .then((response) => {
-              this.setState({ loading: false });
-              let singlePostIndex = this.state.instagramPosts.data.findIndex(
-                (item) => item.id === this.state.currentPost.id
-              );
-              let currentPost = this.state.currentPost;
-              currentPost.redirected_url = this.state.redirectedUrl;
-              currentPost.linked = true;
-              let instagramPosts = JSON.parse(
-                JSON.stringify(this.state.instagramPosts)
-              );
-              instagramPosts.data[singlePostIndex] = currentPost;
-              this.setState({ instagramPosts: instagramPosts }, () => {});
-              toast.success("Your Post is Linked Successfully");
-              this.selectPost(false, "");
-              this.reload();
-            })
+            await axios
+              .post(`/posts/reserve`, {
+                id: this.state.currentPost.id,
+                caption: this.state.currentPost.caption,
+                media_url: this.state.currentPost.media_url,
+                media_type: this.state.currentPost.media_type,
+                timestamp: this.state.currentPost.timestamp,
+                redirected_url: newRedirectedUrl,
+                username: this.state.currentPost.username,
+                categories: this.state.category,
+                sub_categories: this.state.subCategory,
+                post_type: this.state.postType,
+                start_date: this.state.startDate,
+                end_date: this.state.endDate,
+                source: this.props.mobileDropdown,
+              })
+              .then((response) => {
+                this.setState({ loading: false });
+                let singlePostIndex = this.state.instagramPosts.data.findIndex(
+                  (item) => item.id === this.state.currentPost.id
+                );
+                let currentPost = this.state.currentPost;
+                currentPost.redirected_url = this.state.redirectedUrl;
+                currentPost.linked = true;
+                let instagramPosts = JSON.parse(
+                  JSON.stringify(this.state.instagramPosts)
+                );
+                instagramPosts.data[singlePostIndex] = currentPost;
+                this.setState({ instagramPosts: instagramPosts }, () => {});
+                toast.success("Your Post is Linked Successfully");
+                this.selectPost(false, "");
+                this.reload();
+              })
 
-            .catch((err) => {
-              this.setState({ loading: false });
-              toast.error(err);
-            });
-          }
-            else{
+              .catch((err) => {
+                this.setState({ loading: false });
+                toast.error(err);
+              });
+          } else {
             this.setState({ loading: false });
             toast.error("Please Select Category");
           }
         } else {
           if (this.state.category.length) {
             if (imgData?.length) {
-              
               await axios
                 .post(`/posts/reserve`, {
                   id: this.state.currentPost.id,

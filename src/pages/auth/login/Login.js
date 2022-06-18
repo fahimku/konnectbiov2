@@ -15,7 +15,6 @@ import { toast } from "react-toastify";
 import { authError, authSuccess } from "../../../actions/auth";
 
 class Login extends React.Component {
-
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
   };

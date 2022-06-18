@@ -1,10 +1,10 @@
 // Araj PC
-// const hostApi =
-//   process.env.NODE_ENV === "development"
-//     ? "http://172.16.1.85:9000"
-//     : "https://kbserverdev.herokuapp.com";
+const hostApi =
+  process.env.NODE_ENV === "development"
+    ? "http://172.16.1.85:9090"
+    : "https://apiv2.konnect.bio";
 
-const hostApi = "https://kbserverdev.herokuapp.com";
+// const hostApi = "https://kbserverdev.herokuapp.com";
 // const hostApi = "https://api.konnect.bio";
 // const pixelApi = "https://api.roiswitch.com";
 ///const pixelApi = "http://172.16.1.86:3000";
@@ -13,16 +13,12 @@ const baseURLApi = `${hostApi}${portApi ? `:${portApi}` : ``}/v1`;
 const baseURLApiToken = `${hostApi}${portApi ? `:${portApi}` : ``}`;
 const redirectURL =
   process.env.NODE_ENV === "development"
-    ? "https://kbserverdev.herokuapp.com"
-    : "https://kbserverdev.herokuapp.com";
-// const redirectURL =
-//   process.env.NODE_ENV === "development"
-//     ? "https://app.konnect.bio"
-//     : "https://app.konnect.bio";
+    ? "https://apiv2.konnect.bio"
+    : "https://apiv2.konnect.bio";
 const visitorURL =
   process.env.NODE_ENV === "development"
-    ? "https://devp.konnect.bio"
-    : "https://devp.konnect.bio";
+    ? "https://v2.konnect.bio"
+    : "https://v2.konnect.bio";
 // const visitorURL =
 //   process.env.NODE_ENV === "development"
 //     ? "https://konnect.bio"
@@ -35,7 +31,7 @@ export default {
   baseURLApi,
   baseURLApiToken,
   visitorURL,
-  remote: "https://api.konnect.bio",
+  remote: "https://apiv2.konnect.bio",
   isBackend: process.env.REACT_APP_BACKEND,
   auth: {
     email: "roi@admdenim.com",
