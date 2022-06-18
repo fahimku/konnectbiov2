@@ -168,7 +168,7 @@ class Package extends React.Component {
           parseUserInformation.package = response.data.message;
           const storeUserInformation = JSON.stringify(parseUserInformation);
           localStorage.setItem("userInfo", storeUserInformation);
-          history.push("/connect");
+          history.push("/app/linkinbio");
         })
         .catch((err) => {
           this.setState({ promo_error: true });
@@ -797,7 +797,7 @@ class Package extends React.Component {
                           <sup>$</sup>
                           <span className="monthly display-5">
                             {numeral(premiumPlus.package_amount_yearly).format(
-                              "$0,0.0'"
+                              "0,0.0'"
                             )}
                           </span>
                           <small className="monthly">/mo</small>
