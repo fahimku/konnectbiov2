@@ -128,9 +128,9 @@ export function receiveToken(token) {
 
 export function loginUser(creds) {
   return (dispatch) => {
-    localStorage.setItem("dashboardTheme", "white");
-    localStorage.setItem("navbarColor", "#fff");
-    localStorage.setItem("navbarType", "fixed");
+    // localStorage.setItem("dashboardTheme", "white");
+    // localStorage.setItem("navbarColor", "#fff");
+    // localStorage.setItem("navbarType", "fixed");
 
     dispatch({
       type: LOGIN_REQUEST,
@@ -165,55 +165,60 @@ export function loginUser(creds) {
           localStorage.setItem("userInfo", JSON.stringify(userInfo));
           dispatch(receiveToken(token));
           dispatch(doInit());
+          if (res.data.message?.package) {
+            history.push("/app/dashboard");
+          } else {
+            history.push("/package");
+          }
 
-          const fbPage = JSON.parse(
-            localStorage.getItem("userInfo")
-          ).page_token;
+          // const fbPage = JSON.parse(
+          //   localStorage.getItem("userInfo")
+          // ).page_token;
           // const fbPage=localStorage.getItem('fbPage')
           // const fbToken=localStorage.getItem('fbToken')
-          if (res?.data?.message?.account_type === "customer") {
-            history.push("/customer");
-          } else {
-            if (res?.data?.message?.is_trial_expired) {
-              history.push("/package");
-            } else if (
-              res?.data?.message?.package &&
-              !res?.data?.message?.access_token &&
-              !res.data.message.fb_token
-            ) {
-              history.push("/connect");
-            } else if (
-              res?.data?.message?.package &&
-              res?.data?.message?.access_token &&
-              !res.data.message.fb_token &&
-              res?.data?.message?.package?.package_id !==
-                "61c02d43f40bec74fac2c9a0"
-            ) {
-              history.push("/connect");
-            } else if (
-              res?.data?.message?.package?.package_id ===
-                "61c02d43f40bec74fac2c9a0" &&
-              res?.data?.message?.access_token
-            ) {
-              history.push("/app/linkinbio");
-            } else if (
-              res?.data?.message?.package?.package_id ===
-                "61c02e2ff40bec74fac2ca09" &&
-              res?.data?.message?.access_token &&
-              fbPage
-            ) {
-              history.push("/app/linkinbio");
-            } else if (
-              res?.data?.message?.package?.package_id ===
-                "61d695e9bccdaf69f46efc66" &&
-              res?.data?.message?.access_token &&
-              fbPage
-            ) {
-              history.push("/app/linkinbio");
-            } else {
-              history.push("/package");
-            }
-          }
+          // if (res?.data?.message?.account_type === "customer") {
+          //   history.push("/customer");
+          // } else {
+          //   if (res?.data?.message?.is_trial_expired) {
+          //     history.push("/package");
+          //   } else if (
+          //     res?.data?.message?.package &&
+          //     !res?.data?.message?.access_token &&
+          //     !res.data.message.fb_token
+          //   ) {
+          //     history.push("/connect");
+          //   } else if (
+          //     res?.data?.message?.package &&
+          //     res?.data?.message?.access_token &&
+          //     !res.data.message.fb_token &&
+          //     res?.data?.message?.package?.package_id !==
+          //       "61c02d43f40bec74fac2c9a0"
+          //   ) {
+          //     history.push("/connect");
+          //   } else if (
+          //     res?.data?.message?.package?.package_id ===
+          //       "61c02d43f40bec74fac2c9a0" &&
+          //     res?.data?.message?.access_token
+          //   ) {
+          //     history.push("/app/linkinbio");
+          //   } else if (
+          //     res?.data?.message?.package?.package_id ===
+          //       "61c02e2ff40bec74fac2ca09" &&
+          //     res?.data?.message?.access_token &&
+          //     fbPage
+          //   ) {
+          //     history.push("/app/linkinbio");
+          //   } else if (
+          //     res?.data?.message?.package?.package_id ===
+          //       "61d695e9bccdaf69f46efc66" &&
+          //     res?.data?.message?.access_token &&
+          //     fbPage
+          //   ) {
+          //     history.push("/app/linkinbio");
+          //   } else {
+          //     history.push("/package");
+          //   }
+          // }
         })
         .catch((error) => {
           dispatch(authError(error?.response?.data?.message));

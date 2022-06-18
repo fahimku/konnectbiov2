@@ -65,13 +65,13 @@ class Package extends React.Component {
       this.setState({ prices: res.message });
     });
 
-    if (userInfo.account_type === "customer") {
-      history.push("/customer");
-    }
+    // if (userInfo.account_type === "customer") {
+    //   history.push("/customer");
+    // }
 
-    if (userInfo.hasOwnProperty("package") && !userInfo.is_trial_expired) {
-      history.push("/app/main");
-    }
+    // if (userInfo.hasOwnProperty("package") && !userInfo.is_trial_expired) {
+    //   history.push("/app/main");
+    // }
     this.getPackages();
   }
 
@@ -209,7 +209,6 @@ class Package extends React.Component {
   // };
 
   render() {
-    console.log(this.state.packages);
     const basic = this.state.packages.Influencer || {};
     const premium = this.state.packages.InfluencerPlus || {};
     const premiumPlus = this.state.packages.Brand || {};
@@ -797,8 +796,9 @@ class Package extends React.Component {
                           <span className="pkg_limit">From</span>
                           <sup>$</sup>
                           <span className="monthly display-5">
-                          {numeral(premiumPlus.package_amount_yearly).format("$0,0.0'")}
-                            
+                            {numeral(premiumPlus.package_amount_yearly).format(
+                              "$0,0.0'"
+                            )}
                           </span>
                           <small className="monthly">/mo</small>
                           <span className="pkg_billed">billed yearly</span>

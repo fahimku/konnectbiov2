@@ -698,7 +698,8 @@ class LinkinBio extends React.Component {
   render() {
     return (
       <div className="linkin-bio">
-        <Row className="app_main_cont_ift main-container">
+        ssdsd
+        {/* <Row className="app_main_cont_ift main-container">
           <Col className="left-column" md="5" xs="12" xl="3">
             <TopBar
               username={this.state.username}
@@ -784,7 +785,7 @@ class LinkinBio extends React.Component {
                       </Col>
                     </Row>
                   </>
-                )} */}
+                )} 
               </>
             )}
           </Col>
@@ -828,7 +829,7 @@ class LinkinBio extends React.Component {
               Delete
             </Button>
           </ModalFooter>
-        </Modal>
+        </Modal> */}
       </div>
     );
   }
