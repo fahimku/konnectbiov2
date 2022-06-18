@@ -166,7 +166,7 @@ export function loginUser(creds) {
           dispatch(receiveToken(token));
           dispatch(doInit());
           if (res.data.message?.package) {
-            history.push("/app/dashboard");
+            history.push("/app/linkinbio");
           } else {
             history.push("/package");
           }

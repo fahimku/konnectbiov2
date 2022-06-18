@@ -101,9 +101,12 @@ class LinkinBio extends React.Component {
   componentWillMount() {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     let savedAccessToken = userInfo.access_token;
+    if(!savedAccessToken){}
+    else{
     this.fetchInstagramPosts(savedAccessToken);
     this.fetchGalleryPosts();
     this.fetchCategories();
+    }
   }
 
   fetchGalleryPosts = () => {
@@ -698,7 +701,7 @@ class LinkinBio extends React.Component {
   render() {
     return (
       <div className="linkin-bio">
-        ssdsd
+       
         {/* <Row className="app_main_cont_ift main-container">
           <Col className="left-column" md="5" xs="12" xl="3">
             <TopBar
