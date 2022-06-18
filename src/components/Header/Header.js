@@ -46,6 +46,7 @@ class Header extends React.Component {
   constructor(props) {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     let username = userInfo.username;
+    let userId = userInfo.user_id;
 
     super(props);
 
@@ -63,6 +64,7 @@ class Header extends React.Component {
       notificationsTabSelected: 1,
       focus: true,
       username: username,
+      userId: userId,
       showNewMessage: false,
       hideMessage: true,
       run: false,
@@ -201,7 +203,7 @@ class Header extends React.Component {
   copyToClipboard = (e) => {
     let textField = document.createElement("textarea");
     const url = config.visitorURL + "/";
-    textField.innerText = url + this.props.username;
+    textField.innerText = url + this.state.userId;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand("copy");
@@ -1023,9 +1025,9 @@ class Header extends React.Component {
                 <a
                   target="_blank"
                   rel="noreferrer"
-                  href={url + this.props.username}
+                  href={url + this.state.userId}
                 >
-                  {url + this.props.username}
+                  {url + this.state.userId}
                 </a>
               </div>
               <div onClick={this.copyToClipboard} className="item-b">

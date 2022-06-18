@@ -102,11 +102,11 @@ class LinkinBio extends React.Component {
   componentWillMount() {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     savedAccessToken = userInfo.access_token;
-    if(!savedAccessToken){}
-    else{
-    this.fetchInstagramPosts(savedAccessToken);
-    this.fetchGalleryPosts();
-    this.fetchCategories();
+    if (!savedAccessToken) {
+    } else {
+      this.fetchInstagramPosts(savedAccessToken);
+      this.fetchGalleryPosts();
+      this.fetchCategories();
     }
   }
 
@@ -609,7 +609,7 @@ class LinkinBio extends React.Component {
 
   copyToClipboard = (e) => {
     let textField = document.createElement("textarea");
-    textField.innerText = this.state.url + this.state.username;
+    textField.innerText = this.state.url + this.state.userId;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand("copy");
@@ -702,7 +702,6 @@ class LinkinBio extends React.Component {
   render() {
     return (
       <div className="linkin-bio">
-       
         <Row className="app_main_cont_ift main-container">
           <Col className="left-column" md="5" xs="12" xl="3">
             <TopBar
@@ -714,7 +713,7 @@ class LinkinBio extends React.Component {
             />
             <MobilePreview
               postLoading={this.state.postLoading}
-              accessToken = {savedAccessToken}
+              accessToken={savedAccessToken}
               showInstagramButton={this.state.showInstagramButton}
               pageName={`My Post`}
               placeholder={placeholder}
@@ -744,7 +743,7 @@ class LinkinBio extends React.Component {
                   id="iframe"
                   key={this.state.iframeKey}
                   src={`${
-                    this.state.url + this.state.username
+                    this.state.url + this.state.userId
                   }?coupon=no&brand=no&iframe=yes&mypost=hide`}
                   title="linkin"
                   className="myshop-iframe"
@@ -790,7 +789,7 @@ class LinkinBio extends React.Component {
                       </Col>
                     </Row>
                   </>
-                )}*/} 
+                )}*/}
               </>
             )}
           </Col>

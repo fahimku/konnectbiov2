@@ -117,9 +117,10 @@ class Layout extends React.Component {
                       <Route
                         path="/app"
                         exact
-                        render={() => {
-                          this.props.history.push("/app/linkinbio");
-                        }}
+                        // render={() => {
+                        //   this.props.history.push("/app/linkinbio");
+                        // }}
+                        render={() => <Redirect to="/app/linkinbio" />}
                       />
                       <Route
                         path="/admin"
