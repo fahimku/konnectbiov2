@@ -114,13 +114,13 @@ class Layout extends React.Component {
                 >
                   <Router history={history}>
                     <Switch>
-                      {/* <Route
+                      <Route
                         path="/app"
                         exact
                         render={() => {
                           this.props.history.push("/app/linkinbio");
                         }}
-                      /> */}
+                      />
                       <Route
                         path="/admin"
                         exact
