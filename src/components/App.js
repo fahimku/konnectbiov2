@@ -49,11 +49,11 @@ class App extends React.PureComponent {
         <ConnectedRouter history={getHistory()}>
           <Router>
             <Switch>
-              {/* <Route path="/" exact component={Login} />
-              <Route
+              {/* <Route path="/" exact component={Login} /> */}
+              {/* <Route
                 path="/app"
                 exact
-                render={() => <Redirect to="/app/main" />}
+                render={() => <Redirect to="/app/linkinbio" />}
               /> */}
               <UserRoute
                 path="/app"
@@ -66,7 +66,7 @@ class App extends React.PureComponent {
                 dispatch={this.props.dispatch}
                 component={LayoutComponent}
               /> */}
-              <Route path="/connect" exact component={Connect} />
+              {/* <Route path="/connect" exact component={Connect} /> */}
               <UserRoute
                 path="/package"
                 exact
