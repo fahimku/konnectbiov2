@@ -1,6 +1,7 @@
 import Login from "../pages/auth/login";
 import { logoutUser } from "../actions/auth";
 import { Route } from "react-router";
+import { Redirect } from "react-router-dom";
 import React from "react";
 import { createBrowserHistory } from "history";
 import PermissionHelper from "./PermissionHelper";
@@ -56,7 +57,7 @@ export const PrivateRoute = ({ dispatch, component, permissions, ...rest }) => {
     });
   } else {
     if (!userInfo?.package) {
-      return <Route component={Package} exact />;
+      return <Redirect to="/package" />;
     } else {
       return (
         <Route
