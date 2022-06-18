@@ -13,7 +13,7 @@ function Dashboard({ getDashboard, dashboard }) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    getDashboard("image,campaign,link,video", userData.access_token).then(
+    getDashboard("image,campaign,link,video", userData?.access_token).then(
       function () {
         setLoading(false);
       },
@@ -153,7 +153,7 @@ function Dashboard({ getDashboard, dashboard }) {
                   <h4>My Posts</h4>
                   <div className="text-muted">kbiouser3</div>
                   <div className="pt-20">
-                    {userData.package.package_id ===
+                    {userData?.package?.package_id ===
                     "61c02d43f40bec74fac2c9a0" ? (
                       <Link
                         to="my/posts"
@@ -333,7 +333,7 @@ function Dashboard({ getDashboard, dashboard }) {
                   <span className="dash_icon">
                     <i className="fa fa-check fa-3x" aria-hidden="true"></i>
                   </span>
-                  <h4>{userData.package.package_name}</h4>
+                  <h4>{userData?.package?.package_name}</h4>
                   <div className="text-muted">
                     This Is Your Current Active Plan
                   </div>

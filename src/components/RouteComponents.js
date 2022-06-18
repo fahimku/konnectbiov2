@@ -6,6 +6,7 @@ import { createBrowserHistory } from "history";
 import PermissionHelper from "./PermissionHelper";
 import AccountUpgrade from "../pages/upgradeAccount/UpgradeAccount";
 //import Dashboard from "../pages/dashboard/Dashboard";
+import Package from "../pages/package/package";
 
 export const history = createBrowserHistory({
   forceRefresh: false,
@@ -45,8 +46,27 @@ export const UserRoute = ({ dispatch, component, ...rest }) => {
 };
 
 export const PrivateRoute = ({ dispatch, component, permissions, ...rest }) => {
-  // const checkPermission = PermissionHelper.validate(permissions);
-  // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const checkPermission = PermissionHelper.validate(permissions);
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+  if (!Login.isAuthenticated()) {
+    dispatch(logoutUser());
+    return history.push("/app/dashboard").then(() => {
+      window.history.go(0);
+    });
+  } else {
+    if (!userInfo?.package) {
+      return <Route component={Package} exact />;
+    } else {
+      return (
+        <Route
+          {...rest}
+          render={(props) => React.createElement(component, props)}
+        />
+      );
+    }
+  }
+
   // if (!userInfo?.package) {
   //   history.push("/package");
   //   window.history.go(0);
