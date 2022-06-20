@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import Loader from "../../../components/Loader/Loader";
-import ConnectInstagram from "../../../pages/connectToInstagram/connInstagram"
+import ConnectInstagram from "../../../pages/connectToInstagram/connInstagram";
 
 const MobilePreview = ({
   placeholder,
@@ -12,7 +12,7 @@ const MobilePreview = ({
   pageName,
   postLoading,
   dropdown,
-  accessToken
+  accessToken,
 }) => {
   const [videoIcon, setVideoIcon] = React.useState(false);
 
@@ -139,12 +139,10 @@ const MobilePreview = ({
         <div ref={paneDidMount} className="mobile-gallery">
           {postLoading ? (
             <Loader />
-          ) : !accessToken ? (
-          
-          <ConnectInstagram className={"coming_iner"}/>) : 
-          
-            instaPosts.length === 0 ? (
-            <div class="no-data-found-mobile text-center">No Fahim Added</div>
+          ) : !accessToken && dropdown == "instagram" ? (
+            <ConnectInstagram className={"coming_iner"} />
+          ) : instaPosts.length === 0 ? (
+            <div class="no-data-found-mobile text-center">No Added</div>
           ) : (
             <Row>{instaPosts}</Row>
           )}

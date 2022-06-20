@@ -104,6 +104,7 @@ class LinkinBio extends React.Component {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     savedAccessToken = userInfo.access_token;
     if (!savedAccessToken) {
+      this.fetchGalleryPosts();
     } else {
       this.fetchInstagramPosts(savedAccessToken);
       this.fetchGalleryPosts();
@@ -258,7 +259,7 @@ class LinkinBio extends React.Component {
       newRedirectedUrl = "http://" + this.state.redirectedUrl;
     }
 
-    this.setState(            
+    this.setState(
       (previousState) => ({
         currentPost: previousState.singlePost,
       }),
@@ -707,7 +708,7 @@ class LinkinBio extends React.Component {
           <Col className="left-column" md="5" xs="12" xl="3">
             <TopBar
               username={this.state.username}
-              token ={savedAccessToken}
+              token={savedAccessToken}
               url={this.state.url}
               dropdown={this.props.mobileDropdown}
               changeDropdown={(v) => this.props.getMobileDropdown(v)}
@@ -769,13 +770,12 @@ class LinkinBio extends React.Component {
                
               </>
             )} */}
-            {this.state.selectPost && (
-              <Row className="linked_edit_box">
-                <Col xs="12" className="p-5">
-                  {this.shopRightBar()}
-                </Col>
-              </Row>
-            )}
+
+            <Row className="linked_edit_box">
+              <Col xs="12" className="p-5">
+                {this.shopRightBar()}
+              </Col>
+            </Row>
           </Col>
         </Row>
 
