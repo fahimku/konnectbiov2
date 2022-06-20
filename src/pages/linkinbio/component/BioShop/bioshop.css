@@ -1,0 +1,62 @@
+.bioshop-container {
+  max-width: 680px;
+  margin: 0 auto;
+  font-family: "Nunito Sans", sans-serif !important;
+}
+.bioshop-fixed {
+  height: 90%;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+  position: relative;
+}
+.bioshop-body {
+  position: relative;
+}
+.header-fixed {
+  left: 0px;
+  position: -webkit-sticky;
+  position: -moz-sticky;
+  position: -o-sticky;
+  position: -ms-sticky;
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  z-index: 1000;
+  background: #fff;
+}
+.header-box {
+  display: flex;
+  align-items: center;
+}
+.header-box span {
+  display: block;
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 15px;
+}
+.header-box .heading {
+}
+.header-box .new-heading {
+  position: relative;
+  top: -15px;
+  left: 73px;
+  z-index: 99;
+  font-weight: 700;
+}
+.header-box .header-image {
+  margin-right: 1rem;
+  margin-top: 1rem;
+  border: solid 1px #ccc;
+}
+.header-box .shop-btn {
+  color: red;
+  text-decoration: underline;
+  font-family: "Nunito Sans", sans-serif;
+}
+img {
+  object-fit: cover;
+}
+/****************main-carousel**************/
+.main-carousel {
+  /* margin-top: 20px; */
+}

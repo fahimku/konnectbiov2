@@ -19,6 +19,7 @@ import ShopRightBar from "./component/ShopRightBar/index";
 import { connect } from "react-redux";
 import * as dropdownAction from "../../actions/mobileDropdown";
 import { createBrowserHistory } from "history";
+import PublicBioShop from "./component/BioShop/PublicBioShop";
 export const history = createBrowserHistory({
   forceRefresh: true,
 });
@@ -738,7 +739,8 @@ class LinkinBio extends React.Component {
                 !this.state.selectPost ? "show_ift_iframe show" : "hidden"
               }`}
             >
-              {this.state.username !== "" ? (
+              <PublicBioShop />
+              {/* {this.state.username !== "" ? (
                 <iframe
                   id="iframe"
                   key={this.state.iframeKey}
@@ -748,9 +750,9 @@ class LinkinBio extends React.Component {
                   title="linkin"
                   className="myshop-iframe"
                 ></iframe>
-              ) : null}
+              ) : null} */}
             </div>
-            {userInfo?.account_type == "influencer" ? (
+            {/* {userInfo?.account_type == "influencer" ? (
               <Row className="linked_edit_box">
                 <Col xs="12" className="p-5">
                   {this.shopRightBar()}
@@ -763,34 +765,15 @@ class LinkinBio extends React.Component {
                     {this.shopRightBar()}
                   </Col>
                 </Row>
-                {/* {this.state.ShopifyConnFound == false &&
-                this.state.selectPost ? (
-                  <div className="container-fluid">
-                    <div class="coming_iner">
-                      <h2>Connect To Shopify</h2>
-                      {/* <p className="text-muted">
-              {userInfo?.package?.package_id === "61c02d43f40bec74fac2c9a0"
-                ? "This option is only available for Influencer Plus."
-                : "This option is only available for Brand."}
-            </p> 
-                      <button
-                        class="btn btn-primary"
-                        onClick={() => history.push("/app/account/ecommerce")}
-                      >
-                        Shopify Setup
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <Row className="linked_edit_box">
-                      <Col xs="12" className="p-5">
-                        {this.shopRightBar()}
-                      </Col>
-                    </Row>
-                  </>
-                )}*/}
+               
               </>
+            )} */}
+            {this.state.selectPost && (
+              <Row className="linked_edit_box">
+                <Col xs="12" className="p-5">
+                  {this.shopRightBar()}
+                </Col>
+              </Row>
             )}
           </Col>
         </Row>
