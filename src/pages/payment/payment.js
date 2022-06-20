@@ -20,37 +20,40 @@ class Payment extends React.Component {
       loading: true,
     };
 
-    const params = queryString.parse(window.location.search);
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    // const params = queryString.parse(window.location.search);
+    // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-    if (params.status === "return") {
-      if (!userInfo?.package) {
-        history.push("/package");
-      } else if (
-        params.status === "return" &&
-        !userInfo?.fb_token &&
-        !userInfo?.page_token &&
-        !userInfo?.access_token
-      ) {
-        history.push("/connect");
-      } else if (
-        params.status === "return" &&
-        !userInfo?.fb_token &&
-        !userInfo?.page_token
-      ) {
-        history.push("/connect");
-      } else {
-        history.push("/app/subcription/setup");
-      }
-    }
+    // if (!params?.status) {
+    //   history.push("/app/linkinbio");
+    // }
+
+    // if (params.status === "return") {
+    //   if (!userInfo?.package) {
+    //     history.push("/package");
+    //   } else if (
+    //     params.status === "return" &&
+    //     !userInfo?.fb_token &&
+    //     !userInfo?.page_token &&
+    //     !userInfo?.access_token
+    //   ) {
+    //     history.push("/connect");
+    //   } else if (
+    //     params.status === "return" &&
+    //     !userInfo?.fb_token &&
+    //     !userInfo?.page_token
+    //   ) {
+    //     history.push("/connect");
+    //   } else {
+    //     history.push("/app/subcription/setup");
+    //   }
   }
 
   componentDidMount() {
     this.setState({ loading: false });
     const params = queryString.parse(window.location.search);
-    if (Object.keys(params).length === 0) {
-      this.props.history.push("/app/main/");
-    }
+    // if (Object.keys(params).length === 0) {
+    //   this.props.history.push("/app/linkinbio/");
+    // }
 
     if (params.status === "success") {
       this.setState({ success: true });
@@ -78,49 +81,52 @@ class Payment extends React.Component {
     let redirectURL;
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const params = queryString.parse(window.location.search);
+    if (!params?.status) {
+      redirectURL = "/app/linkinbio";
+    }
     //Add on Redirect
-    if (params.status === "success" && params.addon === "Profile") {
-      redirectURL = "/app/search/profile";
-    } else if (params.status === "success" && params.addon === "Hashtag") {
-      redirectURL = "/app/monitor/hash/tags";
-    } else if (params.status === "success" && params.addon === "Category") {
-      redirectURL = "/app/account/categories";
-    }
+    // if (params.status === "success" && params.addon === "Profile") {
+    //   redirectURL = "/app/search/profile";
+    // } else if (params.status === "success" && params.addon === "Hashtag") {
+    //   redirectURL = "/app/monitor/hash/tags";
+    // } else if (params.status === "success" && params.addon === "Category") {
+    //   redirectURL = "/app/account/categories";
+    // }
 
-    //Package Update Redirect
-    else if (params.status === "success") {
-      if (
-        userInfo?.package?.package_id ==="61c02e2ff40bec74fac2ca09" &&
-        !userInfo?.fb_token &&
-        !userInfo?.page_token
-      ) {
-        redirectURL = "/connect";
-      } else if (
-        userInfo?.package?.package_id ==="61d695e9bccdaf69f46efc66" &&
-        userInfo?.fb_token &&
-        userInfo?.page_token
-      ) {
-        redirectURL = "/app/subcription/setup/";
-      } else if (
-        userInfo?.package?.package_id ==="61d695e9bccdaf69f46efc66" &&
-        !userInfo?.fb_token &&
-        !userInfo?.page_token
-      ) {
-        redirectURL = "/connect";
-      }
-    } else if (params.status === "error") {
-      if (!userInfo?.package) {
-        redirectURL = "/package";
-      } else {
-        redirectURL = "/app/subcription/setup/";
-      }
-    } else if (params.status === "return") {
-      if (!userInfo?.package) {
-        redirectURL = "/package";
-      } else {
-        redirectURL = "/app/subcription/setup/";
-      }
-    }
+    // //Package Update Redirect
+    // else if (params.status === "success") {
+    //   if (
+    //     userInfo?.package?.package_id === "61c02e2ff40bec74fac2ca09" &&
+    //     !userInfo?.fb_token &&
+    //     !userInfo?.page_token
+    //   ) {
+    //     redirectURL = "/connect";
+    //   } else if (
+    //     userInfo?.package?.package_id === "61d695e9bccdaf69f46efc66" &&
+    //     userInfo?.fb_token &&
+    //     userInfo?.page_token
+    //   ) {
+    //     redirectURL = "/app/subcription/setup/";
+    //   } else if (
+    //     userInfo?.package?.package_id === "61d695e9bccdaf69f46efc66" &&
+    //     !userInfo?.fb_token &&
+    //     !userInfo?.page_token
+    //   ) {
+    //     redirectURL = "/connect";
+    //   }
+    // } else if (params.status === "error") {
+    //   if (!userInfo?.package) {
+    //     redirectURL = "/package";
+    //   } else {
+    //     redirectURL = "/app/subcription/setup/";
+    //   }
+    // } else if (params.status === "return") {
+    //   if (!userInfo?.package) {
+    //     redirectURL = "/package";
+    //   } else {
+    //     redirectURL = "/app/subcription/setup/";
+    //   }
+    // }
 
     return history.push(redirectURL);
   };

@@ -121,8 +121,14 @@ export const AuthRoute = ({ dispatch, component, ...rest }) => {
     if (userInfo?.package) {
       return <Redirect to="/app/linkinbio" />;
     } else {
-      history.push(from);
-      window.history.go(0);
+      // history.push(from);
+      // window.history.go(0);
+      return (
+        <Route
+          {...rest}
+          render={(props) => React.createElement(component, props)}
+        />
+      );
     }
   } else {
     return (
