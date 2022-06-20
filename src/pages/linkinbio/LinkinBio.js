@@ -257,7 +257,7 @@ class LinkinBio extends React.Component {
       newRedirectedUrl = "http://" + this.state.redirectedUrl;
     }
 
-    this.setState(
+    this.setState(            
       (previousState) => ({
         currentPost: previousState.singlePost,
       }),
@@ -706,6 +706,7 @@ class LinkinBio extends React.Component {
           <Col className="left-column" md="5" xs="12" xl="3">
             <TopBar
               username={this.state.username}
+              token ={savedAccessToken}
               url={this.state.url}
               dropdown={this.props.mobileDropdown}
               changeDropdown={(v) => this.props.getMobileDropdown(v)}

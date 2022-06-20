@@ -58,7 +58,20 @@ class AccountSetup extends React.Component {
       disabledCancelPlan: false,
       showPaymentModel: false,
       package_id: "",
+      url:""
     };
+  }
+
+
+  async getInstagramUrl() {
+    await axios
+      .post(`/social/ig/url/instagram`)
+      .then((response) => {
+        this.setState({ url: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   componentDidMount() {
@@ -73,7 +86,10 @@ class AccountSetup extends React.Component {
     }
     this.setState({ userId: userInfo?.user_id });
     this.getPackages();
+    this.getInstagramUrl();
   }
+
+  
 
   getPackages = async () => {
     await axios
@@ -404,7 +420,7 @@ class AccountSetup extends React.Component {
                     modal={(boolean) => {
                       this.setState({ modal: boolean });
                     }}
-                    url={this.props.url}
+                    url={this.state.url}
                     show={this.state.modal}
                     onHide={this.toggleModal}
                     loading={(boolean) => {

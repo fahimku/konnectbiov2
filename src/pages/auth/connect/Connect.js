@@ -69,7 +69,7 @@ class Connect extends React.Component {
       this.setState({ instagramCode: code[1] });
       this.setState({ isInstagramConnected: true });
       this.fetchInstagramPostsFirstTime(code[1]);
-    }
+    } 
     this.getInstagramUrl();
   }
 

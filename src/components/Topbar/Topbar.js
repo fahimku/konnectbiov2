@@ -4,6 +4,7 @@ import { DropdownButton, Dropdown } from "react-bootstrap";
 const TopBar = ({
   username,
   copyToClipboard,
+  token,
   url,
   text,
   changeDropdown,
@@ -51,7 +52,12 @@ const TopBar = ({
           Shopify
         </Dropdown.Item>
       </DropdownButton>
-
+      {!token? (
+      
+      <span className="connection-status-topbar-badge-red">Disconnect</span>
+      ):(
+        <span className="connection-status-topbar-badge-green">Connected</span>
+      )}
       {/* <div className="your-copy-link">
         <div className="item-a">
           Your Link:{" "}
