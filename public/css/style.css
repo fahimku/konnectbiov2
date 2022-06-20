@@ -1446,6 +1446,30 @@ a.pkg_read:hover {
   font-weight: 600;
   font-family: "SegoeUIBold";
 }
+.connection-status-topbar-badge-green{
+  position: absolute;
+  right: 280px;
+  background: green;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 5px;
+  top: 11px;
+  font-size: 9pt;
+  font-weight: 600;
+  font-family: "SegoeUIBold";
+}
+.connection-status-topbar-badge-red{
+  position: absolute;
+  right: 280px;
+  background: red;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 5px;
+  top: 11px;
+  font-size: 9pt;
+  font-weight: 600;
+  font-family: "SegoeUIBold";
+}
 .connection-status-badge-green {
   position: absolute;
   right: 10px;
@@ -1458,6 +1482,7 @@ a.pkg_read:hover {
   font-weight: 600;
   font-family: "SegoeUIBold";
 }
+
 .image-post-box-aff-inr-inr video {
   max-width: 100%;
   height: auto;
