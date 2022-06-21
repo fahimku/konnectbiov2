@@ -8,10 +8,10 @@ import { connect } from "react-redux";
 import BioShopProfile from "./BioShopProfile";
 import BioShopLinks from "./BioShopLinks";
 
-const PublicBioShop = ({ getUserCategories, getUserInfo }) => {
+const PublicBioShop = ({ getUserCategories, getUserInfo, page }) => {
   const [allCategory, setAllCategory] = useState([]);
   const [categoryLoading, setCategoryLoading] = useState([]);
-  const [id, setId] = useState("");
+  const [id, setId] = useState(page === "link" ? "links" : "");
   const [userData, setUserData] = useState("");
 
   useEffect(() => {
@@ -53,6 +53,7 @@ const PublicBioShop = ({ getUserCategories, getUserInfo }) => {
               allCategory={allCategory}
               categoryFilter={categoryFilter}
               userData={userData}
+              page={page}
             />
           </>
         ) : (

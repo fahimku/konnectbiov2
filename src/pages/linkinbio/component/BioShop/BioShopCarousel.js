@@ -9,7 +9,7 @@ class BioShopCarousel extends React.Component {
     super(props);
     this.state = {
       username: this.props.username,
-      active: "allPost",
+      active: this.props.page === "link" ? "links" : "allPost",
     };
   }
 

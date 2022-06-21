@@ -18,9 +18,9 @@ import MobilePreview from "./component/MobilePreview";
 import AddNewLink from "./component/AddNewLink/index";
 import style from "./MyLinks.module.scss";
 import moment from "moment";
+import PublicBioShop from "../linkinbio/component/BioShop/PublicBioShop";
 
 class MyLinks extends React.Component {
-
   constructor(props) {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     let username = userInfo.username;
@@ -101,7 +101,9 @@ class MyLinks extends React.Component {
       .get(`/posts/receive?user=${username}&post_type=link`)
       .then((response) => {
         const myLinks = [...this.state.myLinks, ...response.data.message];
-        const uniqueMyLinks = [...new Map(myLinks.map((item) => [item["caption"], item])).values()];
+        const uniqueMyLinks = [
+          ...new Map(myLinks.map((item) => [item["caption"], item])).values(),
+        ];
         this.setState({ myLinks: uniqueMyLinks });
       })
       .catch((error) => {
@@ -165,11 +167,12 @@ class MyLinks extends React.Component {
   updateLink = async (id, title, redirectedUrl) => {
     this.setState({ singlePostLoading: true });
     this.setState({ loading: true });
-    await axios.put(`posts/revise/${id}`, {
-      caption: title,
-      redirected_url: redirectedUrl,
-      post_type: "link",
-    })
+    await axios
+      .put(`posts/revise/${id}`, {
+        caption: title,
+        redirected_url: redirectedUrl,
+        post_type: "link",
+      })
       .then(() => {
         let data = this.state.myLinks;
         let objIndex = data.findIndex((obj) => obj.post_id === id);
@@ -194,8 +197,10 @@ class MyLinks extends React.Component {
     await axios
       .delete(`posts/remove/${id}?post_type=link`)
       .then(() => {
-        const myLinks = this.state.myLinks.filter(function (item) { return item.post_id !== id; });
-        this.setState({ myLinks: myLinks })
+        const myLinks = this.state.myLinks.filter(function (item) {
+          return item.post_id !== id;
+        });
+        this.setState({ myLinks: myLinks });
         toast.success("Link removed successfully.");
         this.setState({ loading: false });
         this.setState({ confirmModal: false });
@@ -203,8 +208,6 @@ class MyLinks extends React.Component {
         this.preview(false, "");
         //        window.location.reload();
         //this.addNewLink();
-
-
       })
       .catch(() => {
         this.setState({ singlePostLoading: false });
@@ -331,15 +334,24 @@ class MyLinks extends React.Component {
             />
           </Col>
           <Col
-            className={`right-bar bg-white ${!this.state.preview ? "no-padding" : ""
-              } `}
+            className={`right-bar bg-white ${
+              !this.state.preview ? "no-padding" : ""
+            } `}
             md="7"
             xs="12"
             xl="9"
           >
-            {this.state.singlePostLoading ? <Loader /> : <>
-              <div className={`${!this.state.preview ? "show_ift_iframe" : "hidden"}`}>
-                {this.state.username !== "" ? (
+            {this.state.singlePostLoading ? (
+              <Loader />
+            ) : (
+              <>
+                <div
+                  className={`${
+                    !this.state.preview ? "show_ift_iframe" : "hidden"
+                  }`}
+                >
+                  <PublicBioShop page="link" />
+                  {/* {this.state.username !== "" ? (
                   <iframe
                     key={this.state.iframeKey}
                     src={`${this.state.url + this.state.username
@@ -347,15 +359,15 @@ class MyLinks extends React.Component {
                     title="mylinks"
                     className="myshop-iframe"
                   ></iframe>
-                ) : null}
-              </div>
-              <Row>
-                <Col xs="12" className="p-3">
-                  {this.addNewLinkShop()}
-                </Col>
-              </Row>
-            </>
-            }
+                ) : null} */}
+                </div>
+                <Row>
+                  <Col xs="12" className="p-3">
+                    {this.addNewLinkShop()}
+                  </Col>
+                </Row>
+              </>
+            )}
           </Col>
         </Row>
         {window.innerWidth <= 760 && (
