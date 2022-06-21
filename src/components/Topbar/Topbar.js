@@ -52,12 +52,15 @@ const TopBar = ({
           Shopify
         </Dropdown.Item>
       </DropdownButton>
-      {!token? (
-      
-      <span className="connection-status-topbar-badge-red">Disconnect</span>
-      ):(
-        <span className="connection-status-topbar-badge-green">Connected</span>
-      )}
+      {dropdown == "instagram" ? (
+        !token ? (
+          <div className="connection-status-topbar-badge-red">Disconnect</div>
+        ) : (
+          <div className="connection-status-topbar-badge-red topbar-green">
+            Connected
+          </div>
+        )
+      ) : null}
       {/* <div className="your-copy-link">
         <div className="item-a">
           Your Link:{" "}

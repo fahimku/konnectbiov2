@@ -102,3 +102,6 @@ export const GET_AFFILIATE_CONTRACT_DETAIL = "getAffiliateContractDetail";
 
 /**********Shopify Tracker******************* */
 export const GET_SHOPIFY_TRACKER = "getShopifyTracker";
+
+/**********User Info ****************/
+export const GET_USER_INFO = "getUserInfo";

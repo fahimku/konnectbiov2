@@ -62,6 +62,7 @@ import shopifyDetail from "./shopifySetup/shopifyDetail";
 import affiliateBillingDetail from "./affiliateBilling/affiliateBillingDetail";
 import affiliateContractDetail from "./affiliateBilling/affiliateContractDetail";
 import shopifyTracker from "./shopifyTrackers/shopifyTracker";
+import userInfo from "./userInfo/userInfo";
 
 export default (history) =>
   combineReducers({
@@ -123,5 +124,6 @@ export default (history) =>
     shopifyDetail,
     affiliateBillingDetail,
     affiliateContractDetail,
-    shopifyTracker
+    shopifyTracker,
+    userInfo,
   });
