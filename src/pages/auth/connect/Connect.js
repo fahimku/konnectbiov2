@@ -45,6 +45,7 @@ class Connect extends React.Component {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     let access_token = userInfo?.access_token;
     const instagramCodeUrl = window.location.href;
+  
     const fbPage = userInfo?.page_token;
     const package1 = userInfo?.package?.package_id;
 
@@ -103,7 +104,10 @@ class Connect extends React.Component {
 
         // }
       });
-  }
+ 
+    }
+
+  
 
   //First Request From User
   async updateAccessToken(user_id, username, accessToken) {
@@ -156,8 +160,8 @@ class Connect extends React.Component {
       return "Please connect your Instagram and Facebook account";
     }
   };
-
   render() {
+
     return (
       <>
         <div className="login_header">

@@ -63,6 +63,7 @@ class Verify extends React.Component {
   }
 
   componentDidMount() {
+    
     const query = queryString.parse(window.location.search);
 
     if (query.bio_code && query.email) {
@@ -72,6 +73,8 @@ class Verify extends React.Component {
     const token = localStorage.getItem("token");
     if (token) {
       const instagramCodeUrl = window.location.href;
+      console.log(instagramCodeUrl,"instagramCodeUrl");
+      
       this.props.dispatch(receiveToken(token));
       if (instagramCodeUrl.includes("code")) {
         const code = instagramCodeUrl.split("?")[1].split("=");

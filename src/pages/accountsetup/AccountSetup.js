@@ -79,6 +79,7 @@ class AccountSetup extends React.Component {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     let access_token = userInfo?.access_token;
     const instagramCodeUrl = window.location.href;
+    console.log(instagramCodeUrl,"instagramCodeUrl");
     this.setState({ userInfo: userInfo });
     // const params = queryString.parse(window.location.search);
     if (this.props.resetAccount === false) {
@@ -90,9 +91,12 @@ class AccountSetup extends React.Component {
     this.setState({ userId: userInfo?.user_id });
     this.getPackages();
     if (instagramCodeUrl.includes("code")) {
+      
       const code = instagramCodeUrl.split("?")[1].split("=");
+      alert(code)
       this.setState({ instagramCode: code[1] });
       this.setState({ isInstagramConnected: true });
+      console.log(code[1],"code work ");
       this.fetchInstagramPostsFirstTime(code[1]);
     } 
     this.getInstagramUrl();

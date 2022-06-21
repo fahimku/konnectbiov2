@@ -59,6 +59,7 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
+   
     const query = queryString.parse(window.location.search);
     if (query.bio_code) {
       this.tokenVerify(query.bio_code);
@@ -67,6 +68,7 @@ class Login extends React.Component {
     const token = localStorage.getItem("token");
     if (token) {
       const instagramCodeUrl = window.location.href;
+    
       this.props.dispatch(receiveToken(token));
       if (instagramCodeUrl.includes("code")) {
         const code = instagramCodeUrl.split("?")[1].split("=");
