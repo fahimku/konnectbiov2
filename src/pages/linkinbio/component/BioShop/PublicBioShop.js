@@ -5,6 +5,8 @@ import BioShopPostGallery from "./BioShopPostGallery";
 import * as catActions from "../../../../actions/category";
 import * as userActions from "../../../../actions/userInfo";
 import { connect } from "react-redux";
+import BioShopProfile from "./BioShopProfile";
+import BioShopLinks from "./BioShopLinks";
 
 const PublicBioShop = ({ getUserCategories, getUserInfo }) => {
   const [allCategory, setAllCategory] = useState([]);
@@ -13,7 +15,6 @@ const PublicBioShop = ({ getUserCategories, getUserInfo }) => {
   const [userData, setUserData] = useState("");
 
   useEffect(() => {
-    // document.body.classList.add("bioshop-body");
     setCategoryLoading(true);
     getUserCategories().then(
       function (res) {
@@ -66,7 +67,13 @@ const PublicBioShop = ({ getUserCategories, getUserInfo }) => {
             <i className="la la-spinner la-spin" style={{ fontSize: 40 }} />
           </div>
         )}
-        <BioShopPostGallery selectPost={selectPost} id={id} />
+        {id === "profile" ? (
+          <BioShopProfile profile={userData} />
+        ) : id === "links" ? (
+          <BioShopLinks />
+        ) : (
+          <BioShopPostGallery selectPost={selectPost} id={id} />
+        )}
       </div>
     </div>
   );

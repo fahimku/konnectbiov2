@@ -187,7 +187,7 @@ class BioShopCarousel extends React.Component {
                 className="carousel-items"
                 onClick={() => {
                   this.setState({ active: "profile" });
-                  // this.props.categoryFilter("allPost");
+                  this.props.categoryFilter("profile");
                 }}
               >
                 <button className="btn-link">
@@ -240,7 +240,7 @@ class BioShopCarousel extends React.Component {
                 className="carousel-items"
                 onClick={() => {
                   this.setState({ active: "links" });
-                  // this.props.categoryFilter("links");
+                  this.props.categoryFilter("links");
                 }}
               >
                 <button className="btn-link">
