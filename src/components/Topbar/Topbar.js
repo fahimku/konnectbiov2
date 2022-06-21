@@ -28,7 +28,7 @@ const TopBar = ({
             ? "Instagram"
             : `Source: ${
                 dropdown == "instagram"
-                  ? `Instagram @${username}`
+                  ? `Instagram ${username ? "@" + username : ""}`
                   : "Active Media Gallery"
               }`
         }

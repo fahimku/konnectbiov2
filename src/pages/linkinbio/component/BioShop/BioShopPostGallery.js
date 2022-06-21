@@ -24,7 +24,7 @@ function BioShopPostGallery({ getPosts, posts, id, selectPost, clearPost }) {
     return (
       <>
         {posts.data.length > 0 ? (
-          <div className="post-box no-gutters">
+          <div className="post-box no-gutters affiliate-page">
             <InfiniteScroll
               pageStart={0}
               className="af-rm-mn row"

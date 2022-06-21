@@ -9,6 +9,9 @@
   overflow-y: scroll;
   position: relative;
 }
+.bioshop-fixed::-webkit-scrollbar {
+  display: none;
+}
 .bioshop-body {
   position: relative;
 }
@@ -24,6 +27,7 @@
   z-index: 1000;
   background: #fff;
 }
+
 .header-box {
   display: flex;
   align-items: center;
@@ -39,7 +43,7 @@
 .header-box .new-heading {
   position: relative;
   top: -15px;
-  left: 73px;
+  left: 78px;
   z-index: 99;
   font-weight: 700;
 }
@@ -59,4 +63,25 @@ img {
 /****************main-carousel**************/
 .main-carousel {
   /* margin-top: 20px; */
+}
+/*************bio-profile********************/
+.bio-profile {
+  text-align: center;
+  margin-top: 60px;
+}
+/*************biolink***************/
+.biolink-area .link-box {
+  background: #185887;
+  border: 1px solid #185887;
+  margin: 13px auto;
+  padding: 12px 0;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #fff;
+  letter-spacing: 1px;
+}
+.biolink-area .link-box:hover {
+  background: #fff;
+  color: #000;
+  border: 1px solid #185887;
 }
