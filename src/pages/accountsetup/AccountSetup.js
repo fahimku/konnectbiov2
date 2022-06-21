@@ -93,10 +93,8 @@ class AccountSetup extends React.Component {
     if (instagramCodeUrl.includes("code")) {
       
       const code = instagramCodeUrl.split("?")[1].split("=");
-      alert(code)
       this.setState({ instagramCode: code[1] });
       this.setState({ isInstagramConnected: true });
-      console.log(code[1],"code work ");
       this.fetchInstagramPostsFirstTime(code[1]);
     } 
     this.getInstagramUrl();

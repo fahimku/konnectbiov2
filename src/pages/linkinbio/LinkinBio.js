@@ -144,10 +144,10 @@ class LinkinBio extends React.Component {
             error: "Connect Your Instagram Account to Continue",
           });
           this.setState({ showInstagramButton: true });
-          this.props.history.push("/connect");
+          this.props.history.push("/app/account/setup");
           window.history.go(0);
         }
-        this.props.history.push("/connect");
+        this.props.history.push("/app/account/setup");
         window.history.go(0);
       });
   }
