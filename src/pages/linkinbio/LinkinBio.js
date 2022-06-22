@@ -813,7 +813,7 @@ class LinkinBio extends React.Component {
           </Col>
         </Row>
 
-        {window.innerWidth <= 760 && (
+        {/* {window.innerWidth <= 760 && (
           <Modal
             size="sm"
             isOpen={this.state.modal}
@@ -825,7 +825,7 @@ class LinkinBio extends React.Component {
             </ModalHeader>
             <ModalBody className="bg-white">{this.shopRightBar()}</ModalBody>
           </Modal>
-        )}
+        )} */}
         <Modal
           isOpen={this.state.confirmModal}
           toggle={() => this.toggle("confirmModal")}
