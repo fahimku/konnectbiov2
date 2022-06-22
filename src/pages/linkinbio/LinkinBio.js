@@ -285,20 +285,27 @@ class LinkinBio extends React.Component {
               })
               .then((response) => {
                 this.setState({ loading: false });
-                let singlePostIndex = this.state.instagramPosts.data.findIndex(
-                  (item) => item.id === this.state.currentPost.id
-                );
-                let currentPost = this.state.currentPost;
-                currentPost.redirected_url = this.state.redirectedUrl;
-                currentPost.linked = true;
-                let instagramPosts = JSON.parse(
-                  JSON.stringify(this.state.instagramPosts)
-                );
-                instagramPosts.data[singlePostIndex] = currentPost;
-                this.setState({ instagramPosts: instagramPosts }, () => {});
-                toast.success("Your Post is Linked Successfully");
-                this.selectPost(false, "");
-                this.reload();
+                if (this.props.mobileDropdown == "instagram") {
+                  let singlePostIndex =
+                    this.state.instagramPosts.data.findIndex(
+                      (item) => item.id === this.state.currentPost.id
+                    );
+                  let currentPost = this.state.currentPost;
+                  currentPost.redirected_url = this.state.redirectedUrl;
+                  currentPost.linked = true;
+                  let instagramPosts = JSON.parse(
+                    JSON.stringify(this.state.instagramPosts)
+                  );
+                  instagramPosts.data[singlePostIndex] = currentPost;
+                  this.setState({ instagramPosts: instagramPosts }, () => {});
+                  toast.success("Your Post is Linked Successfully");
+                  this.selectPost(false, "");
+                  this.reload();
+                } else {
+                  toast.success("Your Post is Linked Successfully");
+                  this.selectPost(false, "");
+                  this.reload();
+                }
               })
 
               .catch((err) => {
@@ -335,21 +342,27 @@ class LinkinBio extends React.Component {
                   children: imgData,
                 })
                 .then((response) => {
-                  let singlePostIndex =
-                    this.state.instagramPosts.data.findIndex(
-                      (item) => item.id === this.state.currentPost.id
+                  if (this.props.mobileDropdown == "instagram") {
+                    let singlePostIndex =
+                      this.state.instagramPosts.data.findIndex(
+                        (item) => item.id === this.state.currentPost.id
+                      );
+                    let currentPost = this.state.currentPost;
+                    currentPost.redirected_url = this.state.redirectedUrl;
+                    currentPost.linked = true;
+                    let instagramPosts = JSON.parse(
+                      JSON.stringify(this.state.instagramPosts)
                     );
-                  let currentPost = this.state.currentPost;
-                  currentPost.redirected_url = this.state.redirectedUrl;
-                  currentPost.linked = true;
-                  let instagramPosts = JSON.parse(
-                    JSON.stringify(this.state.instagramPosts)
-                  );
-                  instagramPosts.data[singlePostIndex] = currentPost;
-                  this.setState({ instagramPosts: instagramPosts }, () => {});
-                  toast.success("Your Post is Linked Successfully");
-                  this.selectPost(false, "");
-                  this.reload();
+                    instagramPosts.data[singlePostIndex] = currentPost;
+                    this.setState({ instagramPosts: instagramPosts }, () => {});
+                    toast.success("Your Post is Linked Successfully");
+                    this.selectPost(false, "");
+                    this.reload();
+                  } else {
+                    toast.success("Your Post is Linked Successfully");
+                    this.selectPost(false, "");
+                    this.reload();
+                  }
                 })
 
                 .catch((err) => {
@@ -403,18 +416,23 @@ class LinkinBio extends React.Component {
         })
         .then((response) => {
           this.setState({ loading: false });
-          let singlePostIndex = this.state.instagramPosts.data.findIndex(
-            (item) => item.id === id
-          );
-          let currentPost = this.state.singlePost;
-          currentPost.redirected_url = url;
-          let instagramPosts = JSON.parse(
-            JSON.stringify(this.state.instagramPosts)
-          );
-          instagramPosts.data[singlePostIndex] = currentPost;
-          this.setState({ instagramPosts: instagramPosts });
-          toast.success("Your Post Link is Updated");
-          this.selectPost(false, "");
+          if (this.props.mobileDropdown == "instagram") {
+            let singlePostIndex = this.state.instagramPosts.data.findIndex(
+              (item) => item.id === id
+            );
+            let currentPost = this.state.singlePost;
+            currentPost.redirected_url = url;
+            let instagramPosts = JSON.parse(
+              JSON.stringify(this.state.instagramPosts)
+            );
+            instagramPosts.data[singlePostIndex] = currentPost;
+            this.setState({ instagramPosts: instagramPosts });
+            toast.success("Your Post Link is Updated");
+            this.selectPost(false, "");
+          } else {
+            toast.success("Your Post Link is Updated");
+            this.selectPost(false, "");
+          }
         });
     } else {
       if (imgData?.length) {
@@ -435,18 +453,23 @@ class LinkinBio extends React.Component {
           })
           .then((response) => {
             this.setState({ loading: false });
-            let singlePostIndex = this.state.instagramPosts.data.findIndex(
-              (item) => item.id === id
-            );
-            let currentPost = this.state.singlePost;
-            currentPost.redirected_url = url;
-            let instagramPosts = JSON.parse(
-              JSON.stringify(this.state.instagramPosts)
-            );
-            instagramPosts.data[singlePostIndex] = currentPost;
-            this.setState({ instagramPosts: instagramPosts });
-            toast.success("Your Post Link is Updated");
-            this.selectPost(false, "");
+            if (this.props.mobileDropdown == "instagram") {
+              let singlePostIndex = this.state.instagramPosts.data.findIndex(
+                (item) => item.id === id
+              );
+              let currentPost = this.state.singlePost;
+              currentPost.redirected_url = url;
+              let instagramPosts = JSON.parse(
+                JSON.stringify(this.state.instagramPosts)
+              );
+              instagramPosts.data[singlePostIndex] = currentPost;
+              this.setState({ instagramPosts: instagramPosts });
+              toast.success("Your Post Link is Updated");
+              this.selectPost(false, "");
+            } else {
+              toast.success("Your Post Link is Updated");
+              this.selectPost(false, "");
+            }
           })
           .catch((err) => {
             this.setState({ loading: false });
@@ -471,23 +494,33 @@ class LinkinBio extends React.Component {
     await axios
       .delete(`/posts/remove/${id}`)
       .then((response) => {
-        let singlePostIndex = this.state.instagramPosts.data.findIndex(
-          (item) => item.id === id
-        );
-        let currentPost = this.state.singlePost;
-        currentPost.linked = false;
-        let instagramPosts = JSON.parse(
-          JSON.stringify(this.state.instagramPosts)
-        );
-        instagramPosts.data[singlePostIndex] = currentPost;
-        this.setState({ instagramPosts: instagramPosts });
-        toast.success("Your Post is Unlinked Successfully");
-        this.setState({ loading: false });
-        this.setState({ confirmModal: false });
-        this.selectPost(false, "");
-        // window.location.reload();
-        // history.push("/app/linkinbio/");
-        this.reload();
+        if (this.props.mobileDropdown == "instagram") {
+          let singlePostIndex = this.state.instagramPosts.data.findIndex(
+            (item) => item.id === id
+          );
+          let currentPost = this.state.singlePost;
+          currentPost.linked = false;
+          let instagramPosts = JSON.parse(
+            JSON.stringify(this.state.instagramPosts)
+          );
+          instagramPosts.data[singlePostIndex] = currentPost;
+          this.setState({ instagramPosts: instagramPosts });
+          toast.success("Your Post is Unlinked Successfully");
+          this.setState({ loading: false });
+          this.setState({ confirmModal: false });
+          this.selectPost(false, "");
+          // window.location.reload();
+          // history.push("/app/linkinbio/");
+          this.reload();
+        } else {
+          toast.success("Your Post is Unlinked Successfully");
+          this.setState({ loading: false });
+          this.setState({ confirmModal: false });
+          this.selectPost(false, "");
+          // window.location.reload();
+          // history.push("/app/linkinbio/");
+          this.reload();
+        }
       })
       .catch((err) => {
         toast.error(err?.response?.data?.message);
@@ -701,8 +734,8 @@ class LinkinBio extends React.Component {
   };
 
   render() {
-    console.log(this.state.selectPost, "select");
-    console.log(this.state.galleryPosts, "galleryPosts");
+    console.log(this.props.mobileDropdown, "mobileDropdown");
+    console.log(this.state.singlePost, "singlePost");
     return (
       <div className="linkin-bio">
         <Row className="app_main_cont_ift main-container">
