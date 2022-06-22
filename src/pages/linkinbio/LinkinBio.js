@@ -734,8 +734,6 @@ class LinkinBio extends React.Component {
   };
 
   render() {
-    console.log(this.props.mobileDropdown, "mobileDropdown");
-    console.log(this.state.singlePost, "singlePost");
     return (
       <div className="linkin-bio">
         <Row className="app_main_cont_ift main-container">
