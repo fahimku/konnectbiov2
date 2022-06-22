@@ -528,6 +528,8 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                   </div>
                 ) : null}
 
+
+/////////////Faheeeem
                 <div className="select-categories mt-3">
                   <label>Select Category</label>
                   <Select
