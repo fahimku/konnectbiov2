@@ -132,6 +132,14 @@ class AccountSetup extends React.Component {
       });
   }
 
+  async updateAccessToken(user_id, username, accessToken) {
+    await axios.put(`/users/revise/ig/instagram`, {
+      user_id: user_id,
+      username: username,
+      access_token: accessToken,
+    });
+  }
+
   getPackages = async () => {
     await axios
       .get(`/package/receive`)
