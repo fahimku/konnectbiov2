@@ -47,6 +47,7 @@ class Header extends React.Component {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     let username = userInfo.username;
     let userId = userInfo.user_id;
+    let pid = userInfo.pid;
 
     super(props);
 
@@ -65,6 +66,7 @@ class Header extends React.Component {
       focus: true,
       username: username,
       userId: userId,
+      pid: pid,
       showNewMessage: false,
       hideMessage: true,
       run: false,
@@ -203,7 +205,7 @@ class Header extends React.Component {
   copyToClipboard = (e) => {
     let textField = document.createElement("textarea");
     const url = config.visitorURL + "/";
-    textField.innerText = url + this.state.userId;
+    textField.innerText = url + this.state.pid;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand("copy");
@@ -1022,12 +1024,8 @@ class Header extends React.Component {
             <div className="your-copy-link">
               <div className="item-a">
                 Bio Link:{" "}
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={url + this.state.userId}
-                >
-                  {url + this.state.userId}
+                <a target="_blank" rel="noreferrer" href={url + this.state.pid}>
+                  {url + this.state.pid}
                 </a>
               </div>
               <div onClick={this.copyToClipboard} className="item-b">

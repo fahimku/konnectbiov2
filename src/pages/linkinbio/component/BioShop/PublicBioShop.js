@@ -73,7 +73,11 @@ const PublicBioShop = ({ getUserCategories, getUserInfo, page }) => {
         ) : id === "links" ? (
           <BioShopLinks />
         ) : (
-          <BioShopPostGallery selectPost={selectPost} id={id} />
+          <BioShopPostGallery
+            selectPost={selectPost}
+            id={id}
+            profileUser={userData}
+          />
         )}
       </div>
     </div>

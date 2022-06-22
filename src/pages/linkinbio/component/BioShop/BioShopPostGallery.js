@@ -1,38 +1,390 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import { connect } from "react-redux";
-import * as postAct from "../../../../actions/posts";
+import * as bioPostAct from "../../../../actions/bioPost";
 import InfiniteScroll from "react-infinite-scroller";
+import { Link } from "react-router-dom";
+import { Modal } from "react-bootstrap";
+import numeral from "numeral";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
-function BioShopPostGallery({ getPosts, posts, id, selectPost, clearPost }) {
+let gb;
+let children_item;
+const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+function BioShopPostGallery({
+  getNewBioPost,
+  bioPosts,
+  id,
+  selectPost,
+  clearNewBioPost,
+  profileUser,
+}) {
   const [loading, setLoading] = useState(true);
+  const [imageModal, setImageModal] = useState(false);
+  const [circles, setCircles] = useState([]);
+  const [singleItem, setSingleItem] = useState("");
+  const [nextSlide, setNextSlide] = useState(0);
+  const [showShare, setShowShare] = useState(false);
+  const [copy, setCopy] = useState(false);
+
+  const caroselRef = useRef(null);
+
   useEffect(() => {
-    getPosts(1, null, clearPost).then(() => setLoading(false));
+    getNewBioPost(1, null, clearNewBioPost, 18, userInfo.pid).then(() =>
+      setLoading(false)
+    );
   }, []);
 
   useMemo(() => {
     if (id === "allPost") {
       setLoading(true);
-      getPosts(1, null, clearPost).then(() => setLoading(false));
+      getNewBioPost(1, null, clearNewBioPost, 18, userInfo.pid).then(() =>
+        setLoading(false)
+      );
     }
     if (id && id !== "allPost") {
       setLoading(true);
-      getPosts(1, id, clearPost).then(() => setLoading(false));
+      getNewBioPost(1, id, clearNewBioPost, 18, userInfo.pid).then(() =>
+        setLoading(false)
+      );
     }
   }, [id]);
+
+  const childrenAttr = (children) => {
+    let circles = [];
+    children.map((item) => {
+      let obj = item.coordinates[0];
+
+      circles.push(obj);
+    });
+    setCircles(circles);
+  };
+
+  const clickModal = (data) => {
+    setImageModal(true);
+    setSingleItem(data);
+    if (data?.children?.length !== 0) {
+      childrenAttr(data?.children);
+    } else {
+      setCircles([]);
+    }
+
+    gb = data;
+  };
+
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 1,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
+  const discountPercent = (percent, actualAmount) => {
+    let num = percent.replace(/[^0-9]/g, "");
+    return ((num / 100) * actualAmount).toFixed(2);
+  };
+
+  const copyToClipboard = (url) => {
+    let textField = document.createElement("textarea");
+    textField.innerText = url;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand("copy");
+    textField.remove();
+    // setCopy("Copied!");
+    setCopy(true);
+  };
+
+  const ImageModal = (item) => {
+    children_item = item;
+
+    if (item) {
+      return (
+        <Modal
+          show={imageModal}
+          // onHide={() => setAddImageModal(false)}
+          centered
+          className="bio-image-modal iframe-bio-image"
+          animation={false}
+          backdrop={true}
+          keyboard={false}
+        >
+          <Modal.Header>
+            <Modal.Title>{profileUser?.name}</Modal.Title>
+            <button
+              type="button"
+              class="close"
+              onClick={() => {
+                setImageModal(false);
+                setNextSlide(0);
+              }}
+            >
+              <span aria-hidden="true">×</span>
+              <span class="sr-only">Close</span>
+            </button>
+          </Modal.Header>
+          <div className="image-inner-box">
+            {item?.children.length !== 0 ? (
+              <>
+                <img
+                  src={item.media_url}
+                  alt="media_image"
+                  className="rounded image-inner-media"
+                />
+
+                {circles &&
+                  circles.map((item, i) => (
+                    <div
+                      onClick={() => {
+                        setNextSlide(i);
+                        caroselRef.current.goToSlide(i, true);
+                      }}
+                      key={i}
+                      className={`tag-div-main ${
+                        nextSlide === i ? "active-circle" : ""
+                      }`}
+                      style={{ top: item.y, left: item.x }}
+                    >
+                      {i + 1}
+                    </div>
+                  ))}
+              </>
+            ) : (
+              <Link
+                to={{
+                  pathname: item.redirected_url,
+                }}
+                target="_blank"
+                className="image_link"
+              >
+                <img
+                  src={item.media_url}
+                  alt="media_image"
+                  className="rounded image-inner-media"
+                />
+              </Link>
+            )}
+          </div>
+          <Carousel
+            responsive={responsive}
+            swipeable={false}
+            autoPlay={false}
+            arrows={true}
+            beforeChange={(nextSlide) => {
+              setNextSlide(nextSlide);
+            }}
+            ref={caroselRef}
+          >
+            {item.children.map((item, index) => (
+              <div className="inner-image-box row">
+                <div className="col-4 space-grid-right">
+                  <img
+                    alt="product-image"
+                    src={item.media_url}
+                    key={index}
+                    className="img1"
+                  />
+                </div>
+                <div className="col-8 space-grid-left d-flex align-content-between flex-wrap">
+                  <div className="prod-name">{item.ProductName}</div>
+
+                  <div className="prod-sku mt-2">
+                    <div className="prod-skunumber">
+                      #
+                      {item.ProductSku !== ""
+                        ? item.ProductSku
+                        : item.skuDataOther}
+                    </div>
+
+                    <div
+                      className="prod-amount"
+                      style={{
+                        color: "green",
+                        // fontWeight: 'bold',
+                      }}
+                    >
+                      {" "}
+                      {item?.productPromoCodePromo === "KB0"
+                        ? `$${numeral(item?.productAmount).format("0.00")}`
+                        : item?.productPromoCodeDscs?.includes("%")
+                        ? `$${numeral(
+                            item?.productAmount -
+                              discountPercent(
+                                item?.productPromoCodeDscs,
+                                item?.productAmount
+                              )
+                          ).format("0.00")}  `
+                        : `$${numeral(
+                            item?.productAmount -
+                              item?.productPromoCodeDscs.replace(/[^0-9]/g, "")
+                          ).format("0.00")}  `}
+                      {item?.productPromoCodePromo !== "KB0" && (
+                        <div
+                          style={{
+                            color: "red",
+                            textDecorationLine: "line-through",
+                          }}
+                          className="prod-discount"
+                        >
+                          ${numeral(item?.productAmount).format("0.00")}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* <div className="prod-amount">${item.productAmount}</div> */}
+                  </div>
+                  <div className="prod-footer">
+                    <div className="prod-shop">
+                      <div
+                        className="btn btn-primary shop-button btn-block shop13"
+                        onClick={() => {
+                          setShowShare(true);
+                          setCopy("");
+                        }}
+                      >
+                        <i
+                          class="fa fa-share-alt d-inline-block"
+                          aria-hidden="true"
+                        ></i>
+                        Share
+                      </div>
+                    </div>
+                    <div className="prod-shop">
+                      <div className="btn btn-primary shop-button btn-block shop13">
+                        <i
+                          class="fa fa-heart d-inline-block"
+                          aria-hidden="true"
+                        ></i>
+                        Add To My List
+                      </div>
+                    </div>
+                    <div
+                      className="prod-shop"
+                      // onMouseDown={(e) => {
+                      //   if (e.nativeEvent.button === 1) {
+                      //     postClick(
+                      //       children_item.post_id,
+                      //       username,
+                      //       children_item.media_url,
+                      //       children_item.media_type,
+                      //       children_item.caption,
+                      //       children_item.timestamp,
+                      //       userId,
+                      //       children_item.post_type,
+                      //       isIframe,
+                      //       children_item.media_id
+                      //     );
+                      //   }
+                      // }}
+                      // onClick={(ev) => {
+                      //   postClick(
+                      //     children_item.post_id,
+                      //     username,
+                      //     children_item.media_url,
+                      //     children_item.media_type,
+                      //     children_item.caption,
+                      //     children_item.timestamp,
+                      //     userId,
+                      //     children_item.post_type,
+                      //     isIframe,
+                      //     children_item.media_id
+                      //   );
+                      // }}
+                    >
+                      <a
+                        href={item.ProductUrl}
+                        target="_blank"
+                        className="btn btn-primary shop-button btn-block shop13"
+                      >
+                        <i
+                          class="fa fa-shopping-cart d-inline-block"
+                          aria-hidden="true"
+                        ></i>
+                        Shop
+                      </a>
+                    </div>
+                    <Modal
+                      dialogClassName="bio-share-modal"
+                      show={showShare}
+                      onHide={() => {
+                        setShowShare(false);
+                        setCopy("");
+                      }}
+                      centered
+                      backdropClassName="bio-share"
+                    >
+                      <Modal.Header closeButton>
+                        <Modal.Title>Share</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <div className="your-copy-link">
+                          <div className="item-a">
+                            <a
+                              target="_blank"
+                              rel="noreferrer"
+                              href={item.ProductUrl}
+                            >
+                              {item.ProductUrl}
+                            </a>
+                          </div>
+                          {copy ? (
+                            <div disabled={copy} className="item-b copyied">
+                              Copied
+                            </div>
+                          ) : (
+                            <div
+                              disabled={copy}
+                              onClick={() =>
+                                !copy ? copyToClipboard(item.ProductUrl) : null
+                              }
+                              className="item-b"
+                            >
+                              Copy
+                            </div>
+                          )}
+                        </div>
+                        {/* {copy && <div className="copy-error">{copy}</div>} */}
+                      </Modal.Body>
+                    </Modal>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Carousel>
+        </Modal>
+      );
+    }
+  };
 
   if (!loading) {
     return (
       <>
-        {posts.data.length > 0 ? (
+        {bioPosts.data.length > 0 ? (
           <div className="post-box no-gutters affiliate-page">
             <InfiniteScroll
               pageStart={0}
               className="af-rm-mn row"
               loadMore={() =>
                 //            alert('test')
-                getPosts(posts.next?.page, id && id !== "allPost" ? id : null)
+                getNewBioPost(
+                  bioPosts.next?.page,
+                  id && id !== "allPost" ? id : null
+                )
               }
-              hasMore={posts.next?.page ? true : false}
+              hasMore={bioPosts.next?.page ? true : false}
               loader={
                 <div className="col-md-12">
                   <div
@@ -52,21 +404,11 @@ function BioShopPostGallery({ getPosts, posts, id, selectPost, clearPost }) {
               }
               useWindow={false}
             >
-              {posts.data.map((item, i) => (
+              {bioPosts.data.map((item, i) => (
                 <div className="image-post-box-aff" key={i}>
                   <div className="image-post-box-aff-inr">
-                    {item.linked ? (
-                      <div style={styles.linked}>
-                        LINKED{" "}
-                        <span class="glyphicon glyphicon-link chain-icon"></span>
-                      </div>
-                    ) : null}
-
-                    {/* <div style={{...styles.active,backgroundColor:item.active?"green":"red"}}/> */}
                     <div
-                      onClick={() => {
-                        if (!item.linked) selectPost(item.post_id);
-                      }}
+                      onClick={() => clickModal(item)}
                       className={`image-post-box-aff-inr-inr ${
                         item.linked ? "" : ""
                       }`}
@@ -108,6 +450,7 @@ function BioShopPostGallery({ getPosts, posts, id, selectPost, clearPost }) {
             <h4>Not Found</h4>
           </div>
         )}
+        {ImageModal(gb)}
       </>
     );
   } else {
@@ -150,7 +493,7 @@ const styles = {
     borderRadius: 5,
   },
 };
-function mapStateToProps({ posts }) {
-  return { posts };
+function mapStateToProps({ bioPosts }) {
+  return { bioPosts };
 }
-export default connect(mapStateToProps, postAct)(BioShopPostGallery);
+export default connect(mapStateToProps, bioPostAct)(BioShopPostGallery);

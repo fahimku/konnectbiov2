@@ -160,6 +160,7 @@ export function loginUser(creds) {
             recurring_payment_type: res.data.message.recurring_payment_type,
             is_trial_expired: res.data?.message?.is_trial_expired,
             account_type: res.data?.message?.account_type,
+            pid: res.data?.message?.pid,
           };
 
           localStorage.setItem("userInfo", JSON.stringify(userInfo));

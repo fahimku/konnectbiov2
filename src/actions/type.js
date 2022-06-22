@@ -105,3 +105,7 @@ export const GET_SHOPIFY_TRACKER = "getShopifyTracker";
 
 /**********User Info ****************/
 export const GET_USER_INFO = "getUserInfo";
+
+/**************New BIOSHOP*************/
+export const GET_NEW_BIO_POST = "getNewBioPost";
+export const CLEAR_NEW_BIO_POSTS = "clearNewBioPost";

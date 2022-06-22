@@ -335,7 +335,6 @@ class LinkinBio extends React.Component {
                   children: imgData,
                 })
                 .then((response) => {
-                  this.setState({ loading: false });
                   let singlePostIndex =
                     this.state.instagramPosts.data.findIndex(
                       (item) => item.id === this.state.currentPost.id
@@ -702,6 +701,8 @@ class LinkinBio extends React.Component {
   };
 
   render() {
+    console.log(this.state.selectPost, "select");
+    console.log(this.state.galleryPosts, "galleryPosts");
     return (
       <div className="linkin-bio">
         <Row className="app_main_cont_ift main-container">
