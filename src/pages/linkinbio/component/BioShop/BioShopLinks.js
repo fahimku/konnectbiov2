@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 import * as linkAct from "../../../../actions/links";
 import { Link } from "react-router-dom";
 
+const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 function BioShopLinks({ getLinks, links }) {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    getLinks().then(() => setLoading(false));
+    getLinks(userInfo?.pid).then(() => setLoading(false));
   }, []);
 
   return (
