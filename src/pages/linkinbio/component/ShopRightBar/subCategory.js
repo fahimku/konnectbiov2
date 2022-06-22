@@ -1,12 +1,30 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Select } from "antd";
+import * as sub from "../../../../actions/subCategory.action";
 import { createBrowserHistory } from "history";
 export const history = createBrowserHistory({
   forceRefresh: true,
 });
+import { connect } from "react-redux";
 
 const subCategories = () => {
+    const [loader, setLoader] = useState(true);
+
+    useEffect(() => {
+        setLoader(false);
+        getSubCateog()
+          .then((res) => {
+            setLoader(true);
+            setShopifyErr(res);
+          })
+          .catch((res) => {
+            // setShopifyErr(false);
+            // PromoPayload("",false)
+          });
+      }, []);
+
+
 
     fetchCategories = async () => {
         await axios
@@ -62,4 +80,11 @@ const subCategories = () => {
     )
 }
 
-export default subCategories;
+function mapStateToProps({ getPromoRequest, promoRequest }) {
+    return {
+      getPromoRequest,
+      promoRequest,
+    };
+  }
+  
+  export default connect(mapStateToProps, { ...sub })(subCategories);

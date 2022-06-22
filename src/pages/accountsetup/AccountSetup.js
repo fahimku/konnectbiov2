@@ -118,6 +118,7 @@ class AccountSetup extends React.Component {
           response.data.username,
           response.data.access_token
         );
+        
       })
       .catch((err) => {
         toast.error(err.response.data.message, {
@@ -132,12 +133,14 @@ class AccountSetup extends React.Component {
       });
   }
 
-  async updateAccessToken(user_id, username, accessToken) {
+   updateAccessToken = async (user_id, username, accessToken) => {
     await axios.put(`/users/revise/ig/instagram`, {
       user_id: user_id,
       username: username,
       access_token: accessToken,
-    });
+    }).then((res)=>{
+      window.location.reload();
+    })
   }
 
   getPackages = async () => {

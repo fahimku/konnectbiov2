@@ -4,7 +4,7 @@ import {
   GET_SUB_CATEGORIES,
 } from "./type";
 
-export const getUserCategories2 = (categoryId) => async (dispatch) => {
+export const getSubCategories = (categoryId) => async (dispatch) => {
   let promise = new Promise((resolve, reject) => {
     axios
       .get(`${config.baseURLApi}/users/receive/subcategory?category_id=${categoryId}`)
@@ -21,3 +21,5 @@ export const getUserCategories2 = (categoryId) => async (dispatch) => {
   });
   return promise;
 };
+
+
