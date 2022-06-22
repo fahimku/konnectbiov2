@@ -142,7 +142,7 @@ function BioShopPostGallery({
                 <img
                   src={item.media_url}
                   alt="media_image"
-                  className="rounded image-inner-media"
+                  className="image-inner-media"
                 />
 
                 {circles &&
@@ -249,7 +249,7 @@ function BioShopPostGallery({
                   <div className="prod-footer">
                     <div className="prod-shop">
                       <div
-                        className="btn btn-primary shop-button btn-block shop13"
+                        className="btn shop-button btn-block shop13"
                         onClick={() => {
                           setShowShare(true);
                           setCopy("");
@@ -263,7 +263,7 @@ function BioShopPostGallery({
                       </div>
                     </div>
                     <div className="prod-shop">
-                      <div className="btn btn-primary shop-button btn-block shop13">
+                      <div className="btn shop-button btn-block shop13">
                         <i
                           class="fa fa-heart d-inline-block"
                           aria-hidden="true"
@@ -307,7 +307,7 @@ function BioShopPostGallery({
                       <a
                         href={item.ProductUrl}
                         target="_blank"
-                        className="btn btn-primary shop-button btn-block shop13"
+                        className="btn shop-button btn-block shop13"
                       >
                         <i
                           class="fa fa-shopping-cart d-inline-block"
