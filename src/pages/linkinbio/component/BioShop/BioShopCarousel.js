@@ -52,7 +52,7 @@ class BioShopCarousel extends React.Component {
             />
             <span className="heading">{userData.name}</span>
           </div>
-          <div className="header-box col-md-12">
+          {/* <div className="header-box col-md-12">
             <span className="new-heading">
               GET 10% OFF USING{" "}
               <a
@@ -64,23 +64,23 @@ class BioShopCarousel extends React.Component {
               </a>{" "}
               APP
             </span>
-          </div>
+          </div> */}
 
-          {/* {data?.promo && data?.promo !== "KB0" ? (
-          <div className="header-box col-md-12">
-            <span className="sub-heading new-heading">
-              GET {data?.discount} OFF USING{" "}
-              <a
-                href="https://apps.apple.com/app/id1618762939"
-                target="_blank"
-                className="shop-btn"
-              >
-                KBSHOP
-              </a>{" "}
-              APP
-            </span>
-          </div>
-        ) : null} */}
+          {userData?.promo && userData?.promo !== "KB0" ? (
+            <div className="header-box col-md-12">
+              <span className="sub-heading new-heading">
+                GET {userData?.discount} OFF USING{" "}
+                <a
+                  href="https://apps.apple.com/app/id1618762939"
+                  target="_blank"
+                  className="shop-btn"
+                >
+                  KBSHOP
+                </a>{" "}
+                APP
+              </span>
+            </div>
+          ) : null}
           {this.props.allCategory.length === 0 ? (
             <Carousel
               responsive={responsive}

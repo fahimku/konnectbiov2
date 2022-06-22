@@ -338,6 +338,9 @@ img {
   left: 20%;
   top: 10%;
 }
+.bio-share-modal .modal-body {
+  background: transparent;
+}
 /* Responsive Media Queries */
 @media only screen and (min-width: 1024px) and (max-width: 1660px) {
   /* .bio-image-modal .modal-dialog {

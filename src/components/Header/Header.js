@@ -202,10 +202,10 @@ class Header extends React.Component {
     this.setState({ navs: newState });
   }
 
-  copyToClipboard = (e) => {
+  copyToClipboard = (pid) => {
     let textField = document.createElement("textarea");
     const url = config.visitorURL + "/";
-    textField.innerText = url + this.state.pid;
+    textField.innerText = url + pid;
     document.body.appendChild(textField);
     textField.select();
     document.execCommand("copy");
@@ -1021,17 +1021,45 @@ class Header extends React.Component {
         <div className="header-ipad header bg-white">
           <div className="linkin-text">Konnect.Bio</div>
           <div className="left-top-bar">
-            <div className="your-copy-link">
-              <div className="item-a">
-                Bio Link:{" "}
-                <a target="_blank" rel="noreferrer" href={url + this.state.pid}>
-                  {url + this.state.pid}
-                </a>
+            {this.state.username === "" ? (
+              <div className="your-copy-link">
+                <div className="item-a">
+                  Bio Link:{" "}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={url + this.state.pid}
+                  >
+                    {url + this.state.pid}
+                  </a>
+                </div>
+                <div
+                  onClick={this.copyToClipboard(this.state.pid)}
+                  className="item-b"
+                >
+                  Copy
+                </div>
               </div>
-              <div onClick={this.copyToClipboard} className="item-b">
-                Copy
+            ) : (
+              <div className="your-copy-link">
+                <div className="item-a">
+                  Bio Link:{" "}
+                  <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href={url + this.state.username}
+                  >
+                    {url + this.state.username}
+                  </a>
+                </div>
+                <div
+                  onClick={() => this.copyToClipboard(this.state.username)}
+                  className="item-b"
+                >
+                  Copy
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div className="addbio-topbar">
             <button
