@@ -59,6 +59,7 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
+   
     const query = queryString.parse(window.location.search);
     if (query.bio_code) {
       this.tokenVerify(query.bio_code);
@@ -67,12 +68,13 @@ class Login extends React.Component {
     const token = localStorage.getItem("token");
     if (token) {
       const instagramCodeUrl = window.location.href;
+    
       this.props.dispatch(receiveToken(token));
       if (instagramCodeUrl.includes("code")) {
         const code = instagramCodeUrl.split("?")[1].split("=");
-        this.props.history.push("/connect?code=" + code[1]);
+        this.props.history.push("/app/account/setup/?code=" + code[1]);
       } else {
-        this.props.history.push("/app");
+        this.props.history.push("/app/linkinbio");
       }
     }
   }

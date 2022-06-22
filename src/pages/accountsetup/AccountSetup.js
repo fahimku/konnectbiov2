@@ -75,7 +75,11 @@ class AccountSetup extends React.Component {
   }
 
   componentDidMount() {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    
+    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    let access_token = userInfo?.access_token;
+    const instagramCodeUrl = window.location.href;
+    console.log(instagramCodeUrl,"instagramCodeUrl");
     this.setState({ userInfo: userInfo });
     // const params = queryString.parse(window.location.search);
     if (this.props.resetAccount === false) {
@@ -86,10 +90,47 @@ class AccountSetup extends React.Component {
     }
     this.setState({ userId: userInfo?.user_id });
     this.getPackages();
+    if (instagramCodeUrl.includes("code")) {
+      
+      const code = instagramCodeUrl.split("?")[1].split("=");
+      this.setState({ instagramCode: code[1] });
+      this.setState({ isInstagramConnected: true });
+      this.fetchInstagramPostsFirstTime(code[1]);
+    } 
     this.getInstagramUrl();
   }
 
-  
+  async fetchInstagramPostsFirstTime(token) {
+    const userInformation = localStorage.getItem("userInfo");
+    const parseUserInformation = JSON.parse(userInformation);
+    await axios
+      .post(`/social/ig/data/${token}`, { email: parseUserInformation.email })
+      .then((response) => {
+        localStorage.setItem("access_token", response.data.access_token);
+        let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        parseUserInformation.username = response.data.username;
+        this.setState({ username: response.data.username });
+        parseUserInformation.access_token = response.data.access_token;
+        const storeUserInformation = JSON.stringify(parseUserInformation);
+        localStorage.setItem("userInfo", storeUserInformation);
+        this.updateAccessToken(
+          userInfo.user_id,
+          response.data.username,
+          response.data.access_token
+        );
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message, {
+          autoClose: false,
+        });
+        this.setState({
+          errorInsta: err.response.data.message,
+          instagramCode: "",
+        });
+
+        // }
+      });
+  }
 
   getPackages = async () => {
     await axios

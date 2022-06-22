@@ -42,6 +42,7 @@ class MyProfile extends React.Component {
 
   fetchUserInfo = async (userInfo2) => {
     this.setState({ fetchLoading: true });
+   
     await axios
       .get(`/users/receive/userinfo`)
       .then((response) => {
