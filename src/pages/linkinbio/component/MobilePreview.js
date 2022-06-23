@@ -142,7 +142,7 @@ const MobilePreview = ({
           ) : !accessToken && dropdown == "instagram" ? (
             <ConnectInstagram className={"coming_iner"} />
           ) : instaPosts.length === 0 ? (
-            <div class="no-data-found-mobile text-center">No Added</div>
+            <div class="no-data-found-mobile text-center">No Post Added</div>
           ) : (
             <Row>{instaPosts}</Row>
           )}

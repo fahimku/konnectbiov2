@@ -10,7 +10,7 @@ import "react-multi-carousel/lib/styles.css";
 
 let gb;
 let children_item;
-const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+const userInfo = JSON.parse(localStorage.getItem("userInfo"))
 function BioShopPostGallery({
   getNewBioPost,
   bioPosts,
@@ -23,6 +23,7 @@ function BioShopPostGallery({
   const [imageModal, setImageModal] = useState(false);
   const [circles, setCircles] = useState([]);
   const [singleItem, setSingleItem] = useState("");
+  const [Pid, setPid] = useState("");
   const [nextSlide, setNextSlide] = useState(0);
   const [showShare, setShowShare] = useState(false);
   const [copy, setCopy] = useState(false);
@@ -30,7 +31,9 @@ function BioShopPostGallery({
   const caroselRef = useRef(null);
 
   useEffect(() => {
-    getNewBioPost(1, null, clearNewBioPost, 18, userInfo.pid).then(() =>
+    const userInfo = JSON.parse(localStorage.getItem("userInfo")).pid;
+   
+    getNewBioPost(1, null, clearNewBioPost, 18, userInfo).then(() =>
       setLoading(false)
     );
   }, []);
@@ -38,13 +41,15 @@ function BioShopPostGallery({
   useMemo(() => {
     if (id === "allPost") {
       setLoading(true);
-      getNewBioPost(1, null, clearNewBioPost, 18, userInfo.pid).then(() =>
+      const userInfo = JSON.parse(localStorage.getItem("userInfo")).pid;
+      getNewBioPost(1, null, clearNewBioPost, 18,userInfo).then(() =>
         setLoading(false)
       );
     }
     if (id && id !== "allPost") {
       setLoading(true);
-      getNewBioPost(1, id, clearNewBioPost, 18, userInfo.pid).then(() =>
+      const userInfo = JSON.parse(localStorage.getItem("userInfo")).pid;
+      getNewBioPost(1, id, clearNewBioPost, 18, userInfo).then(() =>
         setLoading(false)
       );
     }
@@ -379,9 +384,8 @@ function BioShopPostGallery({
               className="af-rm-mn row"
               loadMore={() =>
                 //            alert('test')
-                getNewBioPost(
-                  bioPosts.next?.page,
-                  id && id !== "allPost" ? id : null
+                //getNewBioPost(1, null, clearNewBioPost, 18, userInfo)
+                getNewBioPost(bioPosts.next?.page,id && id !== "allPost" ? id : null
                 )
               }
               hasMore={bioPosts.next?.page ? true : false}
@@ -404,6 +408,7 @@ function BioShopPostGallery({
               }
               useWindow={false}
             >
+            
               {bioPosts.data.map((item, i) => (
                 <div className="image-post-box-aff" key={i}>
                   <div className="image-post-box-aff-inr">

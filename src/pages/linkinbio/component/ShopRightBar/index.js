@@ -329,7 +329,7 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                     )
                   ) : (
                     "Posted on " +
-                    moment.utc(props.singlePost.timestamp).format("MMM Do YYYY")
+                    moment.utc(props.singlePost.timestamp).format("MMM Do YYYY") 
                   )} */}
                 </p>
               </div>

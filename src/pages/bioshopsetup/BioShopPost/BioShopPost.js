@@ -74,6 +74,7 @@ function BioShopPost({
 }) {
   const [sort, setSort] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [Pid, setPid] = useState();
   const [savePost, setSavePost] = useState([]);
   const [showTopBtn, setShowTopBtn] = useState(false);
   const [sortLoading, setSortLoading] = useState(false);
@@ -83,7 +84,8 @@ function BioShopPost({
   });
 
   useEffect(() => {
-    getNewBioPost(1, null, clearNewBioPost, 100, userInfo.pid).then(() =>
+    const userInfo = JSON.parse(localStorage.getItem("userInfo")).pid;
+    getNewBioPost(1, null, clearNewBioPost, 100, userInfo).then(() =>
       setLoading(false)
     );
     document.body.classList.add("bioshop-body");
@@ -147,9 +149,11 @@ function BioShopPost({
   ];
 
   const handleBioShopLimit = (e, options) => {
+    
     setLoading(true);
     setBioShopLimit(options);
-    getNewBioPost(1, null, clearNewBioPost, options.value, userInfo.pid).then(
+    const userInfo = JSON.parse(localStorage.getItem("userInfo")).pid;
+    getNewBioPost(1, null, clearNewBioPost, options.value, userInfo).then(
       () => setLoading(false)
     );
   };

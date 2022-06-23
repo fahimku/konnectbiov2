@@ -16,10 +16,10 @@ function SubCategories({
     useEffect(() => {
 
         if (subcategoryId.subCategoryId.length) {
-            
+
             id = subcategoryId.subCategoryId[0]
             var subId = id.split(/[, ]+/).pop();
-            
+
             setLoader(false);
             getSubCategories(subId)
                 .then((res) => {
@@ -30,54 +30,57 @@ function SubCategories({
         }
     }, [subcategoryId]);
 
-   const changeCategory = (value) => {
-         console.log(value)
+    useEffect(() => {
+        changeCategory(subcategoryId.subCategoryId);
+
+    }, [subcategoryId.subCategoryId])
+
+    const changeCategory = (value) => {
+        console.log(value)
         categoryData(value);
-           
-      };
 
+    };
     return (
-
         <div className="select-categories mt-3">
-          
+
             {subcategories.length > 0 ?
-            <>
-            
-            <label>Select Sub Category</label>
-            
-            <Select
-                key={Date.now()}
-                //value={subcategoryId.subCategoryId}
-                showSearch
-                style={{ width: "100%" }}
-                placeholder="Select Category"
-                optionFilterProp="children"
-                clearable={false}
-                searchable={false}
-                required
-                onChange={changeCategory}
-                // onFocus={onFocus}
-                // onBlur={onBlur}
-                // onSearch={onSearch}
-                filterOption={(input, option) =>
-                    option.children
-                        .toLowerCase()
-                        .indexOf(input.toLowerCase()) >= 0
-                }
-            // disabled={
-            //     PermissionHelper.categoryCheck() || props.singleLoading
-            //         ? true
-            //         : false
-            // }
-            >
-                {subcategories.map(({ value, label }, i) => (
-                    <Option value={value}>{label}</Option>
-                ))}
-            </Select>
-            </>
-            :
-            <></>
-                }
+                <>
+
+                    <label>Select Sub Category</label>
+
+                    <Select
+                        key={Date.now()}
+                        value={subcategoryId.subCategoryId}
+                        showSearch
+                        style={{ width: "100%" }}
+                        placeholder="Select Category"
+                        optionFilterProp="children"
+                        clearable={false}
+                        searchable={false}
+                        required
+                        onChange={changeCategory}
+                        // onFocus={onFocus}
+                        // onBlur={onBlur}
+                        // onSearch={onSearch}
+                        filterOption={(input, option) =>
+                            option.children
+                                .toLowerCase()
+                                .indexOf(input.toLowerCase()) >= 0
+                        }
+                    // disabled={
+                    //     PermissionHelper.categoryCheck() || props.singleLoading
+                    //         ? true
+                    //         : false
+                    // }
+                    >
+                        {subcategories.map(({ value, label }, i) => (
+                            <Option value={value}>{label}</Option>
+                        ))}
+                    </Select>
+                </>
+                :
+                <></>
+            }
         </div>
     )
 }
