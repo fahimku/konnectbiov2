@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import Chip from "@mui/material/Chip";
 import { styled } from "@mui/material/styles";
@@ -10,6 +10,7 @@ import * as subActions from "../../actions/subscribe";
 import Loader from "../../components/Loader/Loader";
 import { toast } from "react-toastify";
 import BuySubscription from "../subcriptionsetup/component/BuySubscription";
+import ConnectFb from "../connectToFb/connFb"
 import { createBrowserHistory } from "history";
 export const history = createBrowserHistory({
   forceRefresh: true,
@@ -39,8 +40,16 @@ function HashtagsList({
   const [showInterval, setShowInterval] = useState(false);
   const [plan, setPlan] = useState("Yearly");
   const [config, setConfig] = useState([]);
+  const [token, setToken] = useState('');
+const [fbPage, setFbpage] = useState('');
   const [unitAmount, setUnitAmount] = useState("");
 
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("userInfo")).fb_token;
+    const fbPage = JSON.parse(localStorage.getItem("userInfo")).page_token;
+    setToken(token);
+    setFbpage(fbPage);
+}, []);
   React.useEffect(() => {
     if (userInfo1.package.subscription_type !== "Trial") {
       var subType = JSON.parse(localStorage.getItem("userInfo")).package
@@ -183,6 +192,10 @@ function HashtagsList({
         <div className="container-fluid">
           <h4 className="page-title">Profile Monitoring</h4>
           <div className="brand_container_main container">
+          {token === '' && fbPage === '' ?
+        <ConnectFb/>
+        :
+        <>
             <Row>
               <div className="profile_box_main col-md-8">
                 <div className="brand-section dash_block_profile">
@@ -348,6 +361,8 @@ function HashtagsList({
                 </div>
               )}
             </Row>
+            </>
+  }
           </div>
         </div>
       </React.Fragment>

@@ -140,6 +140,8 @@ class AccountSetup extends React.Component {
       access_token: accessToken,
     }).then((res)=>{
       window.location.reload();
+    }).catch((err)=>{
+      console.log(err);
     })
   }
 

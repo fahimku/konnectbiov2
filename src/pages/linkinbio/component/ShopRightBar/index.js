@@ -20,6 +20,8 @@ import { connect } from "react-redux";
 import axios from "axios";
 import numeral from "numeral";
 import ImageShop from "./imageShop";
+import subCategories from "./subCategory";
+import SubCategory from "./subCategory";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -32,6 +34,7 @@ var subPromo;
 var subDiscount;
 var promoList;
 var imgDataSet;
+var SubCategoryId;
 
 function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
   if (typeof props.promo == "object" && props.promo !== null) {
@@ -260,6 +263,11 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
   const imgData = (data) => {
     imgDataSet = data;
   };
+
+  const categoryData = (data) => {
+    SubCategoryId = data;
+    
+  };
   // };
   return (
     <>
@@ -277,7 +285,8 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                   description,
                   amount,
                   imgDataSet,
-                  source
+                  source,
+                  SubCategoryId
                 );
             }
           }}
@@ -529,7 +538,7 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                 ) : null}
 
 
-/////////////Faheeeem
+
                 <div className="select-categories mt-3">
                   <label>Select Category</label>
                   <Select
@@ -557,10 +566,16 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                         : false
                     }
                   >
-                    {props.categories.map(({ value, label }, i) => (
-                      <Option value={value}>{label}</Option>
+                    {props.categories.map(({ value, label,parentId }, i) => (
+                      <Option value={value+" "+parentId}>{label}</Option>
                     ))}
                   </Select>
+                </div>
+                <div>
+                  <SubCategory
+                  subcategoryId={props}
+                  categoryData={categoryData}
+                  />
                 </div>
 
                 {props.singlePost.media_type === "VIDEO" && (
@@ -753,7 +768,8 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                                 description,
                                 amount,
                                 imgDataSet,
-                                source
+                                source,
+                                SubCategoryId
                               )
                             }
                           >

@@ -7,7 +7,7 @@ import {
 export const getSubCategories = (categoryId) => async (dispatch) => {
   let promise = new Promise((resolve, reject) => {
     axios
-      .get(`${config.baseURLApi}/users/receive/subcategory?category_id=${categoryId}`)
+      .get(`${config.baseURLApi}/users/receive/subcategories?category_id=${categoryId}`)
       .then((res) => {
         dispatch({
           type: GET_SUB_CATEGORIES,

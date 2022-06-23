@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Content from "./Content";
 import UpgradeAccount from "../upgradeAccount/UpgradeAccount";
 import SelectPages from "./SelectPages";
+import ConnectFb from "../connectToFb/connFb"
 
 export default function Index() {
   const [loading, setLoading] = useState(true);
@@ -121,6 +122,10 @@ export default function Index() {
   };
   return (
     <div>
+        {facebookUserAccessToken === '' && selectedPage === '' ?
+        <ConnectFb/>
+        :
+        <>
       {loading ? (
         <p>...Loading</p>
       ) : facebookUserAccessToken ? (
@@ -150,6 +155,8 @@ export default function Index() {
       ) : (
         <UpgradeAccount />
       )}
+      </>
+}
     </div>
   );
 }

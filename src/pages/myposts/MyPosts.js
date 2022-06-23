@@ -7,10 +7,24 @@ import * as instagramDataActions from "../../actions/instagramUserData";
 import Loader from "../../components/Loader/Loader";
 import InstagramPostDataComponent from "./InstagramPostDataComponent";
 import Placeholder from "../../images/placeholder.svg";
+import ConnectFb from "../connectToFb/connFb";
+
+
 
 function AllPostDataComponent({ getInstagramUserData, instagramUserData }) {
+const [token, setToken] = useState('');
+const [fbPage, setFbpage] = useState('');
   useEffect(() => {
+    
+    const token = JSON.parse(localStorage.getItem("userInfo")).fb_token;
+    const fbPage = JSON.parse(localStorage.getItem("userInfo")).page_token;
+    setToken(token);
+    setFbpage(fbPage);
+
+    if(token ==='' && fbPage ===''){
     getInstagramUserData();
+
+   }
   }, []);
   const instagramData = instagramUserData.instagram_user;
   function intlFormat(num) {
@@ -26,6 +40,10 @@ function AllPostDataComponent({ getInstagramUserData, instagramUserData }) {
       <div class="post-instagram analytics-page mt-3">
         <h4 className="page-title">My Posts</h4>
 
+        {token === '' && fbPage === '' ?
+        <ConnectFb/>
+        :
+        <>
         <Card sx={{ marginTop: 2, marginBottom: 2 }} className="card-shadow">
           <CardContent>
             {instagramUserData.loading ? (
@@ -135,6 +153,8 @@ function AllPostDataComponent({ getInstagramUserData, instagramUserData }) {
           </CardContent>
         </Card>
         <InstagramPostDataComponent />
+        </>
+}
       </div>
     </div>
   );

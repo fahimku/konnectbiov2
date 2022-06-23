@@ -55,7 +55,9 @@ class LinkinBio extends React.Component {
       categories: [],
       category: [],
       subCategories: [],
+      subCategoryPayload:[],
       subCategory: [],
+      subCategoryUpdate: [],
       singlePost: "",
       dbSinglePost: "",
       dbCategoryName: "",
@@ -103,6 +105,7 @@ class LinkinBio extends React.Component {
   componentWillMount() {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     savedAccessToken = userInfo.access_token;
+    
     if (!savedAccessToken) {
       this.fetchGalleryPosts();
     } else {
@@ -125,6 +128,7 @@ class LinkinBio extends React.Component {
         username: this.state.username,
       })
       .then((response) => {
+        console.log(response,"____________");
         this.setState({ postLoading: false });
         this.setState({ instagramPosts: response.data });
         if (response.data)
@@ -248,9 +252,9 @@ class LinkinBio extends React.Component {
       });
   };
 
-  savePost = (i, Subpromo, SubDsc, description, amount, imgData, source) => {
+  savePost = (i, Subpromo, SubDsc, description, amount, imgData, source,subcategoryId) => {
     let newRedirectedUrl;
-
+     this.setState({subCategory: subcategoryId.split()})
     if (this.state.redirectedUrl.includes("http://")) {
       newRedirectedUrl = this.state.redirectedUrl;
     } else if (this.state.redirectedUrl.includes("https://")) {
@@ -390,10 +394,12 @@ class LinkinBio extends React.Component {
     description,
     amount,
     imgData,
-    source
+    source,
+    subcategoryId
   ) => {
     let newCategory;
     let oldCategory = this.state.category;
+    let subCategory = subcategoryId.split()
     if (
       typeof this.state.category === "string" ||
       this.state.category instanceof String
@@ -440,7 +446,7 @@ class LinkinBio extends React.Component {
           .put(`/posts/revise/${id}`, {
             redirected_url: url,
             categories: newCategory,
-            sub_categories: this.state.subCategory,
+            sub_categories: subCategory,
             post_type: this.state.postType,
             start_date: this.state.startDate,
             end_date: this.state.endDate,
@@ -622,7 +628,10 @@ class LinkinBio extends React.Component {
 
   changeCategory = (category) => {
     if (category) {
-      this.setState({ category: category.split() });
+      var id = category.substring(0, category.indexOf(' '));
+       var subId = category.split(/[, ]+/).pop();
+       this.setState({ category: id.split() });
+       this.setState({subCategoryPayload: subId.split()})
     }
   };
 
@@ -693,6 +702,7 @@ class LinkinBio extends React.Component {
         categories={this.state.categories}
         changeCategory={this.changeCategory}
         category={this.state.category}
+        subCategoryId={this.state.subCategoryPayload}
         startDate={this.state.startDate}
         endDate={this.state.endDate}
         subCategory={this.state.subCategory}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
@@ -6,6 +6,7 @@ import Loader from "../../../components/Loader/Loader";
 import * as instaPostActions from "../../../actions/instaPost";
 import { toast } from "react-toastify";
 import Dropzone from "react-dropzone-uploader";
+import ConnectFb from "../../connectToFb/connFb";
 import "react-dropzone-uploader/dist/styles.css";
 import { getDroppedOrSelectedFiles } from "html5-file-selector";
 import { ProgressBar } from "react-bootstrap";
@@ -17,6 +18,17 @@ function HashtagsList({ createMedia, title }) {
   const [bytesSize, setBytesize] = useState('');
   const [ImgMsg, setImgMsg] = useState('')
   const [flag, setFlag] = useState(false);
+
+  const [token, setToken] = useState('');
+const [fbPage, setFbpage] = useState('');
+  useEffect(() => {
+    
+    const token = JSON.parse(localStorage.getItem("userInfo")).fb_token;
+    const fbPage = JSON.parse(localStorage.getItem("userInfo")).page_token;
+    setToken(token);
+    setFbpage(fbPage);
+
+  }, []);
 
   const [fields, setFields] = useState({
     title: "",
@@ -177,6 +189,7 @@ function HashtagsList({ createMedia, title }) {
     const textMsg = files.length > 0 ? "Upload Again" : "Browse Image";
     return (
       <>
+      
         <div className="upload_area_2">
           <span class="pt-1 pb-4 glyphicon glyphicon-cloud-upload	fa-4x"></span>
           <h4>Drag & Drop Your Image Here</h4>
@@ -197,6 +210,7 @@ function HashtagsList({ createMedia, title }) {
             />
           </label>
         </div>
+      
       </>
     );
   };
@@ -206,7 +220,12 @@ function HashtagsList({ createMedia, title }) {
       <div className="container-fluid">
         <h4 className="page-title">{title}</h4>
 
+
         <div className="brand_container_main container">
+        {token === '' && fbPage === '' ?
+        <ConnectFb/>
+        :
+        <>
           <Row>
             <div className="profile_box_main col-md-8">
               <div className=" brand-section dash_block_profile dash_content_profile">
@@ -262,6 +281,8 @@ function HashtagsList({ createMedia, title }) {
               </div>
             </div>
           </Row>
+          </>
+}
         </div>
       </div>
       {/* <div className="container-fluid">
