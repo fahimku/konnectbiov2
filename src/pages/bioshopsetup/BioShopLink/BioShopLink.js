@@ -19,7 +19,7 @@ const SortableItem = sortableElement(({ value }) => (
 const SortableContainer = sortableContainer(({ children }) => {
   return <ul className="biolink-area row">{children}</ul>;
 });
-
+const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 function BioShopLink({ getLinks, links }) {
   const [sort, setSort] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -28,7 +28,7 @@ function BioShopLink({ getLinks, links }) {
   const [sortLoading, setSortLoading] = useState(false);
 
   useEffect(() => {
-    getLinks().then(() => setLoading(false));
+    getLinks(userInfo?.pid).then(() => setLoading(false));
   }, []);
 
   useEffect(() => {

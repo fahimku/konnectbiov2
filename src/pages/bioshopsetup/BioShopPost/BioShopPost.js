@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import * as postAct from "../../../actions/posts";
+import * as bioPostAct from "../../../actions/bioPost";
 import {
   SortableContainer,
   SortableElement,
@@ -64,8 +64,14 @@ const SortableList = SortableContainer((props) => {
     </div>
   );
 });
-
-function BioShopPost({ getPosts, posts, id, selectPost, clearPost }) {
+const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+function BioShopPost({
+  getNewBioPost,
+  bioPosts,
+  id,
+  selectPost,
+  clearNewBioPost,
+}) {
   const [sort, setSort] = useState(false);
   const [loading, setLoading] = useState(true);
   const [savePost, setSavePost] = useState([]);
@@ -77,13 +83,15 @@ function BioShopPost({ getPosts, posts, id, selectPost, clearPost }) {
   });
 
   useEffect(() => {
-    getPosts(1, null, clearPost, 100).then(() => setLoading(false));
+    getNewBioPost(1, null, clearNewBioPost, 100, userInfo.pid).then(() =>
+      setLoading(false)
+    );
     document.body.classList.add("bioshop-body");
   }, []);
 
   useEffect(() => {
-    setSavePost(posts.data);
-  }, [posts]);
+    setSavePost(bioPosts.data);
+  }, [bioPosts]);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -141,7 +149,9 @@ function BioShopPost({ getPosts, posts, id, selectPost, clearPost }) {
   const handleBioShopLimit = (e, options) => {
     setLoading(true);
     setBioShopLimit(options);
-    getPosts(1, null, clearPost, options.value).then(() => setLoading(false));
+    getNewBioPost(1, null, clearNewBioPost, options.value, userInfo.pid).then(
+      () => setLoading(false)
+    );
   };
 
   return (
@@ -167,7 +177,7 @@ function BioShopPost({ getPosts, posts, id, selectPost, clearPost }) {
                   label: "Limit - " + bioShopLimit.label,
                 }}
                 isDisabled={
-                  sortLoading || loading || posts.next?.page ? false : true
+                  sortLoading || loading || bioPosts.next?.page ? false : true
                 }
               />
             </div>
@@ -260,7 +270,7 @@ function BioShopPost({ getPosts, posts, id, selectPost, clearPost }) {
   );
 }
 
-function mapStateToProps({ posts }) {
-  return { posts };
+function mapStateToProps({ bioPosts }) {
+  return { bioPosts };
 }
-export default connect(mapStateToProps, postAct)(BioShopPost);
+export default connect(mapStateToProps, bioPostAct)(BioShopPost);
