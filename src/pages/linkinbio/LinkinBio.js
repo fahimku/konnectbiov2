@@ -65,6 +65,7 @@ class LinkinBio extends React.Component {
       currentPost: "",
       subdescription: "",
       subamount: 0,
+      subIdCategory:"",
       url: config.visitorURL + "/",
       nextPageUrl: "",
       username: username,
@@ -218,6 +219,8 @@ class LinkinBio extends React.Component {
         this.setState({ updatedAt: response.data.message.updated_at });
         this.setState({ media_id: media_id });
         let category = response.data.message.categories[0].category_id;
+        let Subcategory = response.data.message.sub_categories[0].sub_category_id;
+        this.setState({subIdCategory: Subcategory})
         this.setState({ category: category });
         this.changeDateRange(
           response.data.message.start_date,
@@ -628,10 +631,18 @@ class LinkinBio extends React.Component {
 
   changeCategory = (category) => {
     if (category) {
-      var id = category.substring(0, category.indexOf(' '));
-       var subId = category.split(/[, ]+/).pop();
-       this.setState({ category: id.split() });
-       this.setState({subCategoryPayload: subId.split()})
+      // var id = category.substring(0, category.indexOf(' '));
+      //  var subId = category.split(/[, ]+/).pop();
+      
+       this.setState({category: category.split()}, () => {
+        this.state.categories.map((item)=>{
+          if(item.value == this.state.category){
+          this.setState({subCategoryPayload: item.parentId})
+          }
+         })
+    });
+     
+       
     }
   };
 
@@ -703,6 +714,7 @@ class LinkinBio extends React.Component {
         changeCategory={this.changeCategory}
         category={this.state.category}
         subCategoryId={this.state.subCategoryPayload}
+        IdSub ={this.state.subIdCategory}
         startDate={this.state.startDate}
         endDate={this.state.endDate}
         subCategory={this.state.subCategory}

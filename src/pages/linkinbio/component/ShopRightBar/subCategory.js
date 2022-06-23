@@ -3,7 +3,7 @@ import * as sub from "../../../../actions/subCategory.action";
 import { connect } from "react-redux";
 import { Select } from "antd";
 const { Option } = Select;
-var id = "";
+var updateCategory = "";
 var Categories = [];
 function SubCategories({
     getSubCategories,
@@ -11,17 +11,21 @@ function SubCategories({
     subcategoryId,
     categoryData
 }) {
-
     const [loader, setLoader] = useState(true);
+    const [data, setData] = useState('');
     useEffect(() => {
 
-        if (subcategoryId.subCategoryId.length) {
-
-            id = subcategoryId.subCategoryId[0]
-            var subId = id.split(/[, ]+/).pop();
+ 
+if(subcategoryId.category !=''){
+    updateCategory = subcategoryId.category;
+}
+        if (subcategoryId.subCategoryId != '') {
+          
+            // id = subcategoryId.subCategoryId[0]
+            // var subId = id.split(/[, ]+/).pop();
 
             setLoader(false);
-            getSubCategories(subId)
+            getSubCategories(subcategoryId.subCategoryId)
                 .then((res) => {
                     setLoader(true);
                 })
@@ -29,31 +33,46 @@ function SubCategories({
                 });
         }
     }, [subcategoryId]);
+  
 
     useEffect(() => {
-        changeCategory(subcategoryId.subCategoryId);
+       if(subcategoryId.category !='' ){
+        subcategoryId.categories.map((item)=>{
+            if(item.value == updateCategory){
+            setData(item.parentId)
+            getSubCategories(item.parentId)
+            .then((res) => {
+                setLoader(true);
+            })
+            .catch((res) => {
+            });
+            }
+       })
+    }
 
-    }, [subcategoryId.subCategoryId])
+    }, [subcategoryId.IdSub])
 
     const changeCategory = (value) => {
-        console.log(value)
+        setData(value);
+        console.log(data)
         categoryData(value);
 
     };
     return (
         <div className="select-categories mt-3">
 
-            {subcategories.length > 0 ?
+            {subcategories.length > 0 || subcategoryId.IdSub != ""?
                 <>
 
                     <label>Select Sub Category</label>
 
                     <Select
+                        
                         key={Date.now()}
-                        value={subcategoryId.subCategoryId}
+                        value={data}
                         showSearch
                         style={{ width: "100%" }}
-                        placeholder="Select Category"
+                        placeholder="Select Sub Category"
                         optionFilterProp="children"
                         clearable={false}
                         searchable={false}

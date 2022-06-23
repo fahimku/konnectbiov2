@@ -567,7 +567,7 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                     }
                   >
                     {props.categories.map(({ value, label,parentId }, i) => (
-                      <Option value={value+" "+parentId}>{label}</Option>
+                      <Option value={value}>{label}</Option>
                     ))}
                   </Select>
                 </div>
