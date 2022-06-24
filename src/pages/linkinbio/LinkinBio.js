@@ -129,7 +129,7 @@ class LinkinBio extends React.Component {
         username: this.state.username,
       })
       .then((response) => {
-        console.log(response,"____________");
+    
         this.setState({ postLoading: false });
         this.setState({ instagramPosts: response.data });
         if (response.data)

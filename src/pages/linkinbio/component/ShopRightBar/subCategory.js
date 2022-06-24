@@ -5,6 +5,7 @@ import { Select } from "antd";
 const { Option } = Select;
 var updateCategory = "";
 var Categories = [];
+let IdData = "";
 function SubCategories({
     getSubCategories,
     subcategories,
@@ -35,26 +36,38 @@ if(subcategoryId.category !=''){
     }, [subcategoryId]);
   
 
+useEffect(() =>{
+    if(IdData != ""){
+    GetSubCategory(IdData)
+    }
+},[IdData])
+
     useEffect(() => {
        if(subcategoryId.category !='' ){
         subcategoryId.categories.map((item)=>{
             if(item.value == updateCategory){
-            setData(item.parentId)
-            getSubCategories(item.parentId)
+             IdData = item.parentId;
+           
+             }
+       })
+    }
+
+    }, [subcategoryId.category])
+
+    const GetSubCategory = (val) =>{
+        if(val != ""){
+        getSubCategories(val)
             .then((res) => {
+                setData(IdData)
                 setLoader(true);
             })
             .catch((res) => {
             });
-            }
-       })
+        }
+
     }
-
-    }, [subcategoryId.IdSub])
-
     const changeCategory = (value) => {
         setData(value);
-        console.log(data)
         categoryData(value);
 
     };

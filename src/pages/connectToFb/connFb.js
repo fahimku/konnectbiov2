@@ -18,7 +18,7 @@ function ConnectFb() {
           class="btn btn-primary"
           onClick={() => history.push("/app/account/setup")}
         >
-          Facebook Setup
+          Connect Facebook
         </button>
       </div>
     </div>
