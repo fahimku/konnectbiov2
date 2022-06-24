@@ -10,7 +10,7 @@ import "react-multi-carousel/lib/styles.css";
 
 let gb;
 let children_item;
-const userInfo = JSON.parse(localStorage.getItem("userInfo"))
+const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 function BioShopPostGallery({
   getNewBioPost,
   bioPosts,
@@ -32,8 +32,8 @@ function BioShopPostGallery({
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo")).pid;
-   
-    getNewBioPost(1, null, clearNewBioPost, 18, userInfo).then(() =>
+
+    getNewBioPost(1, null, clearNewBioPost, 15, userInfo).then(() =>
       setLoading(false)
     );
   }, []);
@@ -42,14 +42,14 @@ function BioShopPostGallery({
     if (id === "allPost") {
       setLoading(true);
       const userInfo = JSON.parse(localStorage.getItem("userInfo")).pid;
-      getNewBioPost(1, null, clearNewBioPost, 18,userInfo).then(() =>
+      getNewBioPost(1, null, clearNewBioPost, 15, userInfo).then(() =>
         setLoading(false)
       );
     }
     if (id && id !== "allPost") {
       setLoading(true);
       const userInfo = JSON.parse(localStorage.getItem("userInfo")).pid;
-      getNewBioPost(1, id, clearNewBioPost, 18, userInfo).then(() =>
+      getNewBioPost(1, id, clearNewBioPost, 15, userInfo).then(() =>
         setLoading(false)
       );
     }
@@ -383,9 +383,10 @@ function BioShopPostGallery({
               pageStart={0}
               className="af-rm-mn row"
               loadMore={() =>
-                //            alert('test')
                 //getNewBioPost(1, null, clearNewBioPost, 18, userInfo)
-                getNewBioPost(bioPosts.next?.page,id && id !== "allPost" ? id : null
+                getNewBioPost(
+                  bioPosts.next?.page,
+                  id && id !== "allPost" ? id : null
                 )
               }
               hasMore={bioPosts.next?.page ? true : false}
@@ -406,9 +407,8 @@ function BioShopPostGallery({
                   </div>
                 </div>
               }
-              useWindow={false}
+              // useWindow={false}
             >
-            
               {bioPosts.data.map((item, i) => (
                 <div className="image-post-box-aff" key={i}>
                   <div className="image-post-box-aff-inr">
