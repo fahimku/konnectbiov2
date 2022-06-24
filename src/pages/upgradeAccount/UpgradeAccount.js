@@ -17,7 +17,7 @@ export default function upgradeAccount() {
         </p> */}
         <button
           class="btn btn-primary"
-          onClick={() => history.push("/app/account/setup")}
+          onClick={() => history.push("/app/subcription/setup")}
         >
           Connect Facebook
         </button>

@@ -8,12 +8,16 @@ import moment from "moment";
 import numeral from "numeral";
 // import InfiniteScroll from "react-infinite-scroll-component";
 import InfiniteScroll from "react-infinite-scroller";
+import ConnectFb from "../../connectToFb/connFb";
 
 import Select from "react-select";
 // import { DatePicker } from "antd";
 // const { RangePicker } = DatePicker;
 // const dateFormat = "YYYY-MM-DD";
 
+
+    const token = JSON.parse(localStorage.getItem("userInfo"))?.fb_token;
+    const fbPage = JSON.parse(localStorage.getItem("userInfo"))?.page_token;
 function InstagramDataComponent({
   getInstagramAnalytic,
   instagramAnalytic,
@@ -48,11 +52,21 @@ function InstagramDataComponent({
 
   window.addEventListener("scroll", checkScrollTop);
 
+
   useEffect(() => {
-    getInstagramAnalytic(null, null, 300).then(() => {
-      setClearLoading(false);
-    });
+    
+
+
+    if(token !='' && fbPage !=''){
+    
+      getInstagramAnalytic(null, null, 300).then(() => {
+        setClearLoading(false);
+
+   })
+  }
   }, []);
+
+
   function onSubmitData(e) {
     e.preventDefault();
     setSearchLoading(true);
@@ -118,6 +132,10 @@ function InstagramDataComponent({
   return (
     <>
       <div class="instagram-analytics">
+      {token != '' && fbPage != '' ?
+        <ConnectFb/>
+        :
+        <>
         {instagramAnalytic?.loading ? (
           <Loader size={30} />
         ) : instagramAnalytic?.insta_data?.length > 0 ? (
@@ -406,6 +424,8 @@ function InstagramDataComponent({
             <NoDataFound />
           </div>
         )}
+        </>
+}
       </div>
     </>
   );

@@ -8,7 +8,10 @@ import InfiniteScroll from "react-infinite-scroller";
 import Select from "react-select";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Box from "./Box";
+import ConnectFb from "../connectToFb/connFb";
 
+var token = JSON.parse(localStorage.getItem("userInfo"))?.fb_token;
+var fbPage = JSON.parse(localStorage.getItem("userInfo"))?.page_token;
 function InstagramPostDataComponent({
   getInstagramPostData,
   instagramPostData,
@@ -37,12 +40,19 @@ function InstagramPostDataComponent({
   // };
 
   // window.addEventListener("scroll", checkScrollTop);
-
+  
   useEffect(() => {
-    getInstagramPostData().then(() => {
-      setClearLoading(false);
-    });
+    
+
+
+    if(token !='' && fbPage !=''){
+      getInstagramPostData().then(() => {
+        setClearLoading(false);
+
+   })
+  }
   }, []);
+
   function onSubmitData(e) {
     e.preventDefault();
     setSearchLoading(true);
@@ -88,6 +98,10 @@ function InstagramPostDataComponent({
   return (
     <>
       <div class="instagram-analytics">
+      {token != '' && fbPage != '' ?
+        <ConnectFb/>
+        :
+        <>
         {instagramPostData?.loading ? (
           <Loader size={30} />
         ) : instagramPostData?.insta_data?.length > 0 ? (
@@ -351,6 +365,8 @@ function InstagramPostDataComponent({
         ) : (
           <NoDataFound />
         )}
+        </>
+}
       </div>
     </>
   );
