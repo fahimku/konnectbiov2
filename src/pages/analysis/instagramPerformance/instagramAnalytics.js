@@ -20,13 +20,9 @@ class InstagramAnalytics extends React.Component {
       <>
         <div className="container-fluid">
           <h4 className="page-title">Post Performance</h4>
-          {token == '' && fbPage == '' ?
-        <ConnectFb/>
-        :
-        <>
+          
           <InstagramDataComponent username={this.state.username} />
-        </>
-  }
+        
         </div>
       </>
     );

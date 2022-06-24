@@ -16,15 +16,15 @@ const [token, setToken] = useState('');
 const [fbPage, setFbpage] = useState('');
   useEffect(() => {
     
-    const token = JSON.parse(localStorage.getItem("userInfo")).fb_token;
-    const fbPage = JSON.parse(localStorage.getItem("userInfo")).page_token;
-    setToken(token);
-    setFbpage(fbPage);
+    // const token = JSON.parse(localStorage.getItem("userInfo")).fb_token;
+    // const fbPage = JSON.parse(localStorage.getItem("userInfo")).page_token;
+    // setToken(token);
+    // setFbpage(fbPage);
 
-    if(token ==='' && fbPage ===''){
+//    if(token ==='' && fbPage ===''){
     getInstagramUserData();
 
-   }
+  // }
   }, []);
   const instagramData = instagramUserData.instagram_user;
   function intlFormat(num) {
@@ -40,10 +40,7 @@ const [fbPage, setFbpage] = useState('');
       <div class="post-instagram analytics-page mt-3">
         <h4 className="page-title">My Posts</h4>
 
-        {token === '' && fbPage === '' ?
-        <ConnectFb/>
-        :
-        <>
+    
         <Card sx={{ marginTop: 2, marginBottom: 2 }} className="card-shadow">
           <CardContent>
             {instagramUserData.loading ? (
@@ -153,8 +150,7 @@ const [fbPage, setFbpage] = useState('');
           </CardContent>
         </Card>
         <InstagramPostDataComponent />
-        </>
-}
+
       </div>
     </div>
   );
