@@ -100,7 +100,7 @@ class MyLinks extends React.Component {
     await axios
       .get(`/posts/receive?user=${username}&post_type=link`)
       .then((response) => {
-        const myLinks = [...this.state.myLinks, ...response.data.message];
+        const myLinks = [...response.data.message, ...this.state.myLinks];
         const uniqueMyLinks = [
           ...new Map(myLinks.map((item) => [item["caption"], item])).values(),
         ];
@@ -197,16 +197,17 @@ class MyLinks extends React.Component {
     await axios
       .delete(`posts/remove/${id}?post_type=link`)
       .then(() => {
-        const myLinks = this.state.myLinks.filter(function (item) {
-          return item.post_id !== id;
-        });
-        this.setState({ myLinks: myLinks });
+        // const myLinks = this.state.myLinks.filter(function (item) {
+        //   return item.post_id !== id;
+        // });
+        // this.setState({ myLinks: myLinks });
+
         toast.success("Link removed successfully.");
         this.setState({ loading: false });
         this.setState({ confirmModal: false });
         this.setState({ singlePostLoading: false });
         this.preview(false, "");
-        //        window.location.reload();
+        window.location.reload();
         //this.addNewLink();
       })
       .catch(() => {
