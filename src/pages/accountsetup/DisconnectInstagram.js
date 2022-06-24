@@ -70,7 +70,8 @@ export default function DisconnectInstagram(props) {
                           props.modal(true);
                         }}
                       >
-                        Disconnect Instagram
+                        <i className="fa fa-instagram" />
+                        &nbsp;&nbsp; Disconnect Instagram
                       </Button>
                     </>
                   ) : (

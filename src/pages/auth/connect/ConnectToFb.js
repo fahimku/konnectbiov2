@@ -142,10 +142,11 @@ function ConnectToFb({ username, username1, setFbPageLocal, userId }) {
   };
   return (
     <div class="conn-set-inner">
-       {facebookUserAccessToken && complete ? (
-          <span className="connection-status-badge-green">Connected</span>
-        ) : (<span className="connection-status-badge-red">Not Connected</span>)
-        }
+      {facebookUserAccessToken && complete ? (
+        <span className="connection-status-badge-green">Connected</span>
+      ) : (
+        <span className="connection-status-badge-red">Not Connected</span>
+      )}
       <div class="con-set-inner-1">
         <div class="con-set-inner-2">
           <h5>Facebook Connection</h5>
@@ -211,7 +212,7 @@ function ConnectToFb({ username, username1, setFbPageLocal, userId }) {
                           setModal(true);
                         }}
                       >
-                        Disconnect facebook
+                        Disconnect Facebook
                       </Button>
                     </div>
                   )
@@ -231,7 +232,7 @@ function ConnectToFb({ username, username1, setFbPageLocal, userId }) {
                       className="btn-block cat-right-btn"
                     >
                       <i className="fa fa-facebook" />
-                      &nbsp;&nbsp; Connect facebook
+                      &nbsp;&nbsp; Connect Facebook
                     </Button>
                   </>
                 )}
