@@ -1034,7 +1034,7 @@ class Header extends React.Component {
                   </a>
                 </div>
                 <div
-                  onClick={this.copyToClipboard(this.state.pid)}
+                  onClick={() => this.copyToClipboard(this.state.pid)}
                   className="item-b"
                 >
                   Copy
