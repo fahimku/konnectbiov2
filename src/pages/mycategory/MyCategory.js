@@ -573,6 +573,7 @@ class MyCategory extends React.Component {
                               onChange={(options, e) =>
                                 this.handleSelect(e, options)
                               }
+                              isClearable={false}
                             />
                           )}
                           <span className="text-danger">

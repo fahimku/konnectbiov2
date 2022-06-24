@@ -155,7 +155,7 @@ class BioShopCarousel extends React.Component {
               >
                 <button className="btn-link">
                   <img
-                    src={userInfo?.menu[1]?.image_url}
+                    src={userInfo?.menu[2]?.image_url}
                     width="56px"
                     height="56px"
                     alt="logo"
@@ -245,7 +245,7 @@ class BioShopCarousel extends React.Component {
               >
                 <button className="btn-link">
                   <img
-                    src={userInfo?.menu[1]?.image_url}
+                    src={userInfo?.menu[2]?.image_url}
                     width="56px"
                     height="56px"
                     alt="logo"

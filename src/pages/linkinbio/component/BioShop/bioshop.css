@@ -261,7 +261,9 @@ img {
   font-size: 20px !important;
   font-weight: bold;
 }
-
+.main-carousel .react-multiple-carousel__arrow::before {
+  top: -7px;
+}
 .active-circle {
   background-color: red !important;
   color: #fff !important;
