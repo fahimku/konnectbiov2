@@ -572,7 +572,7 @@ span.fa.fa-times.ift-cancel {
 }
 .show_ift_iframe {
   width: 100%;
-  height: 98%;
+  /* height: 70%; */
 }
 .header-box {
   margin-top: 0;

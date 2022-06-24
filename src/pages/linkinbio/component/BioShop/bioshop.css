@@ -4,16 +4,28 @@
   font-family: "Nunito Sans", sans-serif !important;
 }
 .bioshop-fixed {
-  height: 90%;
+  /* height: 90%;
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
-  position: relative;
+  position: relative; */
+  /* max-height: 860px; */
+  /* overflow-y: auto;
+  overflow-x: hidden; */
 }
 .bioshop-fixed::-webkit-scrollbar {
-  display: none;
+  /* display: none; */
 }
 .bioshop-body {
   position: relative;
+}
+.bioshop-fixed .af-rm-mn {
+  max-height: 630px;
+  /* height: 90%; */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.bioshop-fixed .af-rm-mn::-webkit-scrollbar {
+  display: none;
 }
 .header-fixed {
   left: 0px;
@@ -261,7 +273,9 @@ img {
   font-size: 20px !important;
   font-weight: bold;
 }
-
+.main-carousel .react-multiple-carousel__arrow::before {
+  top: -7px;
+}
 .active-circle {
   background-color: red !important;
   color: #fff !important;
