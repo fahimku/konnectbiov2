@@ -19,7 +19,7 @@ function SubCategories({
     const [data, setData] = useState('');
     const [handleIdSub, setSubId] = useState('');
 
-  
+  console.log(subcategoryId,"------------------------------");
 
     useEffect(() => {
         setData('')
