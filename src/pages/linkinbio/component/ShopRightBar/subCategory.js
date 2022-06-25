@@ -18,6 +18,7 @@ function SubCategories({
 
  
 if(subcategoryId.category !=''){
+    setData('')
     updateCategory = subcategoryId.category;
 }
         if (subcategoryId.subCategoryId != '') {
@@ -56,20 +57,36 @@ useEffect(() =>{
 
     const GetSubCategory = (val) =>{
         if(val != ""){
+            if(subcategoryId.subCategoryId!=""){
+                getSubCategories(val)
+                .then((res) => {
+                    // setData(IdData)
+                    setLoader(true);
+                })
+                .catch((res) => {
+                });
+            }
+            else{
         getSubCategories(val)
             .then((res) => {
-                setData(IdData)
+                // setData(IdData)
                 setLoader(true);
             })
             .catch((res) => {
             });
         }
+        }
 
     }
     const changeCategory = (value) => {
+       if(value === null){
+        setData("ALL");
+        
+       }
+       else{
         setData(value);
         categoryData(value);
-
+       }
     };
     return (
         <div className="select-categories mt-3">
@@ -82,7 +99,7 @@ useEffect(() =>{
                     <Select
                         
                         key={Date.now()}
-                        value={data}
+                        value={subcategoryId.IdSub != "" ? "ALL" : data}
                         showSearch
                         style={{ width: "100%" }}
                         placeholder="Select Sub Category"

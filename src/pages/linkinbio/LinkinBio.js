@@ -201,6 +201,9 @@ class LinkinBio extends React.Component {
     await axios
       .get(`/posts/retrieve/${media_id}`)
       .then((response) => {
+       
+        let category = response.data.message.categories[0].category_id;
+        this.setState({ category: category });
         this.setState({ singleLoading: false });
         if (userInfo?.account_type == "influencer") {
         } else {
@@ -218,10 +221,10 @@ class LinkinBio extends React.Component {
         this.setState({ postType: response.data.message.post_type });
         this.setState({ updatedAt: response.data.message.updated_at });
         this.setState({ media_id: media_id });
-        let category = response.data.message.categories[0].category_id;
-        let Subcategory = response.data.message.sub_categories[0].sub_category_id;
+        //let category = response.data.message.categories[2].category_id;
+        let Subcategory = response.data.message?.sub_categories[0]?.sub_category_id;
         this.setState({subIdCategory: Subcategory})
-        this.setState({ category: category });
+        //this.setState({ category: category });
         this.changeDateRange(
           response.data.message.start_date,
           response.data.message.end_date
