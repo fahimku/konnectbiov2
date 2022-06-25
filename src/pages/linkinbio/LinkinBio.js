@@ -234,6 +234,7 @@ class LinkinBio extends React.Component {
         this.setState({ singleLoading: false });
         this.setState({
           category: [],
+          subCategoryPayload:[]
         });
         this.setState({ subCategory: [] });
         this.setState({ postType: "image" });
@@ -260,7 +261,14 @@ class LinkinBio extends React.Component {
 
   savePost = (i, Subpromo, SubDsc, description, amount, imgData, source,subcategoryId) => {
     let newRedirectedUrl;
+    console.log(subcategoryId);
+    if(subcategoryId == undefined){
+      toast.error("please Add Sub Category");
+      this.setState({ loading: false });
+    }
+    else{
      this.setState({subCategory: subcategoryId.split()})
+    
     if (this.state.redirectedUrl.includes("http://")) {
       newRedirectedUrl = this.state.redirectedUrl;
     } else if (this.state.redirectedUrl.includes("https://")) {
@@ -276,7 +284,8 @@ class LinkinBio extends React.Component {
       async () => {
         this.setState({ loading: true });
         if (userInfo?.account_type == "influencer") {
-          if (this.state.category.length) {
+          if (this.state.category.length ) {
+            
             await axios
               .post(`/posts/reserve`, {
                 id: this.state.currentPost.id,
@@ -390,6 +399,7 @@ class LinkinBio extends React.Component {
         }
       }
     );
+    }
   };
 
   updatePost = async (
@@ -589,6 +599,7 @@ class LinkinBio extends React.Component {
       } else {
         this.setState({
           category: [],
+          subCategoryPayload:[],
           startDate: moment(),
           endDate: moment().add(1, "years"),
         });
@@ -634,6 +645,7 @@ class LinkinBio extends React.Component {
 
   changeCategory = (category) => {
     if (category) {
+      this.setState({subIdCategory:[]})
       // var id = category.substring(0, category.indexOf(' '));
       //  var subId = category.split(/[, ]+/).pop();
       
