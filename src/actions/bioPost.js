@@ -4,7 +4,7 @@ import config from "../config";
 
 var userInfo = JSON.parse(localStorage.getItem("userInfo"));
 export const getNewBioPost =
-  (page, id, clr, limit = 15, username) =>
+  (page, id, clr, limit = 15) =>
   async (dispatch) => {
     try {
       if (id) {

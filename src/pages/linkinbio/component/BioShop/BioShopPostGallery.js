@@ -407,7 +407,7 @@ function BioShopPostGallery({
                   </div>
                 </div>
               }
-              // useWindow={false}
+              useWindow={false}
             >
               {bioPosts.data.map((item, i) => (
                 <div className="image-post-box-aff" key={i}>
@@ -476,28 +476,7 @@ function BioShopPostGallery({
     );
   }
 }
-const styles = {
-  linked: {
-    position: "absolute",
-    zIndex: 1,
-    bottom: 5,
-    left: 5,
-    backgroundColor: "rgba(50, 59, 67, 0.5)",
-    color: "white",
-    fontSize: "0.80rem",
-    padding: "0.16667rem 0.4rem",
-    borderRadius: 2,
-  },
-  active: {
-    position: "absolute",
-    zIndex: 1,
-    top: 5,
-    right: 5,
-    height: 10,
-    width: 10,
-    borderRadius: 5,
-  },
-};
+
 function mapStateToProps({ bioPosts }) {
   return { bioPosts };
 }

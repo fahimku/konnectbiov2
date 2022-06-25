@@ -55,7 +55,7 @@ class LinkinBio extends React.Component {
       categories: [],
       category: [],
       subCategories: [],
-      subCategoryPayload:[],
+      subCategoryPayload: [],
       subCategory: [],
       subCategoryUpdate: [],
       singlePost: "",
@@ -65,7 +65,7 @@ class LinkinBio extends React.Component {
       currentPost: "",
       subdescription: "",
       subamount: 0,
-      subIdCategory:"",
+      subIdCategory: "",
       url: config.visitorURL + "/",
       nextPageUrl: "",
       username: username,
@@ -106,7 +106,7 @@ class LinkinBio extends React.Component {
   componentWillMount() {
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
     savedAccessToken = userInfo.access_token;
-    
+
     if (!savedAccessToken) {
       this.fetchGalleryPosts();
     } else {
@@ -129,7 +129,6 @@ class LinkinBio extends React.Component {
         username: this.state.username,
       })
       .then((response) => {
-    
         this.setState({ postLoading: false });
         this.setState({ instagramPosts: response.data });
         if (response.data)
@@ -219,8 +218,9 @@ class LinkinBio extends React.Component {
         this.setState({ updatedAt: response.data.message.updated_at });
         this.setState({ media_id: media_id });
         let category = response.data.message.categories[0].category_id;
-        let Subcategory = response.data.message.sub_categories[0].sub_category_id;
-        this.setState({subIdCategory: Subcategory})
+        let Subcategory =
+          response.data.message.sub_categories[0].sub_category_id;
+        this.setState({ subIdCategory: Subcategory });
         this.setState({ category: category });
         this.changeDateRange(
           response.data.message.start_date,
@@ -255,9 +255,18 @@ class LinkinBio extends React.Component {
       });
   };
 
-  savePost = (i, Subpromo, SubDsc, description, amount, imgData, source,subcategoryId) => {
+  savePost = (
+    i,
+    Subpromo,
+    SubDsc,
+    description,
+    amount,
+    imgData,
+    source,
+    subcategoryId
+  ) => {
     let newRedirectedUrl;
-     this.setState({subCategory: subcategoryId.split()})
+    this.setState({ subCategory: subcategoryId.split() });
     if (this.state.redirectedUrl.includes("http://")) {
       newRedirectedUrl = this.state.redirectedUrl;
     } else if (this.state.redirectedUrl.includes("https://")) {
@@ -402,7 +411,7 @@ class LinkinBio extends React.Component {
   ) => {
     let newCategory;
     let oldCategory = this.state.category;
-    let subCategory = subcategoryId.split()
+    let subCategory = subcategoryId.split();
     if (
       typeof this.state.category === "string" ||
       this.state.category instanceof String
@@ -633,16 +642,14 @@ class LinkinBio extends React.Component {
     if (category) {
       // var id = category.substring(0, category.indexOf(' '));
       //  var subId = category.split(/[, ]+/).pop();
-      
-       this.setState({category: category.split()}, () => {
-        this.state.categories.map((item)=>{
-          if(item.value == this.state.category){
-          this.setState({subCategoryPayload: item.parentId})
+
+      this.setState({ category: category.split() }, () => {
+        this.state.categories.map((item) => {
+          if (item.value == this.state.category) {
+            this.setState({ subCategoryPayload: item.parentId });
           }
-         })
-    });
-     
-       
+        });
+      });
     }
   };
 
@@ -714,7 +721,7 @@ class LinkinBio extends React.Component {
         changeCategory={this.changeCategory}
         category={this.state.category}
         subCategoryId={this.state.subCategoryPayload}
-        IdSub ={this.state.subIdCategory}
+        IdSub={this.state.subIdCategory}
         startDate={this.state.startDate}
         endDate={this.state.endDate}
         subCategory={this.state.subCategory}
@@ -756,6 +763,8 @@ class LinkinBio extends React.Component {
   };
 
   render() {
+    console.log(window.innerWidth, "window.innerWidth");
+    console.log(this.state.modal, "modal");
     return (
       <div className="linkin-bio">
         <Row className="app_main_cont_ift main-container">
@@ -825,7 +834,11 @@ class LinkinBio extends React.Component {
               </>
             )} */}
 
-            <Row className="linked_edit_box">
+            <Row
+              className={`linked_edit_box ${
+                this.state.selectPost ? "mobile-edit-linked" : ""
+              }`}
+            >
               <Col xs="12" className="p-5">
                 {this.shopRightBar()}
               </Col>

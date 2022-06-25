@@ -15,7 +15,6 @@ function SubCategories({
   const [loader, setLoader] = useState(true);
   const [data, setData] = useState("");
 
-  console.log(subcategoryId, "Jhellla");
   useEffect(() => {
     if (subcategoryId.category != "") {
       updateCategory = subcategoryId.category;
@@ -65,7 +64,6 @@ function SubCategories({
     setData(value);
     categoryData(value);
   };
-  console.log(data, "data");
 
   return (
     <div className="select-categories mt-3">

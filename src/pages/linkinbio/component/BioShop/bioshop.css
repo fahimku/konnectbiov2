@@ -18,8 +18,12 @@
 .bioshop-body {
   position: relative;
 }
+.post-box {
+  height: 664px;
+  overflow: auto;
+}
 .bioshop-fixed .af-rm-mn {
-  max-height: 630px;
+  /* max-height: 630px; */
   /* height: 90%; */
   overflow-y: auto;
   overflow-x: hidden;
@@ -290,6 +294,25 @@ img {
   }
   .bio-image-modal .inner-image-box {
     margin-top: 10px;
+  }
+  .bioshop-fixed {
+    display: none;
+  }
+
+  .right-bar {
+    position: absolute;
+    top: 92px;
+    left: 12px;
+    max-width: 96% !important;
+  }
+  .linkin-bio .image-edit-box .image-wrapper {
+    display: block;
+  }
+  .linked_edit_box {
+    /* position: relative; */
+  }
+  .mobile-edit-linked {
+    position: relative;
   }
 }
 @media (max-width: 576px) {
