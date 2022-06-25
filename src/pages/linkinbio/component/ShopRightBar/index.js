@@ -120,11 +120,11 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
     setDsc(props.discount);
   }, [props.discount]);
 
-  useEffect(() => {
-    if (props.category.length == 0) {
-      setSource("ecommerce");
-    }
-  }, [props.category]);
+  // useEffect(() => {
+  //   if (props.category.length == 0) {
+  //     setSource("ecommerce");
+  //   }
+  // }, [props.category]);
 
   useEffect(() => {
     setPromo(props.promo);

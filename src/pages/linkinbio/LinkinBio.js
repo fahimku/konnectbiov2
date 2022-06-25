@@ -338,6 +338,7 @@ class LinkinBio extends React.Component {
         } else {
           if (this.state.category.length) {
             if (imgData?.length) {
+              console.log(this.state.category,+" Test "+this.state.subCategory);
               await axios
                 .post(`/posts/reserve`, {
                   id: this.state.currentPost.id,
@@ -362,18 +363,18 @@ class LinkinBio extends React.Component {
                 })
                 .then((response) => {
                   if (this.props.mobileDropdown == "instagram") {
-                    let singlePostIndex =
-                      this.state.instagramPosts.data.findIndex(
-                        (item) => item.id === this.state.currentPost.id
-                      );
-                    let currentPost = this.state.currentPost;
-                    currentPost.redirected_url = this.state.redirectedUrl;
-                    currentPost.linked = true;
-                    let instagramPosts = JSON.parse(
-                      JSON.stringify(this.state.instagramPosts)
-                    );
-                    instagramPosts.data[singlePostIndex] = currentPost;
-                    this.setState({ instagramPosts: instagramPosts }, () => {});
+                    // let singlePostIndex =
+                    //   this.state.instagramPosts.data.findIndex(
+                    //     (item) => item.id === this.state.currentPost.id
+                    //   );
+                    // let currentPost = this.state.currentPost;
+                    // currentPost.redirected_url = this.state.redirectedUrl;
+                    // currentPost.linked = true;
+                    // let instagramPosts = JSON.parse(
+                    //   JSON.stringify(this.state.instagramPosts)
+                    // );
+                    // instagramPosts.data[singlePostIndex] = currentPost;
+                    // this.setState({ instagramPosts: instagramPosts }, () => {});
                     toast.success("Your Post is Linked Successfully");
                     this.selectPost(false, "");
                     this.reload();

@@ -181,7 +181,7 @@ function SubCategories({
                             <Select
 
                                 key={Date.now()}
-                                value={data}
+                                value={data ? data : null}
                                 showSearch
                                 style={{ width: "100%" }}
                                 placeholder="Select Sub Category"
