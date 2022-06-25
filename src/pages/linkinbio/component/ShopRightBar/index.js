@@ -36,6 +36,8 @@ var promoList;
 var imgDataSet;
 var SubCategoryId;
 
+
+
 function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
   if (typeof props.promo == "object" && props.promo !== null) {
   } else {
@@ -43,7 +45,6 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
     subDiscount = props.discount;
   }
   const media_id = props.singlePost.post_id;
-
   const [startDate, setStartDate] = useState("");
   const [connNotFound, setconnFound] = useState(true);
   const [endDate, setEndDate] = useState("");
@@ -119,11 +120,11 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
     setDsc(props.discount);
   }, [props.discount]);
 
-  useEffect(() => {
-    if (props.category.length == 0) {
-      setSource("ecommerce");
-    }
-  }, [props.category]);
+  // useEffect(() => {
+  //   if (props.category.length == 0) {
+  //     setSource("ecommerce");
+  //   }
+  // }, [props.category]);
 
   useEffect(() => {
     setPromo(props.promo);

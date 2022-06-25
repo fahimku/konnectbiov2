@@ -200,6 +200,8 @@ class LinkinBio extends React.Component {
     await axios
       .get(`/posts/retrieve/${media_id}`)
       .then((response) => {
+        let category = response.data.message.categories[0].category_id;
+        this.setState({ category: category });
         this.setState({ singleLoading: false });
         if (userInfo?.account_type == "influencer") {
         } else {
@@ -217,11 +219,11 @@ class LinkinBio extends React.Component {
         this.setState({ postType: response.data.message.post_type });
         this.setState({ updatedAt: response.data.message.updated_at });
         this.setState({ media_id: media_id });
-        let category = response.data.message.categories[0].category_id;
+        //let category = response.data.message.categories[2].category_id;
         let Subcategory =
-          response.data.message.sub_categories[0].sub_category_id;
+          response.data.message?.sub_categories[0]?.sub_category_id;
         this.setState({ subIdCategory: Subcategory });
-        this.setState({ category: category });
+        //this.setState({ category: category });
         this.changeDateRange(
           response.data.message.start_date,
           response.data.message.end_date
@@ -231,6 +233,7 @@ class LinkinBio extends React.Component {
         this.setState({ singleLoading: false });
         this.setState({
           category: [],
+          subCategoryPayload: [],
         });
         this.setState({ subCategory: [] });
         this.setState({ postType: "image" });
@@ -266,75 +269,29 @@ class LinkinBio extends React.Component {
     subcategoryId
   ) => {
     let newRedirectedUrl;
-    this.setState({ subCategory: subcategoryId.split() });
-    if (this.state.redirectedUrl.includes("http://")) {
-      newRedirectedUrl = this.state.redirectedUrl;
-    } else if (this.state.redirectedUrl.includes("https://")) {
-      newRedirectedUrl = this.state.redirectedUrl;
+    console.log(subcategoryId);
+    if (subcategoryId == undefined) {
+      toast.error("please Add Sub Category");
+      this.setState({ loading: false });
     } else {
-      newRedirectedUrl = "http://" + this.state.redirectedUrl;
-    }
+      this.setState({ subCategory: subcategoryId.split() });
 
-    this.setState(
-      (previousState) => ({
-        currentPost: previousState.singlePost,
-      }),
-      async () => {
-        this.setState({ loading: true });
-        if (userInfo?.account_type == "influencer") {
-          if (this.state.category.length) {
-            await axios
-              .post(`/posts/reserve`, {
-                id: this.state.currentPost.id,
-                caption: this.state.currentPost.caption,
-                media_url: this.state.currentPost.media_url,
-                media_type: this.state.currentPost.media_type,
-                timestamp: this.state.currentPost.timestamp,
-                redirected_url: newRedirectedUrl,
-                username: this.state.currentPost.username,
-                categories: this.state.category,
-                sub_categories: this.state.subCategory,
-                post_type: this.state.postType,
-                start_date: this.state.startDate,
-                end_date: this.state.endDate,
-                source: this.props.mobileDropdown,
-              })
-              .then((response) => {
-                this.setState({ loading: false });
-                if (this.props.mobileDropdown == "instagram") {
-                  let singlePostIndex =
-                    this.state.instagramPosts.data.findIndex(
-                      (item) => item.id === this.state.currentPost.id
-                    );
-                  let currentPost = this.state.currentPost;
-                  currentPost.redirected_url = this.state.redirectedUrl;
-                  currentPost.linked = true;
-                  let instagramPosts = JSON.parse(
-                    JSON.stringify(this.state.instagramPosts)
-                  );
-                  instagramPosts.data[singlePostIndex] = currentPost;
-                  this.setState({ instagramPosts: instagramPosts }, () => {});
-                  toast.success("Your Post is Linked Successfully");
-                  this.selectPost(false, "");
-                  this.reload();
-                } else {
-                  toast.success("Your Post is Linked Successfully");
-                  this.selectPost(false, "");
-                  this.reload();
-                }
-              })
+      if (this.state.redirectedUrl.includes("http://")) {
+        newRedirectedUrl = this.state.redirectedUrl;
+      } else if (this.state.redirectedUrl.includes("https://")) {
+        newRedirectedUrl = this.state.redirectedUrl;
+      } else {
+        newRedirectedUrl = "http://" + this.state.redirectedUrl;
+      }
 
-              .catch((err) => {
-                this.setState({ loading: false });
-                toast.error(err);
-              });
-          } else {
-            this.setState({ loading: false });
-            toast.error("Please Select Category");
-          }
-        } else {
-          if (this.state.category.length) {
-            if (imgData?.length) {
+      this.setState(
+        (previousState) => ({
+          currentPost: previousState.singlePost,
+        }),
+        async () => {
+          this.setState({ loading: true });
+          if (userInfo?.account_type == "influencer") {
+            if (this.state.category.length) {
               await axios
                 .post(`/posts/reserve`, {
                   id: this.state.currentPost.id,
@@ -350,14 +307,9 @@ class LinkinBio extends React.Component {
                   start_date: this.state.startDate,
                   end_date: this.state.endDate,
                   source: this.props.mobileDropdown,
-                  product_source: source,
-                  promo: Subpromo,
-                  discount: SubDsc,
-                  description: description,
-                  amount: amount,
-                  children: imgData,
                 })
                 .then((response) => {
+                  this.setState({ loading: false });
                   if (this.props.mobileDropdown == "instagram") {
                     let singlePostIndex =
                       this.state.instagramPosts.data.findIndex(
@@ -386,16 +338,78 @@ class LinkinBio extends React.Component {
                   toast.error(err);
                 });
             } else {
-              toast.error("please add atleast 1 tag image");
               this.setState({ loading: false });
+              toast.error("Please Select Category");
             }
           } else {
-            toast.error("please Select Category");
-            this.setState({ loading: false });
+            if (this.state.category.length) {
+              if (imgData?.length) {
+                console.log(
+                  this.state.category,
+                  +" Test " + this.state.subCategory
+                );
+                await axios
+                  .post(`/posts/reserve`, {
+                    id: this.state.currentPost.id,
+                    caption: this.state.currentPost.caption,
+                    media_url: this.state.currentPost.media_url,
+                    media_type: this.state.currentPost.media_type,
+                    timestamp: this.state.currentPost.timestamp,
+                    redirected_url: newRedirectedUrl,
+                    username: this.state.currentPost.username,
+                    categories: this.state.category,
+                    sub_categories: this.state.subCategory,
+                    post_type: this.state.postType,
+                    start_date: this.state.startDate,
+                    end_date: this.state.endDate,
+                    source: this.props.mobileDropdown,
+                    product_source: source,
+                    promo: Subpromo,
+                    discount: SubDsc,
+                    description: description,
+                    amount: amount,
+                    children: imgData,
+                  })
+                  .then((response) => {
+                    if (this.props.mobileDropdown == "instagram") {
+                      // let singlePostIndex =
+                      //   this.state.instagramPosts.data.findIndex(
+                      //     (item) => item.id === this.state.currentPost.id
+                      //   );
+                      // let currentPost = this.state.currentPost;
+                      // currentPost.redirected_url = this.state.redirectedUrl;
+                      // currentPost.linked = true;
+                      // let instagramPosts = JSON.parse(
+                      //   JSON.stringify(this.state.instagramPosts)
+                      // );
+                      // instagramPosts.data[singlePostIndex] = currentPost;
+                      // this.setState({ instagramPosts: instagramPosts }, () => {});
+                      toast.success("Your Post is Linked Successfully");
+                      this.selectPost(false, "");
+                      this.reload();
+                    } else {
+                      toast.success("Your Post is Linked Successfully");
+                      this.selectPost(false, "");
+                      this.reload();
+                    }
+                  })
+
+                  .catch((err) => {
+                    this.setState({ loading: false });
+                    toast.error(err);
+                  });
+              } else {
+                toast.error("please add atleast 1 tag image");
+                this.setState({ loading: false });
+              }
+            } else {
+              toast.error("please Select Category");
+              this.setState({ loading: false });
+            }
           }
         }
-      }
-    );
+      );
+    }
   };
 
   updatePost = async (
@@ -595,6 +609,7 @@ class LinkinBio extends React.Component {
       } else {
         this.setState({
           category: [],
+          subCategoryPayload: [],
           startDate: moment(),
           endDate: moment().add(1, "years"),
         });
@@ -640,6 +655,7 @@ class LinkinBio extends React.Component {
 
   changeCategory = (category) => {
     if (category) {
+      this.setState({ subIdCategory: [] });
       // var id = category.substring(0, category.indexOf(' '));
       //  var subId = category.split(/[, ]+/).pop();
 
@@ -763,8 +779,6 @@ class LinkinBio extends React.Component {
   };
 
   render() {
-    console.log(window.innerWidth, "window.innerWidth");
-    console.log(this.state.modal, "modal");
     return (
       <div className="linkin-bio">
         <Row className="app_main_cont_ift main-container">
