@@ -2,7 +2,7 @@
 // const hostApi =
 //   process.env.NODE_ENV === "development"
 //     ? "http://172.16.1.85:9090"
-//      : "https://apiv2.konnect.bio";
+//     : "https://apiv2.konnect.bio";
 
 // const hostApi = "https://kbserverdev.herokuapp.com";
 const hostApi = "https://apiv2.konnect.bio";
