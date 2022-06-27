@@ -59,11 +59,12 @@ function AffiliateCampaign(
   // const [promoCode, setPromoCode] = useState("");
 
   useEffect(() => {
-    if (props.getCountries()) {
-      props.getCountries();
-      fetchSchedulePosts();
-    }
-  }, [props]);
+    // if (props.getCountries()) {
+    props.getCountries();
+    fetchSchedulePosts();
+    // }
+  }, []);
+  // console.log(props, "props");
 
   useEffect(() => {
     props.getUserCategories().then(
