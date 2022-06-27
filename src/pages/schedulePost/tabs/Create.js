@@ -6,7 +6,6 @@ import Loader from "../../../components/Loader/Loader";
 import * as instaPostActions from "../../../actions/instaPost";
 import { toast } from "react-toastify";
 import Dropzone from "react-dropzone-uploader";
-import ConnectFb from "../../connectToFb/connFb";
 import "react-dropzone-uploader/dist/styles.css";
 import { getDroppedOrSelectedFiles } from "html5-file-selector";
 import { ProgressBar } from "react-bootstrap";
@@ -15,20 +14,9 @@ function HashtagsList({ createMedia, title }) {
   const [loading, setLoading] = useState(false);
   const [previewLoading, setPreviewLoading] = useState(false);
   const [imgSize, setImgsize] = useState(false);
-  const [bytesSize, setBytesize] = useState('');
-  const [ImgMsg, setImgMsg] = useState('')
+  const [bytesSize, setBytesize] = useState("");
+  const [ImgMsg, setImgMsg] = useState("");
   const [flag, setFlag] = useState(false);
-
-  const [token, setToken] = useState('');
-const [fbPage, setFbpage] = useState('');
-  useEffect(() => {
-    
-    const token = JSON.parse(localStorage.getItem("userInfo")).fb_token;
-    const fbPage = JSON.parse(localStorage.getItem("userInfo")).page_token;
-    setToken(token);
-    setFbpage(fbPage);
-
-  }, []);
 
   const [fields, setFields] = useState({
     title: "",
@@ -110,7 +98,7 @@ const [fbPage, setFbpage] = useState('');
     //   image: allFiles.forEach((f) => f.remove()) === undefined ? "" : "",
     // });
     setFlag(false);
-    setImgMsg('');
+    setImgMsg("");
     setSubmit(false);
     setLoading(false);
     allFiles.forEach((f) => f.remove());
@@ -124,18 +112,17 @@ const [fbPage, setFbpage] = useState('');
 
     const { name, percent, status, previewUrl, size } = meta;
 
-    if(size > 2050000  ){
+    if (size > 2050000) {
       setFlag(true);
-      setImgsize(true)
-      remove(files)
-      setImgMsg("Your File Size Can Not Be Exceed More Than 20 MB.")
+      setImgsize(true);
+      remove(files);
+      setImgMsg("Your File Size Can Not Be Exceed More Than 20 MB.");
     }
-    if(size < 20500){
-      setFlag(true)
-      setImgsize(true)
-      remove(files)
-      setImgMsg("Your File Size Can Not Be Less Than 20 KB.")
-      
+    if (size < 20500) {
+      setFlag(true);
+      setImgsize(true);
+      remove(files);
+      setImgMsg("Your File Size Can Not Be Less Than 20 KB.");
     }
 
     setPreviewLoading(status === "done" ? false : true);
@@ -152,15 +139,15 @@ const [fbPage, setFbpage] = useState('');
             {status !== "done" ? <span>Uploading</span> : "Done"}
             <div className="status">{status}</div>
             <div className="pro-brar-ift">
-            {flag === false ?
-              <ProgressBar
-                animated
-                now={percent}
-                label={`${percent.toFixed(0)}%`}
-              />
-              :
-              <></>
-            }
+              {flag === false ? (
+                <ProgressBar
+                  animated
+                  now={percent}
+                  label={`${percent.toFixed(0)}%`}
+                />
+              ) : (
+                <></>
+              )}
               <span
                 className="glyphicon glyphicon-remove"
                 onClick={removeFile(files)}
@@ -179,8 +166,8 @@ const [fbPage, setFbpage] = useState('');
     //   ...fields,
     //   image: allFiles.forEach((f) => f.remove()) === undefined ? "" : "",
     // });
-    setFlag(false)  
-    setImgMsg('');
+    setFlag(false);
+    setImgMsg("");
     setSubmit(false);
     setLoading(false);
     allFiles.forEach((f) => f.remove());
@@ -189,12 +176,11 @@ const [fbPage, setFbpage] = useState('');
     const textMsg = files.length > 0 ? "Upload Again" : "Browse Image";
     return (
       <>
-      
         <div className="upload_area_2">
           <span class="pt-1 pb-4 glyphicon glyphicon-cloud-upload	fa-4x"></span>
           <h4>Drag & Drop Your Image Here</h4>
           <h4>Or</h4>
-          {imgSize ? <h5 class="text-danger">{ImgMsg}</h5>:<></>}
+          {imgSize ? <h5 class="text-danger">{ImgMsg}</h5> : <></>}
           <label className="btn btn-primary mr-0 mb-0">
             {textMsg}
             <input
@@ -210,7 +196,6 @@ const [fbPage, setFbpage] = useState('');
             />
           </label>
         </div>
-      
       </>
     );
   };
@@ -220,69 +205,66 @@ const [fbPage, setFbpage] = useState('');
       <div className="container-fluid">
         <h4 className="page-title">{title}</h4>
 
-
         <div className="brand_container_main container">
-        {token === '' && fbPage === '' ?
-        <ConnectFb/>
-        :
-        <>
-          <Row>
-            <div className="profile_box_main col-md-8">
-              <div className=" brand-section dash_block_profile dash_content_profile">
-                <div className="upload_area">
-                  <h4>Upload Your Image</h4>
-                  <p className="text-muted">
-                    PNG, JPG, SVG & GIF Files Are Allowed
-                  </p>
-                </div>
-                <div class="upload_area_3 form-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleFormControlInput1"
-                    placeholder="Add Media Title"
-                    onChange={(e) =>
-                      setFields({ ...fields, title: e.target.value })
+          <>
+            <Row>
+              <div className="profile_box_main col-md-8">
+                <div className=" brand-section dash_block_profile dash_content_profile">
+                  <div className="upload_area">
+                    <h4>Upload Your Image</h4>
+                    <p className="text-muted">
+                      PNG, JPG, SVG & GIF Files Are Allowed
+                    </p>
+                  </div>
+                  <div class="upload_area_3 form-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="exampleFormControlInput1"
+                      placeholder="Add Media Title"
+                      onChange={(e) =>
+                        setFields({ ...fields, title: e.target.value })
+                      }
+                      value={fields.title}
+                    />
+                    {submit && !fields.title ? (
+                      <small style={{ color: "red" }}>
+                        Please Fill Media Title
+                      </small>
+                    ) : null}
+                  </div>
+                  <Dropzone
+                    onSubmit={onSubmit}
+                    onChangeStatus={onFileChange}
+                    InputComponent={selectFileInput}
+                    getUploadParams={fileParams}
+                    getFilesFromEvent={getFilesFromEvent}
+                    accept=".jpg, .jpeg, .png, .gif, .svg"
+                    maxFiles={1}
+                    multiple={false}
+                    maxSizeBytes={2050000}
+                    minSizeBytes={20500}
+                    // inputContent="Drop A File"
+                    addClassNames={{
+                      dropzone: "drag-drop-ift",
+                      submitButtonContainer: "upload_btn",
+                    }}
+                    PreviewComponent={Preview}
+                    submitButtonContent={() =>
+                      loading ? <Loader /> : "Upload"
                     }
-                    value={fields.title}
+                    submitButtonDisabled={loading}
+                    styles={{
+                      dropzoneActive: { borderColor: "green" },
+                    }}
                   />
-                  {submit && !fields.title ? (
-                    <small style={{ color: "red" }}>
-                      Please Fill Media Title
-                    </small>
+                  {submit && !fields.image ? (
+                    <small style={{ color: "red" }}>Please Select Image</small>
                   ) : null}
                 </div>
-                <Dropzone
-                  onSubmit={onSubmit}
-                  onChangeStatus={onFileChange}
-                  InputComponent={selectFileInput}
-                  getUploadParams={fileParams}
-                  getFilesFromEvent={getFilesFromEvent}
-                  accept=".jpg, .jpeg, .png, .gif, .svg"
-                  maxFiles={1}
-                  multiple={false}
-                  maxSizeBytes={2050000}
-                  minSizeBytes={20500}
-                  // inputContent="Drop A File"
-                  addClassNames={{
-                    dropzone: "drag-drop-ift",
-                    submitButtonContainer: "upload_btn",
-                  }}
-                  PreviewComponent={Preview}
-                  submitButtonContent={() => (loading ? <Loader /> : "Upload")}
-                  submitButtonDisabled={loading}
-                  styles={{
-                    dropzoneActive: { borderColor: "green" },
-                  }}
-                />
-                {submit && !fields.image ? (
-                  <small style={{ color: "red" }}>Please Select Image</small>
-                ) : null}
               </div>
-            </div>
-          </Row>
+            </Row>
           </>
-}
         </div>
       </div>
       {/* <div className="container-fluid">

@@ -13,7 +13,10 @@ function Dashboard({ getDashboard, dashboard }) {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    getDashboard("image,campaign,link,video", userData?.access_token).then(
+    getDashboard(
+      "image,campaign,link,video",
+      userData?.access_token === "" ? "ignotconnected" : userData?.access_token
+    ).then(
       function () {
         setLoading(false);
       },
