@@ -56,6 +56,7 @@ class LinkinBio extends React.Component {
       category: [],
       subCategories: [],
       subCategoryPayload: [],
+      ParentId:[],
       subCategory: [],
       subCategoryUpdate: [],
       singlePost: "",
@@ -86,6 +87,8 @@ class LinkinBio extends React.Component {
       promoData: "",
       product_source: "",
       singleLoading: false,
+      SubCategoryData:[],
+      SubCategoryChange:[],
     };
     this.changeCategory = this.changeCategory.bind(this);
     this.changeSubCategory = this.changeSubCategory.bind(this);
@@ -200,8 +203,17 @@ class LinkinBio extends React.Component {
     await axios
       .get(`/posts/retrieve/${media_id}`)
       .then((response) => {
-        let category = response.data.message.categories[0].category_id;
+      console.log(response,"Test");
+        let category = response?.data?.message?.categories[0]?.category_id;
+        let parentCategoryId = response?.data?.message?.categories[0]?.parent_id;
+        this.fetchSubCategories(parentCategoryId);
+        let Subcategory =
+        response.data.message?.sub_categories[0]?.sub_category_id;
+        this.setState({ SubCategoryChange: Subcategory });
+        
         this.setState({ category: category });
+        this.setState({ ParentId: parentCategoryId });
+
         this.setState({ singleLoading: false });
         if (userInfo?.account_type == "influencer") {
         } else {
@@ -220,9 +232,7 @@ class LinkinBio extends React.Component {
         this.setState({ updatedAt: response.data.message.updated_at });
         this.setState({ media_id: media_id });
         //let category = response.data.message.categories[2].category_id;
-        let Subcategory =
-          response.data.message?.sub_categories[0]?.sub_category_id;
-        this.setState({ subIdCategory: Subcategory });
+      
         //this.setState({ category: category });
         this.changeDateRange(
           response.data.message.start_date,
@@ -257,6 +267,26 @@ class LinkinBio extends React.Component {
         this.setState({ categories: selectCategories });
       });
   };
+////Sub Categories
+  fetchSubCategories = async (id) => {
+    axios
+            .get(`${config.baseURLApi}/users/receive/subcategories?category_id=${id}`)
+            .then((response) => {
+              console.log(response);
+              const selectCategories = [];
+              const categories = response.data?.message;
+              categories.map(({ sub_category_id, sub_category_name }) => {
+                return selectCategories.push({
+                  value: sub_category_id,
+                  label: sub_category_name,
+                  
+                });
+              });
+              this.setState({ SubCategoryData: selectCategories });
+              console.log(this.state.SubCategoryData,"aya");
+            });
+            
+  };
 
   savePost = (
     i,
@@ -269,12 +299,12 @@ class LinkinBio extends React.Component {
     subcategoryId
   ) => {
     let newRedirectedUrl;
-    console.log(subcategoryId);
-    if (subcategoryId == undefined) {
+    
+    if (this.state.SubCategoryChange == []) {
       toast.error("please Add Sub Category");
       this.setState({ loading: false });
     } else {
-      this.setState({ subCategory: subcategoryId.split() });
+      
 
       if (this.state.redirectedUrl.includes("http://")) {
         newRedirectedUrl = this.state.redirectedUrl;
@@ -302,7 +332,7 @@ class LinkinBio extends React.Component {
                   redirected_url: newRedirectedUrl,
                   username: this.state.currentPost.username,
                   categories: this.state.category,
-                  sub_categories: this.state.subCategory,
+                  sub_categories: this.state.SubCategoryChange,
                   post_type: this.state.postType,
                   start_date: this.state.startDate,
                   end_date: this.state.endDate,
@@ -358,7 +388,7 @@ class LinkinBio extends React.Component {
                     redirected_url: newRedirectedUrl,
                     username: this.state.currentPost.username,
                     categories: this.state.category,
-                    sub_categories: this.state.subCategory,
+                    sub_categories: this.state.SubCategoryChange,
                     post_type: this.state.postType,
                     start_date: this.state.startDate,
                     end_date: this.state.endDate,
@@ -425,7 +455,7 @@ class LinkinBio extends React.Component {
   ) => {
     let newCategory;
     let oldCategory = this.state.category;
-    let subCategory = subcategoryId.split();
+    
     if (
       typeof this.state.category === "string" ||
       this.state.category instanceof String
@@ -468,11 +498,15 @@ class LinkinBio extends React.Component {
         });
     } else {
       if (imgData?.length) {
+        if(this.state.SubCategoryChange == []){
+
+        }
+        else{
         await axios
           .put(`/posts/revise/${id}`, {
             redirected_url: url,
             categories: newCategory,
-            sub_categories: subCategory,
+            sub_categories: this.state.SubCategoryChange,
             post_type: this.state.postType,
             start_date: this.state.startDate,
             end_date: this.state.endDate,
@@ -507,6 +541,7 @@ class LinkinBio extends React.Component {
             this.setState({ loading: false });
             //  toast.error(err);
           });
+        }
       } else {
         toast.error("please add atleast 1 tag image");
         this.setState({ loading: false });
@@ -605,10 +640,18 @@ class LinkinBio extends React.Component {
       let lastPost = this.state.singlePost;
 
       if (currentPost.linked) {
+        this.setState({
+        SubCategoryChange:[],
+        SubCategoryData:[],
+      })
         this.fetchSinglePost(mediaId);
+      
       } else {
         this.setState({
           category: [],
+          ParentId: [],
+          SubCategoryChange:[],
+          SubCategoryData:[],
           subCategoryPayload: [],
           startDate: moment(),
           endDate: moment().add(1, "years"),
@@ -655,22 +698,31 @@ class LinkinBio extends React.Component {
 
   changeCategory = (category) => {
     if (category) {
-      this.setState({ subIdCategory: [] });
+      this.setState({ SubCategoryChange: [] });
       // var id = category.substring(0, category.indexOf(' '));
       //  var subId = category.split(/[, ]+/).pop();
 
       this.setState({ category: category.split() }, () => {
         this.state.categories.map((item) => {
           if (item.value == this.state.category) {
-            this.setState({ subCategoryPayload: item.parentId });
+            this.fetchSubCategories(item.parentId)
+           
           }
         });
-      });
+           
+          })
+        
+      
     }
   };
 
   changeSubCategory = (subCategories) => {
-    this.setState({ subCategory: subCategories });
+    console.log("aya",subCategories);
+    if(subCategories){
+      this.setState({ SubCategoryChange: subCategories.split() }, () => {
+    })
+  }
+    
   };
 
   changePostType = (e) => {
@@ -731,11 +783,15 @@ class LinkinBio extends React.Component {
         autoFocus={this.state.autoFocus}
         isSelectPost={this.state.selectPost}
         selectPost={this.selectPost}
+        parentSubCategory={this.state.ParentId}
         singlePost={this.state.singlePost}
         redirectedUrl={this.state.redirectedUrl}
         categories={this.state.categories}
+        subCategoriesData={this.state.SubCategoryData}
         changeCategory={this.changeCategory}
+        changeSubCategory={this.changeSubCategory}
         category={this.state.category}
+        selectSub = {this.state.SubCategoryChange}
         subCategoryId={this.state.subCategoryPayload}
         IdSub={this.state.subIdCategory}
         startDate={this.state.startDate}
@@ -746,7 +802,7 @@ class LinkinBio extends React.Component {
         description={this.state.subdescription}
         amount={this.state.subamount}
         flag={this.state.flag}
-        changeSubCategory={this.changeSubCategory}
+        
         subCategories={this.state.subCategories}
         changePostType={this.changePostType}
         postType={this.state.postType}

@@ -102,7 +102,7 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
       .then((res) => {
         setKbfee(res.data?.message?.fee ? res.data?.message?.fee : "0");
       })
-      .catch((res) => {});
+      .catch((res) => { });
   }, []);
 
   useEffect(() => {
@@ -267,7 +267,7 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
 
   const categoryData = (data) => {
     SubCategoryId = data;
-    
+
   };
   // };
   return (
@@ -294,9 +294,8 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
           ref={formRef}
         >
           <div
-            className={`image-edit-box ${
-              props.isSelectPost ? "show" : "hidden"
-            }`}
+            className={`image-edit-box ${props.isSelectPost ? "show" : "hidden"
+              }`}
           >
             <span
               onClick={() => props.selectPost(false, "")}
@@ -313,11 +312,11 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                 <p>
                   {props.singlePost.linked || props.updatePage
                     ? "Updated on " +
-                      moment.utc(props.updatedDate).format("MMM Do YYYY")
+                    moment.utc(props.updatedDate).format("MMM Do YYYY")
                     : "Posted on " +
-                      moment
-                        .utc(props.singlePost.timestamp)
-                        .format("MMM Do YYYY")}
+                    moment
+                      .utc(props.singlePost.timestamp)
+                      .format("MMM Do YYYY")}
 
                   {/* {props.media_id ? (
                     props.singlePost.linked || props.updatePage ? (
@@ -330,7 +329,7 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                     )
                   ) : (
                     "Posted on " +
-                    moment.utc(props.singlePost.timestamp).format("MMM Do YYYY") 
+                    moment.utc(props.singlePost.timestamp).format("MMM Do YYYY")
                   )} */}
                 </p>
               </div>
@@ -462,8 +461,8 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                       className="source_cap"
                       disabled={
                         props.singlePost.linked ||
-                        props.updatePage ||
-                        !connNotFound
+                          props.updatePage ||
+                          !connNotFound
                           ? true
                           : false
                       }
@@ -567,16 +566,58 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                         : false
                     }
                   >
-                    {props.categories.map(({ value, label,parentId }, i) => (
+                    {props.categories.map(({ value, label, parentId }, i) => (
                       <Option value={value}>{label}</Option>
                     ))}
                   </Select>
                 </div>
+
+                {/* SubCategory */}
+                
+                {props.subCategoriesData.length > 0 ?
+                <div className="select-categories mt-3">
+                  
+                  <label>Select SubCategory</label>
+                
+                  <Select
+                  key={Date.now()}
+                  value={props.selectSub}
+                  showSearch
+                  style={{ width: "100%" }}
+                  placeholder="Select Sub Category"
+                  optionFilterProp="children"
+                  clearable={false}
+                  searchable={false}
+                  required
+                  onChange={props.changeSubCategory}
+                  // onFocus={onFocus}
+                  // onBlur={onBlur}
+                  // onSearch={onSearch}
+                  filterOption={(input, option) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                  }
+                // disabled={
+                //     PermissionHelper.categoryCheck() || props.singleLoading
+                //         ? true
+                //         : false
+                // }
+                >
+                  {props.subCategoriesData.map(({ value, label }, i) => (
+                    <Option value={value}>{label}</Option>
+                  ))}
+                </Select>
+                </div>
+                 :
+                 <></>
+                  }
                 <div>
-                  <SubCategory
-                  subcategoryId={props}
-                  categoryData={categoryData}
-                  />
+
+                  {/* <SubCategory
+                    subcategoryId={props}
+                    categoryData={categoryData}
+                  /> */}
+
                 </div>
 
                 {props.singlePost.media_type === "VIDEO" && (
@@ -693,7 +734,7 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                       <div className="col-md-3 mt-3">
                         <label>Discount</label>
                         <div className="promo_discount form-control">
-                          {/* {renderConValuePromoList(this.state.promoCodeVal)} 
+                          {/* {renderConValuePromoList(this.state.promoCodeVal)}
                           {promoCodeDscs ? promoCodeDscs : 0}
                         </div>
                       </div>
@@ -817,9 +858,9 @@ function ShopRightBar(props, { getPromoRequest, promoRequest, PromoPayload }) {
                           <Button
                             className="custom_btns_ift"
                             color="primary"
-                            // onClick={(ev) =>
-                            //   props.savePost && props.savePost(this)
-                            // }
+                          // onClick={(ev) =>
+                          //   props.savePost && props.savePost(this)
+                          // }
                           >
                             &nbsp;Save&nbsp;
                           </Button>
