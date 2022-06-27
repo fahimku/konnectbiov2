@@ -64,7 +64,6 @@ function AffiliateCampaign(
     fetchSchedulePosts();
     // }
   }, []);
-  // console.log(props, "props");
 
   useEffect(() => {
     props.getUserCategories().then(

@@ -5,6 +5,7 @@ import { Row, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
 import SearchProfile from "./SearchProfile";
 import AddProfile from "./AddProfile";
+import ConnectFb from "../connectToFb/connFb";
 
 class MainSearchProfile extends React.Component {
   constructor(props) {
@@ -17,7 +18,18 @@ class MainSearchProfile extends React.Component {
       username: username,
       addprofiletab: [],
       addprofileLoading: true,
+      token: "",
+      fbPage: "",
     };
+  }
+
+  componentDidMount() {
+    const token = JSON.parse(localStorage.getItem("userInfo"))?.fb_token;
+    const fbPage = JSON.parse(localStorage.getItem("userInfo"))?.page_token;
+    this.setState({
+      token: token,
+      fbPage: fbPage,
+    });
   }
 
   toggleTabs(tab) {
@@ -29,59 +41,63 @@ class MainSearchProfile extends React.Component {
   }
 
   render() {
-    return (
-      <div className="analytics-page linkin-bio tab-wi-cus">
-        <Row className="ml-0 mr-0 tab-section">
-          <div className="affiliate_p_col">
-            <Row className="ml-0 mr-0">
-              <div className="affiliate_in_col marketing-tabs">
-                <Nav tabs className={`${s.coloredNav}`}>
-                  <NavItem>
-                    <NavLink
-                      className={classnames({
-                        active: this.state.activeTab === "addprofile",
-                      })}
-                      onClick={() => {
-                        this.toggleTabs("addprofile");
-                      }}
-                    >
-                      <span>Add Profile</span>
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      className={classnames({
-                        active: this.state.activeTab === "profile",
-                      })}
-                      onClick={() => {
-                        this.toggleTabs("profile");
-                      }}
-                    >
-                      <span>Monitor</span>
-                    </NavLink>
-                  </NavItem>
-                </Nav>
-                <TabContent
-                  className="affiliate_tab_ift"
-                  activeTab={this.state.activeTab}
-                >
-                  <TabPane tabId="addprofile">
-                    {this.state.activeTab === "addprofile" ? (
-                      <AddProfile />
-                    ) : null}
-                  </TabPane>
-                  <TabPane tabId="profile">
-                    {this.state.activeTab === "profile" ? (
-                      <SearchProfile title="profile" type="profile" />
-                    ) : null}
-                  </TabPane>
-                </TabContent>
-              </div>
-            </Row>
-          </div>
-        </Row>
-      </div>
-    );
+    if (this.state.token === "" && this.state.fbPage === "") {
+      return <ConnectFb />;
+    } else {
+      return (
+        <div className="analytics-page linkin-bio tab-wi-cus">
+          <Row className="ml-0 mr-0 tab-section">
+            <div className="affiliate_p_col">
+              <Row className="ml-0 mr-0">
+                <div className="affiliate_in_col marketing-tabs">
+                  <Nav tabs className={`${s.coloredNav}`}>
+                    <NavItem>
+                      <NavLink
+                        className={classnames({
+                          active: this.state.activeTab === "addprofile",
+                        })}
+                        onClick={() => {
+                          this.toggleTabs("addprofile");
+                        }}
+                      >
+                        <span>Add Profile</span>
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink
+                        className={classnames({
+                          active: this.state.activeTab === "profile",
+                        })}
+                        onClick={() => {
+                          this.toggleTabs("profile");
+                        }}
+                      >
+                        <span>Monitor</span>
+                      </NavLink>
+                    </NavItem>
+                  </Nav>
+                  <TabContent
+                    className="affiliate_tab_ift"
+                    activeTab={this.state.activeTab}
+                  >
+                    <TabPane tabId="addprofile">
+                      {this.state.activeTab === "addprofile" ? (
+                        <AddProfile />
+                      ) : null}
+                    </TabPane>
+                    <TabPane tabId="profile">
+                      {this.state.activeTab === "profile" ? (
+                        <SearchProfile title="profile" type="profile" />
+                      ) : null}
+                    </TabPane>
+                  </TabContent>
+                </div>
+              </Row>
+            </div>
+          </Row>
+        </div>
+      );
+    }
   }
 }
 export default MainSearchProfile;
