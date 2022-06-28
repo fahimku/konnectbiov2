@@ -97,7 +97,8 @@ export function logoutUser() {
     dispatch({
       type: LOGOUT_SUCCESS,
     });
-    history.push("/login");
+    // history.push("/login");
+    window.location.replace("https://www.kbshop.com/");
   };
 }
 
