@@ -49,11 +49,11 @@ class App extends React.PureComponent {
           <Router>
             <Switch>
               <Route path="/" exact component={Login} />
-               <Route
+              <Route
                 path="/app"
                 exact
                 render={() => <Redirect to="/app/linkinbio" />}
-              /> 
+              />
               <UserRoute
                 path="/app"
                 dispatch={this.props.dispatch}

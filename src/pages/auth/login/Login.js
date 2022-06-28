@@ -13,7 +13,11 @@ import logo from "../../../images/konnectbiologo.svg";
 import queryString from "query-string";
 import { toast } from "react-toastify";
 import { authError, authSuccess } from "../../../actions/auth";
-
+import axios from "axios";
+import { createBrowserHistory } from "history";
+export const history = createBrowserHistory({
+  forceRefresh: true,
+});
 class Login extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -59,8 +63,11 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-   
     const query = queryString.parse(window.location.search);
+
+    if (query.sid) {
+      this.getSidUrl(query.sid);
+    }
     if (query.bio_code) {
       this.tokenVerify(query.bio_code);
     }
@@ -68,7 +75,7 @@ class Login extends React.Component {
     const token = localStorage.getItem("token");
     if (token) {
       const instagramCodeUrl = window.location.href;
-    
+
       this.props.dispatch(receiveToken(token));
       if (instagramCodeUrl.includes("code")) {
         const code = instagramCodeUrl.split("?")[1].split("=");
@@ -78,6 +85,41 @@ class Login extends React.Component {
       }
     }
   }
+  getSidUrl = async (sid) => {
+    await axios
+      .post(`/signin/session`, { sid: sid })
+      .then((res) => {
+        console.log(res, "data");
+        const token = res.data.message.token;
+        const userInfo = {
+          menu: res.data.message.menu,
+          user_id: res.data.message.user_id,
+          name: res.data.message.name,
+          access_token: res.data.message.access_token,
+          username: res.data.message.username,
+          email: res.data.message.email,
+          user_type: res.data.message.user_type,
+          country: res.data.message.country,
+          city: res.data.message.city,
+          package: res.data.message.package,
+          zip: res.data.message.zip,
+          page_token: res.data.message.page_token,
+          fb_token: res.data.message.fb_token,
+          instagram_id: res.data.message.instagram_id,
+          next_payment_date: res.data.message.next_payment_date,
+          recurring_payment_type: res.data.message.recurring_payment_type,
+          is_trial_expired: res.data?.message?.is_trial_expired,
+          account_type: res.data?.message?.account_type,
+          pid: res.data?.message?.pid,
+        };
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        this.props.dispatch(receiveToken(token));
+        history.push("/app/linkinbio");
+      })
+      .catch(function (error) {
+        toast.error(error.response.data.message);
+      });
+  };
 
   tokenVerify = async (code) => {
     const endPoint = config.baseURLApiToken + "/verify";
