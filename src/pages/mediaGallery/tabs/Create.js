@@ -137,7 +137,7 @@ function HashtagsList({ createMedia, title }) {
     
     const { name, percent, status, previewUrl, size } = meta;
    
-    if(size > 2050000  ){
+    if(size > 20500000  ){
       setFlag(true);
       setImgsize(true)
       remove(files)
@@ -259,7 +259,7 @@ function HashtagsList({ createMedia, title }) {
                     getFilesFromEvent={getFilesFromEvent}
                     accept=".jpg, .jpeg, .png, .gif, .svg"
                     maxFiles={1}
-                    maxSizeBytes={2050000}
+                    maxSizeBytes={20500000}
                     minSizeBytes={20500}
                     // inputContent="Drop A File"
                     addClassNames={{
