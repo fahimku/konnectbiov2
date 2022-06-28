@@ -117,7 +117,9 @@ class Login extends React.Component {
         history.push("/app/linkinbio");
       })
       .catch(function (error) {
-        toast.error(error.response.data.message);
+        toast.error(error.response.data.message, {
+          autoClose: false,
+        });
       });
   };
 

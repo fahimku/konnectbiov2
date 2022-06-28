@@ -283,7 +283,7 @@ class LinkinBio extends React.Component {
                 });
               });
               this.setState({ SubCategoryData: selectCategories });
-              console.log(this.state.SubCategoryData,"aya");
+             
             });
             
   };
@@ -471,7 +471,7 @@ class LinkinBio extends React.Component {
         .put(`/posts/revise/${id}`, {
           redirected_url: url,
           categories: newCategory,
-          sub_categories: this.state.subCategory,
+          sub_categories: this.state.SubCategoryChange,
           post_type: this.state.postType,
           start_date: this.state.startDate,
           end_date: this.state.endDate,
