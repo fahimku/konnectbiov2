@@ -4,10 +4,10 @@ import { Route } from "react-router";
 import { Redirect } from "react-router-dom";
 import React from "react";
 import { createBrowserHistory } from "history";
-import PermissionHelper from "./PermissionHelper";
-import AccountUpgrade from "../pages/upgradeAccount/UpgradeAccount";
+// import PermissionHelper from "./PermissionHelper";
+// import AccountUpgrade from "../pages/upgradeAccount/UpgradeAccount";
 //import Dashboard from "../pages/dashboard/Dashboard";
-import Package from "../pages/package/package";
+// import Package from "../pages/package/package";
 
 export const history = createBrowserHistory({
   forceRefresh: false,
@@ -31,7 +31,7 @@ export const AdminRoute = ({ currentUser, dispatch, component, ...rest }) => {
 };
 
 export const UserRoute = ({ dispatch, component, ...rest }) => {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   if (!Login.isAuthenticated()) {
     dispatch(logoutUser());
     return history.push("/app/linkinbio").then(() => {
@@ -48,7 +48,7 @@ export const UserRoute = ({ dispatch, component, ...rest }) => {
 };
 
 export const PrivateRoute = ({ dispatch, component, permissions, ...rest }) => {
-  const checkPermission = PermissionHelper.validate(permissions);
+  // const checkPermission = PermissionHelper.validate(permissions);
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
   if (!Login.isAuthenticated()) {
@@ -114,9 +114,9 @@ export const PrivateRoute = ({ dispatch, component, permissions, ...rest }) => {
 
 export const AuthRoute = ({ dispatch, component, ...rest }) => {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  const { from } = rest.location.state || {
-    from: { pathname: "/package" },
-  };
+  // const { from } = rest.location.state || {
+  //   from: { pathname: "/package" },
+  // };
   if (Login.isAuthenticated()) {
     if (userInfo?.package) {
       return <Redirect to="/app/linkinbio" />;

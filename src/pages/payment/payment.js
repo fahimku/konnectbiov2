@@ -79,7 +79,7 @@ class Payment extends React.Component {
 
   returnToBackPage = () => {
     let redirectURL;
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     const params = queryString.parse(window.location.search);
     if (!params?.status) {
       redirectURL = "/app/linkinbio";
