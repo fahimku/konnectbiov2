@@ -5,7 +5,7 @@ export const history = createBrowserHistory({
 });
 
 export default function upgradeAccount() {
-  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   return (
     <div className="container-fluid">
       <div class="coming_iner">

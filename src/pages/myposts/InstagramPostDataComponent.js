@@ -42,7 +42,7 @@ function InstagramPostDataComponent({
   // window.addEventListener("scroll", checkScrollTop);
 
   useEffect(() => {
-    if (token != "" && fbPage != "") {
+    if (token !== "" && fbPage !== "") {
       getInstagramPostData().then(() => {
         setClearLoading(false);
       });

@@ -13,7 +13,12 @@ import logo from "../../../images/konnectbiologo.svg";
 import queryString from "query-string";
 import { toast } from "react-toastify";
 import { authError, authSuccess } from "../../../actions/auth";
-
+import axios from "axios";
+import { createBrowserHistory } from "history";
+import Loader from "../../../components/Loader/Loader";
+export const history = createBrowserHistory({
+  forceRefresh: true,
+});
 class Login extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -35,6 +40,7 @@ class Login extends React.Component {
       email: "",
       password: "",
       type: "password",
+      sidLoading: false,
     };
 
     this.doLogin = this.doLogin.bind(this);
@@ -59,8 +65,11 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-   
     const query = queryString.parse(window.location.search);
+
+    if (query.sid) {
+      this.getSidUrl(query.sid);
+    }
     if (query.bio_code) {
       this.tokenVerify(query.bio_code);
     }
@@ -68,7 +77,7 @@ class Login extends React.Component {
     const token = localStorage.getItem("token");
     if (token) {
       const instagramCodeUrl = window.location.href;
-    
+
       this.props.dispatch(receiveToken(token));
       if (instagramCodeUrl.includes("code")) {
         const code = instagramCodeUrl.split("?")[1].split("=");
@@ -78,6 +87,50 @@ class Login extends React.Component {
       }
     }
   }
+  getSidUrl = async (sid) => {
+    this.setState({
+      sidLoading: true,
+    });
+    await axios
+      .post(`/signin/session`, { sid: sid })
+      .then((res) => {
+        const token = res.data.message.token;
+        const userInfo = {
+          menu: res.data.message.menu,
+          user_id: res.data.message.user_id,
+          name: res.data.message.name,
+          access_token: res.data.message.access_token,
+          username: res.data.message.username,
+          email: res.data.message.email,
+          user_type: res.data.message.user_type,
+          country: res.data.message.country,
+          city: res.data.message.city,
+          package: res.data.message.package,
+          zip: res.data.message.zip,
+          page_token: res.data.message.page_token,
+          fb_token: res.data.message.fb_token,
+          instagram_id: res.data.message.instagram_id,
+          next_payment_date: res.data.message.next_payment_date,
+          recurring_payment_type: res.data.message.recurring_payment_type,
+          is_trial_expired: res.data?.message?.is_trial_expired,
+          account_type: res.data?.message?.account_type,
+          pid: res.data?.message?.pid,
+        };
+        localStorage.setItem("userInfo", JSON.stringify(userInfo));
+        this.props.dispatch(receiveToken(token));
+        history.push("/app/linkinbio");
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message, {
+          autoClose: false,
+        });
+        setTimeout(() => {
+          window.location.replace("https://www.kbshop.com/");
+        }, 1000);
+
+        // this.setState({ sidLoading: false });
+      });
+  };
 
   tokenVerify = async (code) => {
     const endPoint = config.baseURLApiToken + "/verify";
@@ -113,115 +166,123 @@ class Login extends React.Component {
   };
 
   render() {
-    return (
-      <div className="auth-page">
-        <div className="login_header">
-          <div className="header_inr group">
-            <div className="header_inr_left">
-              <div className="konnect_logo">
-                <a href="https://get.konnect.bio/" className="mt-2">
-                  <img className="logo" src={logo} alt="logo" />
-                </a>
+    if (!this.state.sidLoading) {
+      return (
+        <div className="auth-page">
+          <div className="login_header">
+            <div className="header_inr group">
+              <div className="header_inr_left">
+                <div className="konnect_logo">
+                  <a href="https://get.konnect.bio/" className="mt-2">
+                    <img className="logo" src={logo} alt="logo" />
+                  </a>
+                </div>
+                <h3 className="kon_pg_title">Sign In</h3>
               </div>
-              <h3 className="kon_pg_title">Sign In</h3>
-            </div>
-            <div className="header_inr_right">
-              <div className="create_account">
-                <span>New to KonnectBio?</span>&nbsp;
-                <button
-                  className="btn btn-link"
-                  onClick={() => {
-                    this.props.history.push("/register");
-                  }}
-                >
-                  Create an Account
-                </button>
+              <div className="header_inr_right">
+                <div className="create_account">
+                  <span>New to KonnectBio?</span>&nbsp;
+                  <button
+                    className="btn btn-link"
+                    onClick={() => {
+                      this.props.history.push("/register");
+                    }}
+                  >
+                    Create an Account
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="custome_container_auth_ift">
-          <div className="custome_container_auth_inr">
-            <Widget
-              className="custome_login custome_signup"
-              title={<h3 className="mt-0">Sign In</h3>}
-            >
-              <form className="mt" onSubmit={this.doLogin}>
-                {this.props.errorMessage && (
-                  <Alert className="alert-sm" color="danger">
-                    {this.props.errorMessage}
-                  </Alert>
-                )}
-                <div className="form-group">
-                  <input
-                    className="form-control"
-                    value={this.state.email}
-                    onChange={this.changeEmail}
-                    type="email"
-                    required
-                    name="email"
-                    placeholder="Email"
-                  />
-                </div>
-                <div className="form-group password-box">
-                  <input
-                    className="form-control"
-                    value={this.state.password}
-                    onChange={this.changePassword}
-                    type={this.state.type}
-                    required
-                    name="password"
-                    placeholder="Password"
-                  />
-                  <span className="password_show" onClick={this.showHide}>
-                    {this.state.type === "input" ? (
-                      <span class="glyphicon glyphicon-eye-open"></span>
-                    ) : (
-                      <span class="glyphicon glyphicon-eye-close"></span>
-                    )}
+          <div className="custome_container_auth_ift">
+            <div className="custome_container_auth_inr">
+              <Widget
+                className="custome_login custome_signup"
+                title={<h3 className="mt-0">Sign In</h3>}
+              >
+                <form className="mt" onSubmit={this.doLogin}>
+                  {this.props.errorMessage && (
+                    <Alert className="alert-sm" color="danger">
+                      {this.props.errorMessage}
+                    </Alert>
+                  )}
+                  <div className="form-group">
+                    <input
+                      className="form-control"
+                      value={this.state.email}
+                      onChange={this.changeEmail}
+                      type="email"
+                      required
+                      name="email"
+                      placeholder="Email"
+                    />
+                  </div>
+                  <div className="form-group password-box">
+                    <input
+                      className="form-control"
+                      value={this.state.password}
+                      onChange={this.changePassword}
+                      type={this.state.type}
+                      required
+                      name="password"
+                      placeholder="Password"
+                    />
+                    <span className="password_show" onClick={this.showHide}>
+                      {this.state.type === "input" ? (
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                      ) : (
+                        <span class="glyphicon glyphicon-eye-close"></span>
+                      )}
+                    </span>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    color="inverse"
+                    className="register_button"
+                    size="lg"
+                  >
+                    {this.props.isFetching ? "Loading..." : "Sign In"}
+                  </Button>
+                </form>
+                <p className="already">
+                  New to KonnectBio?&nbsp;
+                  <span
+                    className="text-center link"
+                    onClick={() => {
+                      this.props.dispatch(authError(""));
+                      this.props.dispatch(authSuccess(""));
+                      this.props.history.push("/register");
+                    }}
+                  >
+                    Create an Account
                   </span>
-                </div>
-
-                <Button
-                  type="submit"
-                  color="inverse"
-                  className="register_button"
-                  size="lg"
-                >
-                  {this.props.isFetching ? "Loading..." : "Sign In"}
-                </Button>
-              </form>
-              <p className="already">
-                New to KonnectBio?&nbsp;
+                </p>
                 <span
-                  className="text-center link"
+                  className="decoration text-center link"
                   onClick={() => {
                     this.props.dispatch(authError(""));
-                    this.props.dispatch(authSuccess(""));
-                    this.props.history.push("/register");
+                    this.props.history.push("/forgot");
                   }}
                 >
-                  Create an Account
+                  Forgot password?
                 </span>
-              </p>
-              <span
-                className="decoration text-center link"
-                onClick={() => {
-                  this.props.dispatch(authError(""));
-                  this.props.history.push("/forgot");
-                }}
-              >
-                Forgot password?
-              </span>
-            </Widget>
-            <div className="login_right signup_right">
-              <h3>Maximize Possibilities with KonnectBio</h3>
+              </Widget>
+              <div className="login_right signup_right">
+                <h3>Maximize Possibilities with KonnectBio</h3>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="sidloading">
+          <Loader size={50} />;
+        </div>
+      );
+    }
   }
 }
 function mapStateToProps(state) {

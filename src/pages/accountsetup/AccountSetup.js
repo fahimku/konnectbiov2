@@ -58,10 +58,9 @@ class AccountSetup extends React.Component {
       disabledCancelPlan: false,
       showPaymentModel: false,
       package_id: "",
-      url:""
+      url: "",
     };
   }
-
 
   async getInstagramUrl() {
     await axios
@@ -75,11 +74,10 @@ class AccountSetup extends React.Component {
   }
 
   componentDidMount() {
-    
     let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    let access_token = userInfo?.access_token;
+    // let access_token = userInfo?.access_token;
     const instagramCodeUrl = window.location.href;
-    console.log(instagramCodeUrl,"instagramCodeUrl");
+    console.log(instagramCodeUrl, "instagramCodeUrl");
     this.setState({ userInfo: userInfo });
     // const params = queryString.parse(window.location.search);
     if (this.props.resetAccount === false) {
@@ -91,12 +89,11 @@ class AccountSetup extends React.Component {
     this.setState({ userId: userInfo?.user_id });
     this.getPackages();
     if (instagramCodeUrl.includes("code")) {
-      
       const code = instagramCodeUrl.split("?")[1].split("=");
       this.setState({ instagramCode: code[1] });
       this.setState({ isInstagramConnected: true });
       this.fetchInstagramPostsFirstTime(code[1]);
-    } 
+    }
     this.getInstagramUrl();
   }
 
@@ -118,7 +115,6 @@ class AccountSetup extends React.Component {
           response.data.username,
           response.data.access_token
         );
-        
       })
       .catch((err) => {
         toast.error(err.response.data.message, {
@@ -133,17 +129,20 @@ class AccountSetup extends React.Component {
       });
   }
 
-   updateAccessToken = async (user_id, username, accessToken) => {
-    await axios.put(`/users/revise/ig/instagram`, {
-      user_id: user_id,
-      username: username,
-      access_token: accessToken,
-    }).then((res)=>{
-      window.location.reload();
-    }).catch((err)=>{
-      console.log(err);
-    })
-  }
+  updateAccessToken = async (user_id, username, accessToken) => {
+    await axios
+      .put(`/users/revise/ig/instagram`, {
+        user_id: user_id,
+        username: username,
+        access_token: accessToken,
+      })
+      .then((res) => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   getPackages = async () => {
     await axios
@@ -320,9 +319,9 @@ class AccountSetup extends React.Component {
       ?.package_id;
     if (
       package1 == "61c02e2ff40bec74fac2ca09" ||
-      this.state.myPackage == "61c02e2ff40bec74fac2ca09" ||
+      this.state.myPackage === "61c02e2ff40bec74fac2ca09" ||
       package1 == "61d695e9bccdaf69f46efc66" ||
-      this.state.myPackage == "61d695e9bccdaf69f46efc66"
+      this.state.myPackage === "61d695e9bccdaf69f46efc66"
     ) {
       return (
         <ConnectToFb

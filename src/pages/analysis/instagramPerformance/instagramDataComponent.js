@@ -15,9 +15,8 @@ import Select from "react-select";
 // const { RangePicker } = DatePicker;
 // const dateFormat = "YYYY-MM-DD";
 
-
-    const token = JSON.parse(localStorage.getItem("userInfo"))?.fb_token;
-    const fbPage = JSON.parse(localStorage.getItem("userInfo"))?.page_token;
+const token = JSON.parse(localStorage.getItem("userInfo"))?.fb_token;
+const fbPage = JSON.parse(localStorage.getItem("userInfo"))?.page_token;
 function InstagramDataComponent({
   getInstagramAnalytic,
   instagramAnalytic,
@@ -52,20 +51,13 @@ function InstagramDataComponent({
 
   window.addEventListener("scroll", checkScrollTop);
 
-
   useEffect(() => {
-    
-
-
-    if(token !='' && fbPage !=''){
-    
+    if (token !== "" && fbPage !== "") {
       getInstagramAnalytic(null, null, 300).then(() => {
         setClearLoading(false);
-
-   })
-  }
+      });
+    }
   }, []);
-
 
   function onSubmitData(e) {
     e.preventDefault();
@@ -132,20 +124,20 @@ function InstagramDataComponent({
   return (
     <>
       <div class="instagram-analytics">
-      {token != '' && fbPage != '' ?
-        <ConnectFb/>
-        :
-        <>
-        {instagramAnalytic?.loading ? (
-          <Loader size={30} />
-        ) : instagramAnalytic?.insta_data?.length > 0 ? (
+        {token != "" && fbPage != "" ? (
+          <ConnectFb />
+        ) : (
           <>
-            {true ? (
-              <Row className="post-analytics-tab mb-4">
-                <Col xs={12} xl={12} md={12}>
-                  <form onSubmit={onSubmitData}>
-                    <Row>
-                      {/* <Col xs={12} xl={2} md={6}>
+            {instagramAnalytic?.loading ? (
+              <Loader size={30} />
+            ) : instagramAnalytic?.insta_data?.length > 0 ? (
+              <>
+                {true ? (
+                  <Row className="post-analytics-tab mb-4">
+                    <Col xs={12} xl={12} md={12}>
+                      <form onSubmit={onSubmitData}>
+                        <Row>
+                          {/* <Col xs={12} xl={2} md={6}>
                   <p>Select Start Date / End Date</p>
                   <RangePicker
                     key={4}
@@ -178,21 +170,21 @@ function InstagramDataComponent({
                     onChange={dateRangePickerChanger}
                   />
                 </Col> */}
-                      <Col xs={12} xl={2} md={6}>
-                        <p>Sort By</p>
-                        <Select
-                          value={sortBy}
-                          name="sort"
-                          className="selectCustomization"
-                          options={sortByOptions}
-                          onChange={(e) => {
-                            setSortBy(e);
-                          }}
-                          placeholder="Sort By"
-                          styles={style}
-                        />
-                      </Col>
-                      {/* <Col xs={12} xl={2} md={6}>
+                          <Col xs={12} xl={2} md={6}>
+                            <p>Sort By</p>
+                            <Select
+                              value={sortBy}
+                              name="sort"
+                              className="selectCustomization"
+                              options={sortByOptions}
+                              onChange={(e) => {
+                                setSortBy(e);
+                              }}
+                              placeholder="Sort By"
+                              styles={style}
+                            />
+                          </Col>
+                          {/* <Col xs={12} xl={2} md={6}>
                         <p>Order By</p>
                         <Select
                           value={orderBy}
@@ -206,226 +198,230 @@ function InstagramDataComponent({
                           styles={style}
                         />
                       </Col> */}
-                      <Col xs={12} xl={2} md={6}>
-                        <p>Limit By</p>
-                        <Select
-                          value={limitBy}
-                          name="order"
-                          className="selectCustomization"
-                          options={limitOptions}
-                          onChange={(e) => {
-                            setLimitBy(e);
-                          }}
-                          placeholder="Limit By"
-                          styles={style}
+                          <Col xs={12} xl={2} md={6}>
+                            <p>Limit By</p>
+                            <Select
+                              value={limitBy}
+                              name="order"
+                              className="selectCustomization"
+                              options={limitOptions}
+                              onChange={(e) => {
+                                setLimitBy(e);
+                              }}
+                              placeholder="Limit By"
+                              styles={style}
+                            />
+                          </Col>
+                          <Col className="d-flex" xs={12} xl={2} md={6}>
+                            {searchLoading ? (
+                              <Button
+                                type="button"
+                                variant="primary"
+                                className="fltr-hpr"
+                              >
+                                <Loader />
+                              </Button>
+                            ) : (
+                              <Button
+                                type="submit"
+                                variant="primary"
+                                className="fltr-hpr"
+                              >
+                                Search
+                              </Button>
+                            )}
+                            {clearLoading ? (
+                              <Button
+                                variant="gray"
+                                className="fltr-hpr btn-primary"
+                              >
+                                <Loader />
+                              </Button>
+                            ) : (
+                              <Button
+                                onClick={clearInstagramFilter}
+                                variant="gray"
+                                className="fltr-hpr btn-primary"
+                              >
+                                Reset
+                              </Button>
+                            )}
+                          </Col>
+                        </Row>
+                      </form>
+                    </Col>
+                  </Row>
+                ) : (
+                  <Loader size={30} />
+                )}
+                <hr />
+                <InfiniteScroll
+                  // getScrollParent={() => document.getElementById("scrollableDiv")}
+                  pageStart={0}
+                  className="af-rm-mn row"
+                  // loadMore={() =>
+                  //   getInstagramAnalytic(instagramAnalytic?.pagination?.next, true)
+                  // }
+                  // hasMore={instagramAnalytic?.pagination?.next ? true : false}
+                  hasMore={false}
+                  threshold={5}
+                  loader={
+                    <div className="col-md-12">
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          margin: 5,
+                        }}
+                      >
+                        <i
+                          className="la la-spinner la-spin"
+                          style={{ fontSize: 40 }}
                         />
-                      </Col>
-                      <Col className="d-flex" xs={12} xl={2} md={6}>
-                        {searchLoading ? (
-                          <Button
-                            type="button"
-                            variant="primary"
-                            className="fltr-hpr"
-                          >
-                            <Loader />
-                          </Button>
-                        ) : (
-                          <Button
-                            type="submit"
-                            variant="primary"
-                            className="fltr-hpr"
-                          >
-                            Search
-                          </Button>
-                        )}
-                        {clearLoading ? (
-                          <Button
-                            variant="gray"
-                            className="fltr-hpr btn-primary"
-                          >
-                            <Loader />
-                          </Button>
-                        ) : (
-                          <Button
-                            onClick={clearInstagramFilter}
-                            variant="gray"
-                            className="fltr-hpr btn-primary"
-                          >
-                            Reset
-                          </Button>
-                        )}
-                      </Col>
-                    </Row>
-                  </form>
-                </Col>
-              </Row>
-            ) : (
-              <Loader size={30} />
-            )}
-            <hr />
-            <InfiniteScroll
-              // getScrollParent={() => document.getElementById("scrollableDiv")}
-              pageStart={0}
-              className="af-rm-mn row"
-              // loadMore={() =>
-              //   getInstagramAnalytic(instagramAnalytic?.pagination?.next, true)
-              // }
-              // hasMore={instagramAnalytic?.pagination?.next ? true : false}
-              hasMore={false}
-              threshold={5}
-              loader={
-                <div className="col-md-12">
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      margin: 5,
-                    }}
-                  >
-                    <i
-                      className="la la-spinner la-spin"
-                      style={{ fontSize: 40 }}
-                    />
-                  </div>
-                </div>
-              }
-              useWindow={false}
-            >
-              {" "}
-              {instagramAnalytic?.insta_data?.map((record) => (
-                <Col xs={12} xl={4} md={6}>
-                  <div className="card analytic-box">
-                    <div className="card-row row">
-                      <div className="any-post-img-col col-6">
-                        <div className="any-post-image">
-                          <div className="any-image-box">
-                            <div className="any-image-box-iner">
-                              {type !== "post" ? (
-                                record.media_type === "IMAGE" ||
-                                record.media_type === "CAROUSEL_ALBUM" ? (
-                                  <img
-                                    src={record.media_url}
-                                    className="img-fluid media-image"
-                                    alt={record.media_type}
-                                  />
-                                ) : (
-                                  <video
-                                    className="media-video media-image"
-                                    // controlsList="nodownload"
-                                    controls
-                                  >
-                                    <source
-                                      src={record.media_url}
-                                      type="video/mp4"
-                                    ></source>
-                                  </video>
-                                )
-                              ) : (
-                                <a
-                                  href={record.permalink}
-                                  rel="noreferrer"
-                                  target="_blank"
-                                >
-                                  {record.media_type === "IMAGE" ||
-                                  record.media_type === "CAROUSEL_ALBUM" ? (
-                                    <img
-                                      src={record.media_url}
-                                      className="img-fluid media-image"
-                                      alt={record.media_type}
-                                    />
-                                  ) : (
-                                    <video
-                                      className="media-video media-image"
-                                      // controlsList="nodownload"
-                                      controls
-                                    >
-                                      <source
-                                        src={record.media_url}
-                                        type="video/mp4"
-                                      ></source>
-                                    </video>
-                                  )}
-                                </a>
-                              )}
-                            </div>
-                            {record.media_type === "VIDEO" ? (
-                              <i class="fa fa-play video-icon"></i>
-                            ) : null}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-6 analytic-caption">
-                        <div className="row count-main-box">
-                          <div className="col-12 count-box">
-                            <h5 className="count-title">Like Count</h5>
-                            <h3 className="count">
-                              {numeral(record.like_count).format("0,0")}
-                            </h3>
-                          </div>
-                          <div className="col-12 count-box">
-                            <h5 className="count-title">Comment Count</h5>
-                            <h3 className="count">
-                              {numeral(record.comments_count).format("0,0")}
-                            </h3>
-                          </div>
-                          <div className="col-12 count-box">
-                            <h5 className="count-title">Engagement</h5>
-                            <h3 className="count">
-                              {numeral(record.insights[0].engagement).format(
-                                "0,0"
-                              )}
-                            </h3>
-                          </div>
-                          <div className="col-12 count-box">
-                            <h5 className="count-title">Impressions</h5>
-                            <h3 className="count">
-                              {numeral(record.insights[1].impressions).format(
-                                "0,0"
-                              )}
-                            </h3>
-                          </div>
-                          <div className="col-12 count-box">
-                            <h5 className="count-title">Reach</h5>
-                            <h3 className="count">
-                              {numeral(record.insights[2].reach).format("0,0")}
-                            </h3>
-                          </div>
-                          <div className="col-12 count-box">
-                            <h5 className="count-title">Posted Date</h5>
-                            <h3 className="count">
-                              {moment(record.timestamp).format("YYYY-MM-DD")}
-                            </h3>
-                          </div>
-                        </div>
                       </div>
                     </div>
-                  </div>
-                </Col>
-              ))}
-            </InfiniteScroll>
+                  }
+                  useWindow={false}
+                >
+                  {" "}
+                  {instagramAnalytic?.insta_data?.map((record) => (
+                    <Col xs={12} xl={4} md={6}>
+                      <div className="card analytic-box">
+                        <div className="card-row row">
+                          <div className="any-post-img-col col-6">
+                            <div className="any-post-image">
+                              <div className="any-image-box">
+                                <div className="any-image-box-iner">
+                                  {type !== "post" ? (
+                                    record.media_type === "IMAGE" ||
+                                    record.media_type === "CAROUSEL_ALBUM" ? (
+                                      <img
+                                        src={record.media_url}
+                                        className="img-fluid media-image"
+                                        alt={record.media_type}
+                                      />
+                                    ) : (
+                                      <video
+                                        className="media-video media-image"
+                                        // controlsList="nodownload"
+                                        controls
+                                      >
+                                        <source
+                                          src={record.media_url}
+                                          type="video/mp4"
+                                        ></source>
+                                      </video>
+                                    )
+                                  ) : (
+                                    <a
+                                      href={record.permalink}
+                                      rel="noreferrer"
+                                      target="_blank"
+                                    >
+                                      {record.media_type === "IMAGE" ||
+                                      record.media_type === "CAROUSEL_ALBUM" ? (
+                                        <img
+                                          src={record.media_url}
+                                          className="img-fluid media-image"
+                                          alt={record.media_type}
+                                        />
+                                      ) : (
+                                        <video
+                                          className="media-video media-image"
+                                          // controlsList="nodownload"
+                                          controls
+                                        >
+                                          <source
+                                            src={record.media_url}
+                                            type="video/mp4"
+                                          ></source>
+                                        </video>
+                                      )}
+                                    </a>
+                                  )}
+                                </div>
+                                {record.media_type === "VIDEO" ? (
+                                  <i class="fa fa-play video-icon"></i>
+                                ) : null}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-6 analytic-caption">
+                            <div className="row count-main-box">
+                              <div className="col-12 count-box">
+                                <h5 className="count-title">Like Count</h5>
+                                <h3 className="count">
+                                  {numeral(record.like_count).format("0,0")}
+                                </h3>
+                              </div>
+                              <div className="col-12 count-box">
+                                <h5 className="count-title">Comment Count</h5>
+                                <h3 className="count">
+                                  {numeral(record.comments_count).format("0,0")}
+                                </h3>
+                              </div>
+                              <div className="col-12 count-box">
+                                <h5 className="count-title">Engagement</h5>
+                                <h3 className="count">
+                                  {numeral(
+                                    record.insights[0].engagement
+                                  ).format("0,0")}
+                                </h3>
+                              </div>
+                              <div className="col-12 count-box">
+                                <h5 className="count-title">Impressions</h5>
+                                <h3 className="count">
+                                  {numeral(
+                                    record.insights[1].impressions
+                                  ).format("0,0")}
+                                </h3>
+                              </div>
+                              <div className="col-12 count-box">
+                                <h5 className="count-title">Reach</h5>
+                                <h3 className="count">
+                                  {numeral(record.insights[2].reach).format(
+                                    "0,0"
+                                  )}
+                                </h3>
+                              </div>
+                              <div className="col-12 count-box">
+                                <h5 className="count-title">Posted Date</h5>
+                                <h3 className="count">
+                                  {moment(record.timestamp).format(
+                                    "YYYY-MM-DD"
+                                  )}
+                                </h3>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Col>
+                  ))}
+                </InfiniteScroll>
 
-            <i
-              class="fa fa fa-angle-up scrollTop"
-              onClick={scrollTop}
-              style={{ height: 40, display: showScroll ? "flex" : "none" }}
-            ></i>
+                <i
+                  class="fa fa fa-angle-up scrollTop"
+                  onClick={scrollTop}
+                  style={{ height: 40, display: showScroll ? "flex" : "none" }}
+                ></i>
+              </>
+            ) : (
+              <div
+                style={{
+                  height: 300,
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <NoDataFound />
+              </div>
+            )}
           </>
-        ) : (
-          <div
-            style={{
-              height: 300,
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <NoDataFound />
-          </div>
         )}
-        </>
-}
       </div>
     </>
   );

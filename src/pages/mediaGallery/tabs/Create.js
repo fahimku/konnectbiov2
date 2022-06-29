@@ -17,10 +17,10 @@ function HashtagsList({ createMedia, title }) {
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imgSize, setImgsize] = useState(false);
-  const [bytesSize, setBytesize] = useState('');
-  const [ImgMsg, setImgMsg] = useState('')
+  const [bytesSize, setBytesize] = useState("");
+  const [ImgMsg, setImgMsg] = useState("");
   const [flag, setFlag] = useState(false);
-  
+
   const [previewLoading, setPreviewLoading] = useState(false);
   const [fields, setFields] = useState({
     title: "",
@@ -52,11 +52,7 @@ function HashtagsList({ createMedia, title }) {
     var sizes = ["B", "KB", "MB", "GB", "TB", "PB"];
     for (var i = 0; i < sizes.length; i++) {
       if (bytes <= 1024) {
-       
-       
         return bytes + " " + sizes[i];
-        
-        
       } else {
         bytes = parseFloat(bytes / 1024).toFixed(2);
       }
@@ -76,7 +72,7 @@ function HashtagsList({ createMedia, title }) {
         toast.success("Media Upload Successfully");
         setLoading(false);
         files.forEach((f) => f.remove());
-        setImgMsg('');
+        setImgMsg("");
         setFields({
           title: "",
           image: "",
@@ -101,7 +97,7 @@ function HashtagsList({ createMedia, title }) {
           <h4>Drag & Drop Your Image Here</h4>
           <h4>Or</h4>
           {/* {imgSize ? <h5 class="text-danger">{ImgMsg}</h5>:<></>} */}
-          {imgSize ? <h5 class="text-danger">{ImgMsg}</h5>:<></>}
+          {imgSize ? <h5 class="text-danger">{ImgMsg}</h5> : <></>}
           <label className="btn btn-primary mr-0 mb-0">
             {textMsg}
             <input
@@ -113,7 +109,8 @@ function HashtagsList({ createMedia, title }) {
                 getFilesFromEvent(e).then((chosenFiles) => {
                   onFiles(chosenFiles);
                 });
-              }}l
+              }}
+              l
             />
           </label>
         </div>
@@ -127,29 +124,27 @@ function HashtagsList({ createMedia, title }) {
     //   image: allFiles.forEach((f) => f.remove()) === undefined ? "" : "",
     // });
     setFlag(false);
-    setImgMsg('');
+    setImgMsg("");
     setSubmit(false);
     setLoading(false);
     allFiles.forEach((f) => f.remove());
   };
 
   const Preview = ({ meta, files }) => {
-    
     const { name, percent, status, previewUrl, size } = meta;
-   
-    if(size > 20500000  ){
+    if (size > 20500000) {
       setFlag(true);
-      setImgsize(true)
-      remove(files)
-      setImgMsg("Your File Size Can Not Be Exceed More Than 20 MB.")
+      setImgsize(true);
+      remove(files);
+      setImgMsg("Your File Size Can Not Be Exceed More Than 20 MB.");
     }
-    if(size < 20500){
-      setFlag(true)
-      setImgsize(true)
-      remove(files)
-      setImgMsg("Your File Size Can Not Be Less Than 20 KB.")
-      
+    if (size < 20500) {
+      setFlag(true);
+      setImgsize(true);
+      remove(files);
+      setImgMsg("Your File Size Can Not Be Less Than 20 KB.");
     }
+
     setPreviewLoading(status === "done" ? false : true);
     return (
       <>
@@ -163,17 +158,16 @@ function HashtagsList({ createMedia, title }) {
             <div className="glry-img-size">{bytesToSize(size)}</div>
             {status !== "done" ? <span>Uploading</span> : "Done"}
             <div className="status">{status}</div>
-            
             <div className="pro-brar-ift">
-            {flag === false ?
-              <ProgressBar
-                animated
-                now={percent}
-                label={`${percent.toFixed(0)}%`}
-              />
-              :
-             <></>
-            }
+              {flag === false ? (
+                <ProgressBar
+                  animated
+                  now={percent}
+                  label={`${percent.toFixed(0)}%`}
+                />
+              ) : (
+                <></>
+              )}
               <span
                 className="glyphicon glyphicon-remove"
                 onClick={removeFile(files)}
@@ -189,20 +183,17 @@ function HashtagsList({ createMedia, title }) {
   };
 
   const removeFile = (allFiles) => () => {
-    setFlag(false)
+    setFlag(false);
     // setFields({
     //   ...fields,
     //   image: allFiles.forEach((f) => f.remove()) === undefined ? "" : "",
     // });
-    setImgMsg('');
+    setImgMsg("");
     setSubmit(false);
     setLoading(false);
     allFiles.forEach((f) => f.remove());
   };
-  const onFileChange = ({  file }) => {
-
-
-    console.log(file,"fileSize")
+  const onFileChange = ({ file }) => {
     if (
       file.type === "image/jpeg" ||
       file.type === "image/jpg" ||
@@ -210,7 +201,6 @@ function HashtagsList({ createMedia, title }) {
       file.type === "image/gif" ||
       file.type === "image/svg+xml"
     ) {
-      
       setFields({
         ...fields,
         image: file,
@@ -224,56 +214,56 @@ function HashtagsList({ createMedia, title }) {
     <React.Fragment>
       <div className="container-fluid">
         <h4 className="page-title">{title}</h4>
-          <div className="brand_container_main container">
-            <Row>
-              <div className="profile_box_main col-md-8">
-                <div className=" brand-section dash_block_profile dash_content_profile">
-                  <div className="upload_area">
-                    <h4>Upload Your Image</h4>
-                    <p className="text-muted">
-                      PNG, JPG, SVG & GIF Files Are Allowed
-                    </p>
-                  </div>
-                  <div class="upload_area_3 form-group">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="exampleFormControlInput1"
-                      placeholder="Add Media Title"
-                      onChange={(e) =>
-                        setFields({ ...fields, title: e.target.value })
-                      }
-                      value={fields.title}
-                    />
-                    {submit && !fields.title ? (
-                      <small style={{ color: "red" }}>
-                        Please Fill Media Title
-                      </small>
-                    ) : null}
-                  </div>
-                  <Dropzone
-                    onSubmit={onSubmit}
-                    onChangeStatus={onFileChange}
-                    InputComponent={selectFileInput}
-                    getUploadParams={fileParams}
-                    getFilesFromEvent={getFilesFromEvent}
-                    accept=".jpg, .jpeg, .png, .gif, .svg"
-                    maxFiles={1}
-                    maxSizeBytes={20500000}
-                    minSizeBytes={20500}
-                    // inputContent="Drop A File"
-                    addClassNames={{
-                      dropzone: "drag-drop-ift",
-                      submitButtonContainer: "upload_btn",
-                    }}
-                    PreviewComponent={Preview}
-                    submitButtonContent={() => (loading ? <Loader /> : "Upload")}
-                    submitButtonDisabled={loading}
-                    styles={{
-                      dropzoneActive: { borderColor: "green" },
-                    }}
+        <div className="brand_container_main container">
+          <Row>
+            <div className="profile_box_main col-md-8">
+              <div className=" brand-section dash_block_profile dash_content_profile">
+                <div className="upload_area">
+                  <h4>Upload Your Image</h4>
+                  <p className="text-muted">
+                    PNG, JPG, SVG & GIF Files Are Allowed
+                  </p>
+                </div>
+                <div class="upload_area_3 form-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleFormControlInput1"
+                    placeholder="Add Media Title"
+                    onChange={(e) =>
+                      setFields({ ...fields, title: e.target.value })
+                    }
+                    value={fields.title}
                   />
-           
+                  {submit && !fields.title ? (
+                    <small style={{ color: "red" }}>
+                      Please Fill Media Title
+                    </small>
+                  ) : null}
+                </div>
+                <Dropzone
+                  onSubmit={onSubmit}
+                  onChangeStatus={onFileChange}
+                  InputComponent={selectFileInput}
+                  getUploadParams={fileParams}
+                  getFilesFromEvent={getFilesFromEvent}
+                  accept=".jpg, .jpeg, .png, .gif, .svg"
+                  maxFiles={1}
+                  maxSizeBytes={20500000}
+                  minSizeBytes={20500}
+                  // inputContent="Drop A File"
+                  addClassNames={{
+                    dropzone: "drag-drop-ift",
+                    submitButtonContainer: "upload_btn",
+                  }}
+                  PreviewComponent={Preview}
+                  submitButtonContent={() => (loading ? <Loader /> : "Upload")}
+                  submitButtonDisabled={loading}
+                  styles={{
+                    dropzoneActive: { borderColor: "green" },
+                  }}
+                />
+
                 {submit && !fields.image ? (
                   <small style={{ color: "red" }}>Please Select Image</small>
                 ) : null}
