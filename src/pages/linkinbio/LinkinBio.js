@@ -300,7 +300,7 @@ class LinkinBio extends React.Component {
   ) => {
     let newRedirectedUrl;
     
-    if (this.state.SubCategoryChange == []) {
+    if (this.state.SubCategoryChange.length <= 0) {
       toast.error("please Add Sub Category");
       this.setState({ loading: false });
     } else {
