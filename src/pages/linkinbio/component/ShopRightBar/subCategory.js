@@ -19,8 +19,8 @@ function SubCategories({
     console.log(Campaign,"Modal");
     useEffect(()=>{
         if(Campaign.categories.length >0){
-         parent_id = Campaign.categories[0].parent_id;
-         sub_id = Campaign.sub_categories[0].sub_category_id
+         parent_id = Campaign?.categories[0]?.parent_id;
+         sub_id = Campaign?.sub_categories[0]?.sub_category_id
          setShow(true)
          getSubCategories(parent_id).then((res)=>{
 
