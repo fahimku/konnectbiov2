@@ -19,6 +19,12 @@ const visitorURL =
   process.env.NODE_ENV === "development"
     ? "https://www.kbshop.com/bioshop"
     : "https://www.kbshop.com/bioshop";
+
+// const visitorURL =
+//   process.env.NODE_ENV === "development"
+//     ? "https://v2.konnect.bio"
+//     : "https://v2.konnect.bio";
+//v2.konnect.bio
 // const visitorURL =
 //   process.env.NODE_ENV === "development"
 //     ? "https://konnect.bio"
