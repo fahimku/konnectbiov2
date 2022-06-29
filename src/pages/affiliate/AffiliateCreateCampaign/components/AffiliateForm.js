@@ -20,6 +20,7 @@ import { textAlign } from "@mui/system";
 import Connection from "../../../connectToShopify/connShopify";
 import numeral from "numeral";
 import ImageShop from "./AffiliateImageShop";
+import SubCategories from "../../../linkinbio/component/ShopRightBar/subCategory"
 
 const { Option } = Select;
 
@@ -357,6 +358,10 @@ class AffiliateForm extends React.Component {
             this.props.affData.categories.length !== 0
               ? this.props.affData.categories[0].category_id
               : "",
+          sub_category_id:
+          this.props.affData.sub_categories.length !== 0
+              ? this.props.affData.sub_categories[0].sub_category_id
+              : "",
           //discount: parseInt(this.state.discount),
           commission: parseInt(this.state.commission),
           // budget: parseInt(this.state.budget),
@@ -663,6 +668,14 @@ class AffiliateForm extends React.Component {
                     disabledDate={this.disabledDate}
                   />
                 </div>
+
+                <div className="select-categories col-md-6">
+                <SubCategories
+                Campaign={this.props.affData}
+                />
+                </div>
+
+                            
                 <div className="col-md-6 aff-commission">
                   <label>Sales Commission</label>
                   <InputNumberValidation

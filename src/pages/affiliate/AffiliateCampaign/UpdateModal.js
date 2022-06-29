@@ -16,6 +16,8 @@ import { connect } from "react-redux";
 import numeral from "numeral";
 import * as postActions from "../../../actions/posts";
 import ImageShop from "../AffiliateCreateCampaign/components/AffiliateImageShop";
+import SubCategories from "../../linkinbio/component/ShopRightBar/subCategory";
+
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 // const dateFormat = "YYYY-MM-DD";
@@ -326,6 +328,7 @@ class UpdateModal extends React.Component {
             redirected_url: this.props.affData.redirected_url,
             media_url: this.props.affData.media_url,
             category_id: this.props.affData.categories[0].category_id,
+            sub_category_id: this.props.affData.sub_categories[0].sub_category_id,
             children: imgDataSet,
             promo: this.state.promoCodes,
             //promo_id: this.state.promoCodes.value,
@@ -639,6 +642,13 @@ class UpdateModal extends React.Component {
                     // disabledDate={this.disabledDate()}
                   />
                 </div>
+                
+                <div className="select-categories col-md-6">
+                <SubCategories
+                Campaign={affData}
+                />
+                </div>
+                
                 <div className="col-md-6 aff-commission">
                   <label>
                     Influencer Commission{" "}
