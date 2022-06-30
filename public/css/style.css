@@ -1322,6 +1322,10 @@ a.pkg_read:hover {
   font-size: 2.5rem;
   font-family: "SegoeUIBold" !important;
 }
+.mobile-connectinsta {
+  height: 100%;
+  top: 0;
+}
 /* .coming_iner p {
   font-size: 1.2rem;
 } */

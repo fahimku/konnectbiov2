@@ -140,7 +140,7 @@ const MobilePreview = ({
           {postLoading ? (
             <Loader />
           ) : !accessToken && dropdown == "instagram" ? (
-            <ConnectInstagram className={"coming_iner"} />
+            <ConnectInstagram className={"coming_iner mobile-connectinsta"} />
           ) : instaPosts.length === 0 ? (
             <div class="no-data-found-mobile text-center">No Post Added</div>
           ) : (
