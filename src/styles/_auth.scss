@@ -1,12 +1,12 @@
 .auth-page {
-  float:left;
-  width:100%;
+  float: left;
+  width: 100%;
 }
 
 .widget-auth {
   max-width: 360px;
   padding: 10px !important;
-  border:1px solid #c8c8c8;
+  border: 1px solid #c8c8c8;
   h1,
   h2,
   h3,
@@ -49,7 +49,7 @@
       width: 26px;
       height: 26px;
       padding: 0;
-      transition: all .2s ease-in-out;
+      transition: all 0.2s ease-in-out;
       border-radius: 3px;
       background-color: $white;
     }
@@ -70,7 +70,6 @@
       background-position-x: 50%;
       background-position-y: 50%;
     }
-
   }
 }
 
@@ -100,13 +99,13 @@
   }
 }
 
-
-.group:before, .group:after {
-	content: "";
-	display: table
+.group:before,
+.group:after {
+  content: "";
+  display: table;
 }
 .group:after {
-	clear: both
+  clear: both;
 }
 .login_header {
   position: relative;
@@ -115,30 +114,31 @@
   background: #fff;
   color: #7b8994;
   z-index: 400;
-  border-bottom: 1px solid #dce4ec
+  border-bottom: 1px solid #dce4ec;
 }
-.header_inr{
-  max-width:980px;
+.header_inr {
+  max-width: 980px;
   position: relative;
   margin: 0 auto;
 }
-.header_inr_left{
-  float:left;
-  width:50%;
+.header_inr_left {
+  float: left;
+  width: 50%;
 }
-.header_inr_right{
-  float:right;
-  width:50%;
+.header_inr_right {
+  float: right;
+  width: 50%;
 }
-.konnect_logo{
-  float:left;
+.konnect_logo {
+  float: left;
   border-right: 1px solid #dce4ec;
-  width:140px;
-  height:45px;
-  display:flex;
+  width: 140px;
+  height: 45px;
+  display: flex;
 }
-.konnect_logo .logo{
-  width:130px;
+.konnect_logo .logo {
+  width: 130px;
+  object-fit: unset;
 }
 .kon_pg_title {
   float: left;
@@ -150,9 +150,9 @@
   padding-bottom: 0;
   display: flex;
   align-items: center;
-  color:#7b8994;
+  color: #7b8994;
 }
-.create_account{
+.create_account {
   display: flex;
   height: 45px;
   width: 100%;
@@ -161,12 +161,12 @@
   -webkit-justify-content: flex-end;
   font-size: 1.1rem;
   font-weight: 400;
-  color:#7b8994;
+  color: #7b8994;
 }
-.create_account a:hover{
+.create_account a:hover {
   text-decoration: underline;
 }
-.custome_container_auth_ift{
+.custome_container_auth_ift {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -174,12 +174,12 @@
   // overflow: auto;
   padding: 6rem 0;
 }
-.custome_container_auth_inr{
+.custome_container_auth_inr {
   display: flex;
   flex-direction: row;
   align-items: stretch;
 }
-.custome_signup{
+.custome_signup {
   width: 450px;
   margin: 0 1rem;
   padding: 2rem;
@@ -188,7 +188,7 @@
   border: 1px solid #dce4ec;
   border-radius: 5px;
 }
-.signup_right{
+.signup_right {
   color: #323b43;
   margin: 0 1rem;
   z-index: 0;
@@ -199,24 +199,24 @@
   border: 1px solid #dce4ec;
   border-radius: 5px;
 }
-.custome_signup .widget-body{
-  padding:0;
+.custome_signup .widget-body {
+  padding: 0;
 }
-.custome_signup header{
-  padding:0;
+.custome_signup header {
+  padding: 0;
 }
-.custome_signup header h3{
+.custome_signup header h3 {
   font-size: 1.6rem;
   line-height: 2.3rem;
   margin-bottom: 0;
   font-weight: 600;
-  margin-bottom:1.5rem
+  margin-bottom: 1.5rem;
 }
-.custome_signup .form_select_group > div{
-  min-height:45px;
-  border-color:#dce4ec;
+.custome_signup .form_select_group > div {
+  min-height: 45px;
+  border-color: #dce4ec;
 }
-.register_button{
+.register_button {
   float: left;
   width: 100%;
   padding: 0;
@@ -226,33 +226,33 @@
   min-height: 45px;
   margin-bottom: 1rem;
 }
-.already{
+.already {
   float: left;
-  width:100%;
+  width: 100%;
 }
-.already span:hover{
+.already span:hover {
   text-decoration: underline;
 }
-.custome_login .form-group{
-  margin-bottom:1.5rem;
+.custome_login .form-group {
+  margin-bottom: 1.5rem;
 }
-.custome_signup .form-group{
-  margin-bottom:1.5rem;
+.custome_signup .form-group {
+  margin-bottom: 1.5rem;
 }
-.decoration:hover{
-  text-decoration:underline;
+.decoration:hover {
+  text-decoration: underline;
 }
-.signup_right{
+.signup_right {
   background-image: url(../images/register-right-2.jpg);
   background-repeat: no-repeat;
-  background-position: center top; 
+  background-position: center top;
 }
-.login_right{
+.login_right {
   background-image: url(../images/login-right.jpg);
   background-repeat: no-repeat;
-  background-position: center top; 
+  background-position: center top;
 }
-.custom_confirmation{
+.custom_confirmation {
   width: 670px;
   margin: 0 1rem;
   padding: 1rem;
@@ -260,7 +260,7 @@
   position: relative;
   border-radius: 5px;
 
-  .confirm_ift{
+  .confirm_ift {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -268,18 +268,18 @@
     text-align: center;
   }
 
-  .env-ift{
+  .env-ift {
     font-size: 8rem;
-    color:#010b40;
+    color: #010b40;
   }
 
-  .we_have_ift{
+  .we_have_ift {
     font-size: 1rem;
     color: #364554;
   }
-  .continue_link_ifti{
+  .continue_link_ifti {
     background-color: #010b40;
-    color: #FFF;
+    color: #fff;
     font-size: 1.2rem;
     margin-top: 30px;
     width: 80%;
@@ -287,14 +287,10 @@
     border-radius: 6px;
     cursor: pointer;
   }
-  .continue_link_ifti:hover{
+  .continue_link_ifti:hover {
     background-color: #000;
   }
-
-
-
 }
-
 
 /*****select-type****/
 .select-type {
@@ -303,28 +299,28 @@
   padding: 40px 30px;
   border-radius: 20px;
 
-  .larg-button .btn-primary{
-    padding-top:15px !important;
-    padding-bottom:15px !important;
+  .larg-button .btn-primary {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
     border-radius: 10px;
   }
 
-  .account-type h3{
+  .account-type h3 {
     font-family: "SegoeUIBold" !important;
     margin-bottom: 5px;
   }
-  .account-type p{
+  .account-type p {
     font-size: 1.1rem;
     font-weight: 400;
     color: #7b8994;
   }
 
-  .ac_type_block{
+  .ac_type_block {
     margin-bottom: 30px;
     background-color: #fff;
     position: relative;
 
-    label{
+    label {
       width: 100%;
       display: flex;
       cursor: pointer;
@@ -336,21 +332,21 @@
       box-shadow: 0px 1px 0px 0 #e4e7ed;
       position: relative;
 
-      &:hover{
+      &:hover {
         border: solid 1px #000;
         border-radius: 20px;
         box-shadow: 0px 1px 0px 0 #000;
       }
 
       @media (hover: none) {
-        &:hover { 
+        &:hover {
           border: solid 1px #e4e7ed !important;
           border-radius: 20px;
           box-shadow: 0px 1px 0px 0 #e4e7ed;
-         }
+        }
       }
 
-      .imp-inf{
+      .imp-inf {
         height: 64px;
         width: 64px;
         flex: 0 0 64px;
@@ -363,7 +359,7 @@
         background-image: url(../images/influencer.png);
       }
 
-      .imp-cus{
+      .imp-cus {
         height: 64px;
         width: 64px;
         flex: 0 0 64px;
@@ -376,8 +372,7 @@
         background-image: url(../images/add-group.png);
       }
 
-
-      .imp-brnd{
+      .imp-brnd {
         height: 64px;
         width: 64px;
         flex: 0 0 64px;
@@ -389,12 +384,12 @@
         background-position: center center;
         background-image: url(../images/brand-icon.png);
       }
-      .brnd-right-content{
+      .brnd-right-content {
         padding-left: 20px;
         flex: 0 0 75%;
         max-width: 75%;
 
-        p{
+        p {
           font-size: 0.9rem;
           font-weight: 400;
           color: #7b8994;
@@ -403,17 +398,17 @@
         }
       }
 
-      h4{
+      h4 {
         font-size: 1.35rem;
         color: #575757;
       }
     }
-    .infchecked:checked + label{
+    .infchecked:checked + label {
       border: solid 1px #000 !important;
       border-radius: 20px;
       box-shadow: 0px 1px 0px 0 #000 !important;
 
-      &:after{
+      &:after {
         font-family: "FontAwesome";
         content: "\f058";
         position: absolute;
@@ -423,7 +418,5 @@
         color: #000;
       }
     }
-
   }
-
 }
