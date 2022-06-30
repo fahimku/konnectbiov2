@@ -118,7 +118,11 @@ class Login extends React.Component {
         };
         localStorage.setItem("userInfo", JSON.stringify(userInfo));
         this.props.dispatch(receiveToken(token));
-        history.push("/app/linkinbio");
+        if (res.data.message?.package) {
+          history.push("/app/linkinbio");
+        } else {
+          history.push("/package");
+        }
       })
       .catch((err) => {
         toast.error(err.response.data.message, {
